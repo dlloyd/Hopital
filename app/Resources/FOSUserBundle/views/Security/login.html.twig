@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+
+<!---start-images-slider---->
+<div class="image-slider">
+            <!-- Slideshow 1 -->
+            <ul class="rslides rslides1" id="slider1" style="max-width: 2500px;">
+              <li id="rslides1_s0" class="" style="display: block; float: none; position: absolute; opacity: 0; z-index: 1; -webkit-transition: opacity 600ms ease-in-out; transition: opacity 600ms ease-in-out;">
+                <img src="images/slider3.png" alt="">
+                <div class="slider-info">
+                 
+                <div class="module form-module">  
+                <div class="toggle"><i class="fa fa-times fa-pencil"></i></div>  
+                <div class="form">
+                <h2>Connexion au compte </h2>
+                <form action="{{ path('fos_user_security_check') }}" method="post">
+                  <input class="form-control width" type="text" id="email" name="_username" placeholder="Adresse mail" required />
+                <br>
+                <input class="form-control width" type="password" id="password" name="_password" placeholder="Mot de passe" required />
+                <br/>
+                 <button class="btn btn-default" type="submit" id="_submit" name="_submit" >Se connecter </button>
+                </form>
+              </div>
+              <div>
+                </div>
+              </li>
+            </ul>
+             <!-- Slideshow 2 -->
+        </div>
+<!---End-images-slider---->
+<!---End wrap-->
+
+<script>
+            // You can also use "$(window).load(function() {"
+                $(function () {
+                  // Slideshow 1
+                  $("#slider1").responsiveSlides({
+                    maxwidth: 2500,
+                    speed: 600
+                  });
+            });
+          </script>
+
+{% endblock%}

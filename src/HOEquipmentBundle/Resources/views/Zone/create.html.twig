@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+<h2>  Créer une zone </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_zone') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

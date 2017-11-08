@@ -1,0 +1,4 @@
+services:
+#    ho_user.example:
+#        class: HOUserBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

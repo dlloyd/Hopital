@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2>Catégories </h2>
+
+  <a href="{{ path('ho_create_category') }}" class="btn btn-default btn-sm" >
+    <span class="glyphicon glyphicon-th-large"></span> Ajouter</a><br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id  </th>
+        <th> Catégorie </th>
+        <th> Mettre à jour </th>
+        <th> Supprimer </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for categ in categories %}
+      <tr>
+        <td> {{ categ.id }} </td>
+        <td> {{ categ.name }} </td>
+        <td> <a href="{{ path('ho_update_category',{'id': categ.id }) }}"> lien </a></td>
+        <td> <a href="{{ path('ho_delete_category',{'id': categ.id }) }}"> lien </a> </td>
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ 
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}
