@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2> Réparateurs </h2>
+
+  <a href="{{ path('ho_create_repairer') }}" class="btn btn-default btn-sm" >
+    <span class="glyphicon glyphicon-user"></span> Ajouter</a><br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id  </th>
+        <th> Nom </th>
+        <th> Statut </th>
+        <th> tâches </th>
+        <th> Attribuer tâche </th>
+        <th> Mettre à jour </th>
+        
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for rep in repairers %}
+      <tr>
+        <td> {{ rep.id }} </td>
+        <td> {{ rep.username }} </td>
+        <td>  {{ rep.status.status }}  </td>
+        <td> <a href="#"> Voir </a></td>
+        <td> <a href="#"> lien </a></td>
+        <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}"> lien </a> </td>
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ <br/><br/><br/><br/><br/>
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}

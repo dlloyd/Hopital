@@ -72,43 +72,24 @@ class EquipmentController extends Controller
 	}
 
 
-    public function isBrokenAction(Request $request,$id){
-        $em = $this->getDoctrine()->getManager();
-        $equipment = $em->getRepository('HOEquipmentBundle:Equipment')->find($id);
-
-        if($equipment){
-            $equipment->setIsBroken(true);
-            $em->merge($equipment);
-            $em->flush();
-        }
-
-        if($request->isXmlHttpRequest() ){
-            return new JsonResponse(array('data'=>'Demande validée'));
-        }
-                         
-        else{
-            return $this->redirectToRoute('ho_equipment_homepage');
-        }  
-
-       
-    }
 
 
     public function reparationEquipmentAction(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
         $equipment = $em->getRepository('HOEquipmentBundle:Equipment')->find($id);
+        $state = $em->getRepository('HOEquipmentBundle:EquipmentState')->findOneBy(array('state' => 'Fonctionnel'));
         
         if($equipment){
             $data = array();
             $reparation = new EquipmentReparation();
             $form = $this->createFormBuilder($data)
             ->add('repairer','entity',array(
-                    'class'    => 'HOEquipmentBundle:Repairer',
+                    'class'    => 'HOCompanyBundle:Repairer',
                     'property' => 'username',
                     'required' => true, 
                     'expanded' => false,
                     'multiple' => false ,))
-            ->add('problem','textarea')
+            ->add('comment','textarea')
             ->getForm();
 
             if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
@@ -116,11 +97,13 @@ class EquipmentController extends Controller
                 $reparation->setRepairer($data['repairer']);
                 $reparation->setEquipment($equipment);
                 $reparation->setDate(new MyDateTime());
-                $reparation->setProblem($data['problem']);
+                $reparation->setComment($data['comment']);
 
                 $em->persist($reparation);
 
                 $equipment->setIsBroken(false);
+                $equipment->SetState($state);
+                $equipment->addReparation($reparation);
                 $em->merge($equipment);
                 $em->flush();
 

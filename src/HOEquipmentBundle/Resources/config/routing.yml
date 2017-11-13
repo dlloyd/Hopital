@@ -6,17 +6,7 @@ ho_category_homepage:
     path:     /categ
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:index }
 
-ho_state_homepage:
-    path:     /state
-    defaults: { _controller: HOEquipmentBundle:EquipmentState:index }
 
-ho_repairer_homepage:
-    path:     /repairer
-    defaults: { _controller: HOEquipmentBundle:Repairer:index }
-
-ho_zone_homepage:
-    path:     /zone
-    defaults: { _controller: HOEquipmentBundle:Zone:index }
 
 ho_equipment_reparation:
     path:     /eq/reparation/{id}
@@ -39,18 +29,6 @@ ho_create_category:
     path:     /create/categ
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:create }
 
-ho_create_state:
-    path:     /create/state
-    defaults: { _controller: HOEquipmentBundle:EquipmentState:create }
-
-ho_create_repairer:
-    path:     /create/repairer
-    defaults: { _controller: HOEquipmentBundle:Repairer:create }
-
-ho_create_zone:
-    path:     /create/zone
-    defaults: { _controller: HOEquipmentBundle:Zone:create }
-
 
 
 
@@ -63,18 +41,6 @@ ho_update_category:
     path:     /update/categ/{id}
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:update }
 
-ho_update_state:
-    path:     /update/state/{id}
-    defaults: { _controller: HOEquipmentBundle:EquipmentState:update }
-
-
-ho_update_repairer:
-    path:     /update/repairer/{id}
-    defaults: { _controller: HOEquipmentBundle:Repairer:update }
-
-ho_update_zone:
-    path:     /update/zone/{id}
-    defaults: { _controller: HOEquipmentBundle:Zone:update }
 
 
 
@@ -89,18 +55,8 @@ ho_delete_category:
     path:     /del/categ/{id}
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:delete }
 
-ho_delete_state:
-    path:     /del/state/{id}
-    defaults: { _controller: HOEquipmentBundle:EquipmentState:delete }
 
 
-ho_delete_repairer:
-    path:     /del/repairer/{id}
-    defaults: { _controller: HOEquipmentBundle:Repairer:delete }
-
-ho_delete_zone:
-    path:     /del/zone/{id}
-    defaults: { _controller: HOEquipmentBundle:Zone:delete }
 
 
 

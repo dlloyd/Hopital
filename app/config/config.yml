@@ -4,6 +4,9 @@ imports:
     - { resource: services.yml }
     - { resource: "@HOUserBundle/Resources/config/services.yml" }
     - { resource: "@HOEquipmentBundle/Resources/config/services.yml" }
+    - { resource: "@HOSparePartBundle/Resources/config/services.yml" }
+    - { resource: "@HOCompanyBundle/Resources/config/services.yml" }
+
     
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -55,7 +58,7 @@ doctrine:
         #   3. Uncomment next line:
         #path: '%database_path%'
         types: 
-            mydatetime:  HOEquipmentBundle\Form\Type\MyDateTimeType
+            mydatetime:  AppBundle\Form\Type\MyDateTimeType
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'

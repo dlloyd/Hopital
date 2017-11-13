@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+<h2> Votre profile: </h2>
+{% include "@FOSUser/Profile/show_content.html.twig" %}
+<br/>
+<a href="{{ path('fos_user_change_password') }} "> Changer de mot de passe </a>
+
+</div>
+
+{% endblock %}

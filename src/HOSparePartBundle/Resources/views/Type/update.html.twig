@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Mettre à jour le type de pièce détachée </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_update_stare_part_type') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+</div>
+
+
+
+{% endblock %}
+

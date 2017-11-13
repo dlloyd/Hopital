@@ -1,3 +1,12 @@
+ho_company:
+    resource: "@HOCompanyBundle/Resources/config/routing.yml"
+    prefix:   /
+
+
+ho_spare_part:
+    resource: "@HOSparePartBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ho_equipment:
     resource: "@HOEquipmentBundle/Resources/config/routing.yml"
     prefix:   /
@@ -19,13 +28,6 @@ fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
     prefix: /profile 
 
-fos_user_register:
-    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register/
-
-fos_user_resetting:
-    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resseting
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"

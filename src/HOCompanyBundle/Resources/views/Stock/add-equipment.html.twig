@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+<h2>  Ajouter un équipement au stock {{ stock.id }} </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_stock_add_equipment',{'stockId':stock.id}  ) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

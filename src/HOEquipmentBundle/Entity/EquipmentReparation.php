@@ -15,7 +15,7 @@ class EquipmentReparation
     
    /** 
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Repairer", inversedBy="reparations") 
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Repairer", inversedBy="reparations") 
      * @ORM\JoinColumn(name="repairer_id", referencedColumnName="id", nullable=false) 
      */
    private $repairer;
@@ -39,11 +39,26 @@ class EquipmentReparation
    private $date;
 
    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_done", type="boolean")
+     */
+   private $isDone;
+
+   /**
      * @var string
      *
-     * @ORM\Column(name="problem", type="text",nullable=true)
+     * @ORM\Column(name="comment", type="text",nullable=true)
      */
-   private $problem;
+   private $comment;
+
+   
+   
+   /** 
+     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\PanneType") 
+     * @ORM\JoinColumn(nullable=true) 
+     */
+   private $panneType;
 
 
 
@@ -69,56 +84,34 @@ class EquipmentReparation
      */
     public function getDate()
     {
-        return $this->date;
+        return $this->date->format('d/m/Y');
     }
 
     /**
      * Set problem
      *
-     * @param string $problem
+     * @param string $comment
      *
      * @return EquipmentReparation
      */
-    public function setProblem($problem)
+    public function setComment($comment)
     {
-        $this->problem = $problem;
+        $this->comment = $comment;
 
         return $this;
     }
 
     /**
-     * Get problem
+     * Get comment
      *
      * @return string
      */
-    public function getProblem()
+    public function getComment()
     {
-        return $this->problem;
+        return $this->comment;
     }
 
-    /**
-     * Set repairer
-     *
-     * @param \HOEquipmentBundle\Entity\Repairer $repairer
-     *
-     * @return EquipmentReparation
-     */
-    public function setRepairer(\HOEquipmentBundle\Entity\Repairer $repairer)
-    {
-        $this->repairer = $repairer;
-
-        return $this;
-    }
-
-    /**
-     * Get repairer
-     *
-     * @return \HOEquipmentBundle\Entity\Repairer
-     */
-    public function getRepairer()
-    {
-        return $this->repairer;
-    }
+    
 
     /**
      * Set equipment
@@ -142,5 +135,86 @@ class EquipmentReparation
     public function getEquipment()
     {
         return $this->equipment;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->spareParts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set repairer
+     *
+     * @param \HOCompanyBundle\Entity\Repairer $repairer
+     *
+     * @return EquipmentReparation
+     */
+    public function setRepairer(\HOCompanyBundle\Entity\Repairer $repairer)
+    {
+        $this->repairer = $repairer;
+
+        return $this;
+    }
+
+    /**
+     * Get repairer
+     *
+     * @return \HOCompanyBundle\Entity\Repairer
+     */
+    public function getRepairer()
+    {
+        return $this->repairer;
+    }
+
+   
+
+    /**
+     * Set panneType
+     *
+     * @param \HOEquipmentBundle\Entity\PanneType $panneType
+     *
+     * @return EquipmentReparation
+     */
+    public function setPanneType(\HOEquipmentBundle\Entity\PanneType $panneType)
+    {
+        $this->panneType = $panneType;
+
+        return $this;
+    }
+
+    /**
+     * Get panneType
+     *
+     * @return \HOEquipmentBundle\Entity\PanneType
+     */
+    public function getPanneType()
+    {
+        return $this->panneType;
+    }
+
+    /**
+     * Set isDone
+     *
+     * @param boolean $isDone
+     *
+     * @return EquipmentReparation
+     */
+    public function setIsDone($isDone)
+    {
+        $this->isDone = $isDone;
+
+        return $this;
+    }
+
+    /**
+     * Get isDone
+     *
+     * @return boolean
+     */
+    public function getIsDone()
+    {
+        return $this->isDone;
     }
 }

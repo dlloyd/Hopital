@@ -35,24 +35,26 @@ class Equipment
      */
     private $name;
 
-    /**
-    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentState",inversedBy="equipments")
-    * @ORM\JoinColumn(nullable=false)
-    */
-    private $state;
     
-
-    /**
-    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Zone",inversedBy="equipments")
-    * @ORM\JoinColumn(nullable=false)
-    **/
-    private $zone;
-
+    
     /**
     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategory",inversedBy="equipments")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $category;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Stock",inversedBy="equipments")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $stock;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",inversedBy="equipments")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $service;
+
 
 
     /**
@@ -66,6 +68,24 @@ class Equipment
     * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\EquipmentReparation", mappedBy="equipment", cascade={"persist"})
     */
     private $reparations;
+
+   
+   /**
+   *@ORM\OneToMany(targetEntity="HOSparePartBundle\Entity\SparePart", mappedBy="equipment", cascade={"persist"}) 
+   */
+   private $spareParts;
+
+
+    /**
+     * @ORM\Column(name="manufacture_date", type="datetime", nullable=true)     
+     */
+    private $manufactureDate; // date de fabrication
+
+
+    /**
+     * @ORM\Column(name="use_date", type="datetime", nullable=true)     
+     */
+    private $useDate;  // date d'utilisation
 
 
     /**
@@ -126,54 +146,8 @@ class Equipment
         return $this->name;
     }
 
-    /**
-     * Set state
-     *
-     * @param \HOEquipmentBundle\Entity\EquipmentState $state
-     *
-     * @return Equipment
-     */
-    public function setState(\HOEquipmentBundle\Entity\EquipmentState $state)
-    {
-        $this->state = $state;
-
-        return $this;
-    }
-
-    /**
-     * Get state
-     *
-     * @return \HOEquipmentBundle\Entity\EquipmentState
-     */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * Set zone
-     *
-     * @param \HOEquipmentBundle\Entity\Zone $zone
-     *
-     * @return Equipment
-     */
-    public function setZone(\HOEquipmentBundle\Entity\Zone $zone)
-    {
-        $this->zone = $zone;
-
-        return $this;
-    }
-
-    /**
-     * Get zone
-     *
-     * @return \HOEquipmentBundle\Entity\Zone
-     */
-    public function getZone()
-    {
-        return $this->zone;
-    }
-
+    
+    
     /**
      * Set category
      *
@@ -261,5 +235,139 @@ class Equipment
     public function getReparations()
     {
         return $this->reparations;
+    }
+
+    /**
+     * Set stock
+     *
+     * @param \HOCompanyBundle\Entity\Stock $stock
+     *
+     * @return Equipment
+     */
+    public function setStock(\HOCompanyBundle\Entity\Stock $stock)
+    {
+        $this->stock = $stock;
+
+        return $this;
+    }
+
+    /**
+     * Get stock
+     *
+     * @return \HOCompanyBundle\Entity\Stock
+     */
+    public function getStock()
+    {
+        return $this->stock;
+    }
+
+    /**
+     * Set service
+     *
+     * @param \HOCompanyBundle\Entity\Service $service
+     *
+     * @return Equipment
+     */
+    public function setService(\HOCompanyBundle\Entity\Service $service)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \HOCompanyBundle\Entity\Service
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+
+    /**
+     * Set manufactureDate
+     *
+     * @param \DateTime $manufactureDate
+     *
+     * @return Equipment
+     */
+    public function setManufactureDate($manufactureDate)
+    {
+        $this->manufactureDate = $manufactureDate;
+
+        return $this;
+    }
+
+    /**
+     * Get manufactureDate
+     *
+     * @return \DateTime
+     */
+    public function getManufactureDate()
+    {
+        if($this->manufactureDate!=null)
+            return $this->manufactureDate->format('m/d/Y');
+        return $this->manufactureDate;
+    }
+
+    /**
+     * Set useDate
+     *
+     * @param \DateTime $useDate
+     *
+     * @return Equipment
+     */
+    public function setUseDate($useDate)
+    {
+        $this->useDate = $useDate;
+
+        return $this;
+    }
+
+    /**
+     * Get useDate
+     *
+     * @return \DateTime
+     */
+    public function getUseDate()
+    {
+        if($this->useDate!=null)
+            return $this->useDate->format('d/m/Y');
+        return $this->useDate;
+    }
+
+    /**
+     * Add sparePart
+     *
+     * @param \HOSparePartBundle\Entity\SparePart $sparePart
+     *
+     * @return Equipment
+     */
+    public function addSparePart(\HOSparePartBundle\Entity\SparePart $sparePart)
+    {
+        $this->spareParts[] = $sparePart;
+
+        return $this;
+    }
+
+    /**
+     * Remove sparePart
+     *
+     * @param \HOSparePartBundle\Entity\SparePart $sparePart
+     */
+    public function removeSparePart(\HOSparePartBundle\Entity\SparePart $sparePart)
+    {
+        $this->spareParts->removeElement($sparePart);
+    }
+
+    /**
+     * Get spareParts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSpareParts()
+    {
+        return $this->spareParts;
     }
 }

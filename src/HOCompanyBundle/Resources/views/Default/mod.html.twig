@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2> Modérateurs  </h2>
+
+  {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+  <a href="{{ path('ho_create_moderator') }}" class="btn btn-default btn-sm" >
+    <span class="glyphicon glyphicon-pencil"></span> Ajouter</a><br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id  </th>
+        <th> Nom  </th>
+        <th> Activer / Désactiver </th>
+        <th> Supprimer </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for mod in moderators %}
+    {% if not mod.role("ROLE_SUPER_ADMIN") %}
+      <tr>
+        <td> {{ mod.id }} </td>
+        <td> {{ mod.username }} </td>
+        <td>
+        {% if mod.enabled == true %}
+         <a href="{{ path('ho_disable_moderator',{'id': mod.id }) }}"> Désactiver </a>
+        {% else %}
+          <a href="{{ path('ho_enable_moderator',{'id': mod.id }) }}"> Activer </a>
+        {% endif %}
+         </td>
+        <td> <a href="{{ path('ho_delete_moderator',{'id': mod.id }) }}"> lien </a> </td>
+      </tr>
+    {% endif %}
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ 
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}

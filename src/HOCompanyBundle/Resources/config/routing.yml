@@ -1,0 +1,147 @@
+ho_moderator_homepage:
+    path:     /mod/
+    defaults: { _controller: HOCompanyBundle:Default:index }
+
+ho_create_moderator:
+    path:     /add/mod/
+    defaults: { _controller: HOCompanyBundle:Default:addModerator }
+
+
+ho_disable_moderator:
+    path:     /mod/dis/{id}
+    defaults: { _controller: HOCompanyBundle:Default:disableModerator }
+
+ho_enable_moderator:
+    path:     /mod/ena/{id}
+    defaults: { _controller: HOCompanyBundle:Default:enableModerator }
+
+
+ho_delete_moderator:
+    path:     /mod/del/{id}
+    defaults: { _controller: HOCompanyBundle:Default:deleteModerator }
+
+
+
+
+
+
+
+
+
+
+
+
+ho_repairer_homepage:
+    path:     /repairer
+    defaults: { _controller: HOCompanyBundle:Repairer:index }
+
+ho_stock_homepage:
+    path:     /stock 
+    defaults: { _controller: HOCompanyBundle:Stock:index }
+
+ho_zone_homepage:
+    path:     /zone
+    defaults: { _controller: HOCompanyBundle:Zone:index }
+
+ho_service_homepage:
+    path:    /serv
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:index }
+
+ho_alert_service_homepage:
+    path:    /alert
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:alert }
+
+
+
+
+
+ho_create_repairer:
+    path:     /create/repairer
+    defaults: { _controller: HOCompanyBundle:Repairer:create }
+
+ho_create_stock:
+    path:     /create/stock
+    defaults: { _controller: HOCompanyBundle:Stock:create }
+
+ho_create_zone:
+    path:     /create/zone
+    defaults: { _controller: HOCompanyBundle:Zone:create }
+
+ho_create_service:
+    path:    /create/serv
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:create }
+
+ho_create_alert_service:
+    path:    /create/alert/{serviceId}
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:createAlert }
+
+
+
+
+ho_update_repairer:
+    path:     /update/repairer/{id}
+    defaults: { _controller: HOCompanyBundle:Repairer:update }
+
+ho_update_stock:
+    path:     /update/stock/{id}
+    defaults: { _controller: HOCompanyBundle:Stock:update }
+
+ho_update_zone:
+    path:     /update/zone/{id}
+    defaults: { _controller: HOCompanyBundle:Zone:update }
+
+ho_update_service:
+    path:    /update/serv/{id}
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:update }
+
+
+
+
+
+
+
+ho_delete_repairer:
+    path:     /del/repairer/{id}
+    defaults: { _controller: HOCompanyBundle:Repairer:delete }
+
+ho_delete_stock:
+    path:     /del/stock/{id}
+    defaults: { _controller: HOCompanyBundle:Stock:delete }
+
+ho_delete_zone:
+    path:     /del/zone/{id}
+    defaults: { _controller: HOCompanyBundle:Zone:delete }
+
+ho_delete_service:
+    path:    /del/serv/{id}
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:delete }
+
+
+
+ho_stock_add_equipment:
+    path:    /stock/add/eq/{stockId}
+    defaults: { _controller: HOCompanyBundle:Stock:addEquipment }
+
+ho_stock_add_spare_part:
+    path:    /stock/add/spar/{stockId}
+    defaults: { _controller: HOCompanyBundle:Stock:addSparePart }
+
+ho_service_add_equipment_base:
+    path:    /servbase/add/eq/{serviceId}
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:addEquipmentBase }
+
+ho_service_add_equipment_stock:
+    path:    /servstock/add/eq/{serviceId}
+    defaults: { _controller: HOCompanyBundle:ServiceAlert:addEquipmentFromStock }
+
+
+
+
+
+
+
+
+
+
+
+

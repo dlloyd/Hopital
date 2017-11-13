@@ -20,6 +20,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new HOUserBundle\HOUserBundle(),
             new HOEquipmentBundle\HOEquipmentBundle(),
+            new HOSparePartBundle\HOSparePartBundle(),
+            new HOCompanyBundle\HOCompanyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

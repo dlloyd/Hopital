@@ -7,8 +7,7 @@
   <h2> Equipement </h2>
 
   
-  <a href="{{ path('ho_create_equipment') }}" class="btn btn-default btn-sm" >
-    <span class="glyphicon glyphicon-briefcase"></span> Ajouter</a><br/><br/>
+  <br/><br/>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
   <table class="table table-striped">
@@ -18,11 +17,11 @@
         <th> Equipement </th>
         <th> Catégorie </th>
         <th> Etat </th>
-        <th> Zone  </th>
+        <th> Stock </th>
+        <th> Service </th>
         <th> Réparé/En panne</th>
         <th> Liste réparations </th>
-        <th> Mettre à jour </th>
-        <th> Supprimer </th>
+        
       </tr>
     </thead>
     <tbody id="myTable">
@@ -31,8 +30,10 @@
         <td> {{ equipment.code }} </td>
         <td> {{ equipment.name }} </td>
         <td> {{ equipment.category.name }} </td>
-        <td> {{ equipment.state.state }} </td>
-        <td> {{ equipment.zone.name }} </td>
+        <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
+        <td> {% if equipment.stock != null %} {{ equipment.stock.id }} {% endif %} </td>
+        <td> {% if equipment.service != null  %} {{ equipment.service.name }} {% endif %} </td>
+        
         <td> {% if equipment.isBroken == true %}
               <a href=" {{ path('ho_equipment_reparation', {'id': equipment.id}) }} " class="btn btn-default btn-success" > Valider réparation </a>
              {% else %}
@@ -59,9 +60,10 @@
 
               <div class="input-group col-xs-7">
                 {% for reparation in equipment.reparations  %}
-                Problème : {{ reparation.problem }} </br>
+                Problème : {{ reparation.comment }} </br>
                 Réparateur : {{ reparation.repairer.username }} <br/>
                 Date : {{ reparation.date }}
+                <hr>
                 {% endfor %}
               </div>
               </div>
@@ -77,8 +79,7 @@
               <!-- FIN MODAL -->
              
         {% endif %} </td>
-        <td> <a href="{{ path('ho_update_equipment',{'id': equipment.id }) }}"> lien </a></td>
-        <td> <a href="{{ path('ho_delete_equipment',{'id': equipment.id }) }}"> lien </a> </td>
+        
       </tr>
     {% endfor %}
       

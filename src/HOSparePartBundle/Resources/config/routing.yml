@@ -1,0 +1,33 @@
+ho_spare_part_homepage:
+    path:     /spar
+    defaults: { _controller: HOSparePartBundle:Default:index }
+
+
+ho_spare_part_type_homepage:
+    path:     /spar/type
+    defaults: { _controller: HOSparePartBundle:Default:indexType }
+
+
+ho_create_spare_part:
+    path:     /create/spar
+    defaults: { _controller: HOSparePartBundle:Default:create }
+
+ho_create_spare_part_type:
+    path:     /create/spar/type
+    defaults: { _controller: HOSparePartBundle:Default:createType }
+
+ho_update_spare_part:
+    path:     /update/spar/{id}
+    defaults: { _controller: HOSparePartBundle:Default:update }
+
+ho_update_spare_part_type:
+    path:     /update/spar/type/{id}
+    defaults: { _controller: HOSparePartBundle:Default:updateType }
+
+ho_delete_spare_part:
+    path:     /del/spar/{id}
+    defaults: { _controller: HOSparePartBundle:Default:delete }
+
+ho_delete_spare_part_type:
+    path:     /del/spar/type/{id}
+    defaults: { _controller: HOSparePartBundle:Default:deleteType }

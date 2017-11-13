@@ -1,122 +1,106 @@
-<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
-<!DOCTYPE HTML>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title> {% block title %} Bienvenue! {% endblock %}</title>
-        <link href="{{ asset('css/style.css')}}" rel="stylesheet" type="text/css"  media="all" />
-         <link href="{{ asset('css/style_form.css')}}" rel="stylesheet" type="text/css"  media="all" />
-         <link href="{{ asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css"  media="all" />
-         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link href='//fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ asset('css/responsiveslides.css')}}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>       
-        <script src="{{ asset('js/responsiveslides.min.js')}}"></script>
-          
-    </head>
-    <body>
-        <!---start-wrap---->
-        
-            <!---start-header---->
-            <div class="header">
-                    
-                    <div class="main-header">
-                        <div class="wrap">
-                            <div class="logo">
-                                <a href="{{ path('homepage') }}"><img src="{{ asset('images/logo.png')}}" title="logo" /></a>
-                            </div>
-                            
-                            <div class="clear"> </div>
-                        </div>
-                    </div>
-                    <div class="clear"> </div>
-                    <div class="top-nav">
-                        <div class="wrap">
-                            <ul>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF8" />
+<title>Bienvenue!</title>
+<link rel="stylesheet" href="{{ asset('css/styles.css')}}" type="text/css" />
+<link href="{{ asset('css/bootstrap.css')}}" rel="stylesheet" type="text/css"  media="all" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>     
+
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+
+<body>
+
+		<section id="body" class="width">
+			<aside id="sidebar" class="column-left">
+
+			<header>
+				<h1><a href="{{ path('ho_alert_service_homepage') }}"> AGE </a></h1>
+
+				<h2>Application gestion des équipements</h2>
+				
+			</header>
+
+			<nav id="mainnav">
+  				<ul>
+                
+  				{% set cPath = path(app.request.attributes.get('_route'),
+                                            app.request.attributes.get('_route_params')) %}
+
                                 {% if  is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                <li class="active"> <a href="{{ path('ho_equipment_homepage') }}"> Equipements </a></li>
-                                <li><a href="{{ path('ho_category_homepage') }}"> Catégorie Equipement </a></li> 
-                                <li><a href="{{ path('ho_state_homepage') }}"> Etats Equipement </a></li>       
-                                <li><a href="{{ path('ho_zone_homepage') }}"> Zones </a></li>
-                                <li><a href="{{ path('ho_repairer_homepage') }}"> Réparateurs  </a></li>
-                                <li><a href="#"> Modérateurs  </a></li>
                                 <li><a href="{{ path('fos_user_security_logout') }}"> Se déconnecter  </a></li>
-                                <div class="clear"> </div>
+
+
+                                {% if cPath == path('ho_alert_service_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_alert_service_homepage') }}"> Alertes Services </a></li> 
+
+                                {% if cPath == path('ho_service_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_service_homepage') }}"> Services </a></li> 
+
+                                {% if cPath == path('ho_stock_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_stock_homepage') }}"> Stocks </a></li> 
+
+                                {% if cPath == path('ho_equipment_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_equipment_homepage') }}"> Equipements </a></li>
+
+                                {% if cPath == path('ho_category_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_category_homepage') }}"> Catégorie Equipement </a></li> 
+
+                                {% if cPath == path('ho_spare_part_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_spare_part_homepage') }}"> Pièces détachées </a></li>
+
+                                {% if cPath == path('ho_spare_part_type_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_spare_part_type_homepage') }}"> Type pièce détachée </a></li> 
+
+                                
+
+                                {% if cPath == path('ho_zone_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_zone_homepage') }}"> Zones </a></li>
+
+                                {% if cPath == path('ho_repairer_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_repairer_homepage') }}"> Réparateurs  </a></li>
+
+                                {% if cPath == path('ho_moderator_homepage') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('ho_moderator_homepage') }}"> Modérateurs  </a></li>
+
+                                {% if cPath == path('fos_user_profile_show') %} <li class="selected-item"> {% else %} <li> {% endif %}
+                                <a href="{{ path('fos_user_profile_show') }}"> Profile   </a></li>
+
+
                                 {% endif %}
 
                                 {% if is_granted('ROLE_ADMIN') %}
 
                                 {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-            </div>
-            <!---End-header---->
-          {% block body %} {% endblock  %}
-          <br/><br/><br/><br/><br/>
+                            		
+                        	</ul>
+			</nav>
 
-            
-        <!---start-footer---->
-        <div class="footer">
-            <div class="wrap">
-                <div class="footer-grids">
-                    <div class="footer-grid">
-                        <h3>OUR Profile</h3>
-                         <ul>
-                            <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                            <li><a href="#">Conse ctetur adipisicing</a></li>
-                            <li><a href="#">Elit sed do eiusmod tempor</a></li>
-                            <li><a href="#">Incididunt ut labore</a></li>
-                            <li><a href="#">Et dolore magna aliqua</a></li>
-                            <li><a href="#">Ut enim ad minim veniam</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-grid">
-                        <h3>Our Services</h3>
-                         <ul>
-                            <li><a href="#">Et dolore magna aliqua</a></li>
-                            <li><a href="#">Ut enim ad minim veniam</a></li>
-                            <li><a href="#">Quis nostrud exercitation</a></li>
-                            <li><a href="#">Ullamco laboris nisi</a></li>
-                            <li><a href="#">Ut aliquip ex ea commodo</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-grid">
-                        <h3>OUR FLEET</h3>
-                         <ul>
-                            <li><a href="#">Lorem ipsum dolor sit amet</a></li>
-                            <li><a href="#">Conse ctetur adipisicing</a></li>
-                            <li><a href="#">Elit sed do eiusmod tempor</a></li>
-                            <li><a href="#">Incididunt ut labore</a></li>
-                            <li><a href="#">Et dolore magna aliqua</a></li>
-                            <li><a href="#">Ut enim ad minim veniam</a></li>
-                        </ul>
-                    </div>
-                    <div class="footer-grid">
-                        <h3>CONTACTS</h3>
-                         <p>Lorem ipsum dolor sit amet ,</p>
-                         <p>Conse ctetur adip .</p>
-                         <p>ut labore Usa.</p>
-                         <span>(202)1234-56789</span>
-                    </div>
-                    <div class="clear"> </div>
-                </div>
-                <div class="clear"> </div>
-                <!---start-copy-right----->
-                <div class="copy-tight">
-                    <p>Copyright &copy; Medica. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a></p>
-                </div>
-                <!---End-copy-right----->
-            </div>
-        </div>
-        <!---End-footer---->
-    </body>
+			
+			
+			</aside>
+			<section id="content" class="column-right">
+                		
+	    <article>
+		 {% block body %} {% endblock %}
+		</article>
+
+			
+			<footer class="clear">
+				<p>&copy; 2015 sitename. <a href="http://zypopwebtemplates.com/">Free CSS Templates</a> by ZyPOP</p>
+			</footer>
+
+		</section>
+
+		<div class="clear"> </div>
+
+	</section>
+	
+
+</body>
 </html>
-
-

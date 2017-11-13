@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2> Liste des pièces détachées </h2>
+
+  <br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id  </th>
+        <th> Type </th>
+        <th> Quantité </th>
+        <th> Stock </th>
+        <th> Mettre à jour </th>
+        <th> Supprimer </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for spar in spareParts %}
+      <tr>
+        <td> {{ spar.id }} </td>
+        <td> {{ spar.type.name }} </td>
+        <td></td>
+        <td> {{ spar.stock.id }}  </td>
+        <td> <a href="{{ path('ho_update_spare_part',{'id': spar.id }) }}"> lien </a></td>
+        <td> <a href="{{ path('ho_delete_spare_part',{'id': spar.id }) }}"> lien </a> </td>
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ <br/><br/><br/><br/><br/>
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}

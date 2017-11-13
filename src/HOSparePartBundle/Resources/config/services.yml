@@ -1,0 +1,4 @@
+services:
+#    ho_spare_part.example:
+#        class: HOSparePartBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

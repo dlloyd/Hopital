@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EquipmentType extends AbstractType
 {
@@ -16,14 +17,13 @@ class EquipmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('code')
+        ->add('code',TextType::class)
         ->add('name',TextType::class)
-        ->add('state',EntityType::class,array(
-                    'class'    => 'HOEquipmentBundle:EquipmentState',
-                    'property' => 'state',
-                    'multiple' => false ,))
-        ->add('zone',EntityType::class,array(
-                    'class'    => 'HOEquipmentBundle:Zone',
+        ->add('manufactureDate',DateType::class,array('required' => false,))
+        ->add('useDate',DateType::class,array('required' => false,))
+        ->add('service',EntityType::class,array(
+                    'required' => false,
+                    'class'    => 'HOCompanyBundle:Service',
                     'property' => 'name',
                     'multiple' => false ,))
         ->add('category',EntityType::class,array(

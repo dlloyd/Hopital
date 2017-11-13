@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2> Les services </h2>
+
+  <a href="{{ path('ho_create_service') }}" class="btn btn-default btn-sm" >
+    <span class="glyphicon glyphicon-bell"></span> Ajouter</a><br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id  </th>
+        <th> Nom </th>
+        <th> Localisation </th>
+        <th> Ajouter équipement de base </th>
+        <th> Ajouter équipement de stock </th>
+        <th> Liste des équipements </th>
+        <th> Alerte </th>
+        
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for serv in services %}
+      <tr>
+        <td> {{ serv.id }} </td>
+        <td> {{ serv.name }} </td>
+        <td> {{ serv.zone.name }} </td>
+        <td>  <a href="{{ path('ho_service_add_equipment_base',{'serviceId': serv.id }) }}"> lien </a></td> 
+        <td> <a href="{{ path('ho_service_add_equipment_stock',{'serviceId': serv.id }) }}"> lien </a></td>
+        <td></td>
+        <td> <a href="{{ path('ho_create_alert_service',{'serviceId': serv.id }) }}"> signaler alerte </a> </td>
+        
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ <br/><br/><br/><br/><br/>
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}
