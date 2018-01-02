@@ -6,6 +6,30 @@
 <div class="container">
   <h2> Equipement </h2>
 
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-suitcase w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_category_homepage') }}"> Ajouter une Catégorie </a> </h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-print w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="#" data-toggle="modal" data-target="#myModalPrint"> Module impression </a></h4>
+      </div>
+    </div>
+
+</div>
+
   
   <br/><br/>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
@@ -18,65 +42,29 @@
         <th> Catégorie </th>
         <th> Etat </th>
         <th> Stock </th>
-        <th> Service </th>
-        <th> Réparé/En panne</th>
-        <th> Liste réparations </th>
+        <th> Service - Salle </th>
+        <th> Liste interventions </th>
         
       </tr>
     </thead>
     <tbody id="myTable">
     {% for equipment in equipments %}
-      <tr>
+      {% if equipment.isBroken %}<tr class="danger"> {% else %} <tr> {% endif %} 
         <td> {{ equipment.code }} </td>
         <td> {{ equipment.name }} </td>
         <td> {{ equipment.category.name }} </td>
         <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
         <td> {% if equipment.stock != null %} {{ equipment.stock.id }} {% endif %} </td>
-        <td> {% if equipment.service != null  %} {{ equipment.service.name }} {% endif %} </td>
+        <td>
+         {% if equipment.serviceRoom != null  %} {{equipment.serviceRoom.service.name}} - {{ equipment.serviceRoom.name }} {% endif %} 
+        </td>
         
-        <td> {% if equipment.isBroken == true %}
-              <a href=" {{ path('ho_equipment_reparation', {'id': equipment.id}) }} " class="btn btn-default btn-success" > Valider réparation </a>
-             {% else %}
-              <a href="{{ path('ho_equipment_broken', {'id': equipment.id}) }}" class="btn btn-default btn-danger" > Signaler panne </a> 
-             {% endif %}
-         </td>
         <td> 
-        {% if equipment.reparations is not empty %}
-         <a href="#" data-toggle="modal" data-target="#myModal{{equipment.id}}" class="btn btn-default btn-primary" > Voir Détails </a> 
+        {% if equipment.interventions is not empty %}
+         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > Voir Détails </a> 
 
          
-          <!--  MODAL REPARATIONS    -->
-               <div class="modal fade" id="myModal{{equipment.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title"> Liste des réparations </h4>
-              </div>
-
-              <div class="modal-body" style="font-size:16px">
-                    
-              <div class="form-group">
-
-              <div class="input-group col-xs-7">
-                {% for reparation in equipment.reparations  %}
-                Problème : {{ reparation.comment }} </br>
-                Réparateur : {{ reparation.repairer.username }} <br/>
-                Date : {{ reparation.date }}
-                <hr>
-                {% endfor %}
-              </div>
-              </div>
-
-              </div>
-
-              <div class="modal-footer" >
-              </div>
-
-              </div>
-              </div>
-              </div>
-              <!-- FIN MODAL -->
+          
              
         {% endif %} </td>
         
@@ -99,6 +87,38 @@ $(document).ready(function(){
 });
 
 </script>
+
+
+ <!--  MODAL PRINTING   -->
+               <div class="modal fade" id="myModalPrint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                
+                <h4 class="modal-title"> Choisir impression :  </h4>
+              </div>
+
+              <div class="modal-body" style="font-size:16px">
+                    
+              <div class="form-group">
+
+            
+                <a href=" {{ path('ho_equipment_print_equipments') }} "> <i class="fa fa-print"></i> Imprimer équipements </a> <br/><hr/>
+                <a href=" {{ path('ho_equipment_print_material') }} "> <i class="fa fa-print"></i>Imprimer matériel d'interventions  </a> <br/><hr/>
+                <a href=" {{ path('ho_equipment_print_eq_to_control') }} "> <i class="fa fa-print"></i> Imprimer équipement en panne </a> <br/><hr/>
+              </div>
+              </div>
+
+            
+
+              <div class="modal-footer" >
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              </div>
+
+              </div>
+              </div>
+              </div>
+              <!-- FIN MODAL -->
 
 
 

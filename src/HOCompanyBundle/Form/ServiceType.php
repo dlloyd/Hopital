@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 
 class ServiceType extends AbstractType
 {
@@ -16,10 +18,10 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name',TextType::class)
-        ->add('zone',EntityType::class,array(
-                    'class'    => 'HOCompanyBundle:Zone',
-                    'property' => 'name',
-                    'multiple' => false ,));
+        ->add('rooms',CollectionType::class,array(
+                    'type'    => new ServiceRoomType(),
+                    'allow_add' => true,
+                    'allow_delete' => false ,));
     }
     
     /**

@@ -35,7 +35,7 @@ class SparePart
     private $name;
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Stock",inversedBy="spareParts")
+    * @ORM\ManyToOne(targetEntity="HOStockBundle\Entity\Stock",inversedBy="spareParts")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $stock;
@@ -141,11 +141,11 @@ class SparePart
     /**
      * Set stock
      *
-     * @param \HOCompanyBundle\Entity\Stock $stock
+     * @param \HOStockBundle\Entity\Stock $stock
      *
      * @return SparePart
      */
-    public function setStock(\HOCompanyBundle\Entity\Stock $stock)
+    public function setStock(\HOStockBundle\Entity\Stock $stock)
     {
         $this->stock = $stock;
 
@@ -155,7 +155,7 @@ class SparePart
     /**
      * Get stock
      *
-     * @return \HOCompanyBundle\Entity\Stock
+     * @return \HOStockBundle\Entity\Stock
      */
     public function getStock()
     {

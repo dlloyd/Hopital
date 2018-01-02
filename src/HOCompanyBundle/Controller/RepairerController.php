@@ -13,7 +13,12 @@ class RepairerController extends Controller
 	public function indexAction(){
         $em = $this->getDoctrine()->getManager();
         $repairers = $em->getRepository('HOCompanyBundle:Repairer')->findAll();
-        return $this->render('HOCompanyBundle:Repairer:index.html.twig',array('repairers'=>$repairers,));
+        $nbrTasks = array();
+
+        foreach ($repairers as $rep) {
+            $nbrTasks[$rep->getId()] = $em->getRepository('HOCompanyBundle:Repairer')->findNbrTasks($rep->getId());
+        }
+        return $this->render('HOCompanyBundle:Repairer:index.html.twig',array('repairers'=>$repairers,'nbrTasks'=>$nbrTasks,));
     }
 
 
@@ -62,6 +67,13 @@ class RepairerController extends Controller
         }
 		return $this->redirectToRoute('ho_repairer_homepage');
 	}
+
+
+    public function repairerInterventionsAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $repairer = $em->getRepository('HOCompanyBundle:Repairer')->find($id);
+        return $this->render('HOCompanyBundle:Repairer:repairer.html.twig',array('repairer'=>$repairer,));
+    }
 
 
 

@@ -22,6 +22,12 @@ class EquipmentCategory
     private $id;
 
     /**
+    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategoryFamily")
+    * @ORM\JoinColumn(nullable=false)
+    **/
+    private $family;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string")
@@ -107,5 +113,29 @@ class EquipmentCategory
     public function getEquipments()
     {
         return $this->equipments;
+    }
+
+    /**
+     * Set family
+     *
+     * @param \HOEquipmentBundle\Entity\EquipmentCategoryFamily $family
+     *
+     * @return EquipmentCategory
+     */
+    public function setFamily(\HOEquipmentBundle\Entity\EquipmentCategoryFamily $family)
+    {
+        $this->family = $family;
+
+        return $this;
+    }
+
+    /**
+     * Get family
+     *
+     * @return \HOEquipmentBundle\Entity\EquipmentCategoryFamily
+     */
+    public function getFamily()
+    {
+        return $this->family;
     }
 }

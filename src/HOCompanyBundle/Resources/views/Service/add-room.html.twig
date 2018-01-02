@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+
+<h2>  Ajouter une salle au service {{ service.name }} </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_service_add_room',{'serviceId':service.id}  ) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+<br/><br/>
+Liste des salles:<br/>
+
+{% for room in service.rooms  %}
+	{{room.name}} <br/>
+{% endfor %}
+</div>
+
+
+{% endblock %}
+

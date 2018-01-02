@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Valider intervention {{intervention.id}}  </h2>
+{% if intervention.serviceRoom != null %}
+Service-Salle :  {{ intervention.serviceRoom.service.name }} - {{ intervention.serviceRoom.name }} <br/><hr/>
+{% endif %}
+Catégorie intervention:  {{ intervention.category.name }} <br/> <hr/>
+
+Date début d'intervention: {{ intervention.dateBegin}} <br/> <hr/>
+
+{% if intervention.equipment != null %}
+Equipement : {{ intervention.equipment.name }} <br/> <hr/>
+{% endif %}
+
+{% if intervention.alert != null %}
+  <br/><br/>
+  <h3> Informations alerte : </h3>
+  Description : {{ intervention.alert.designation }} <br/> <hr/>
+  Catégorie : {{ intervention.alert.alertCategory.name  }} <br/> <hr/>
+  Date de l'alerte : {{ intervention.alert.date }} <br/> <hr/>
+  Service-Salle : {{ intervention.alert.service.name }} - {{intervention.alert.serviceRoom.name}} <br/> <hr/>
+
+{% endif %}
+
+<br/><br/>
+  <h3> Outils empruntés : </h3>
+{% for data in intervention.interventionTools %}
+
+  Outil : {{ data.equipment.name }} <br/> 
+  Code : {{  data.equipment.code  }} <br/>
+  Date emprunt : {{ data.dateOut }} <br/>
+  {% if data.isBack == false %}
+  <a href="{{ path('ho_intervention_equipment_back_from_validate',{'interventionId':intervention.id,'equipmentId':data.equipment.id }) }}" class="btn btn-default btn-primary" > Rendre </a> 
+  {% else %}
+  	Date retour : {{ data.dateReturn }} <br/>
+  {% endif %} 
+  <hr/>
+
+{% endfor %}
+
+
+<br/><br/>
+<h3> Formulaire : </h3>
+{{ form_start(form, {'method': 'post', 'action': path('ho_intervention_validate',{'id':intervention.id}) }) }}
+                
+            {{ form_rest(form) }} <br/>
+            <button class="btn btn-default btn-primary" type="submit" >Valider</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2> Equipements de la caisse à outils  </h2>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-suitcase w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_intervention_toolbox_add_equipment') }}"> Ajouter un équipement </a> </h4>
+      </div>
+  </div>
+</div>
+
+  <br/><br/>
+
+  
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id  </th>
+        <th> Nom </th>
+        <th> Statut </th>
+        <th> Fiche Intervention </th>
+        <th> Sortir / Retour </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for equipment in equipments %}
+      <tr>
+        <td> {{ equipment.id }} </td>
+        <td> {{ equipment.name }} </td>
+        {% if equipment.isOut == true %}
+        <td>  Sortie  </td>
+        <td>
+
+         <a href="#" data-toggle="modal" data-target="#myModal{{equipment.id}}" class="btn btn-default btn-primary" > Voir </a> 
+
+         
+          <!--  MODAL INTERVENTION INFOS   -->
+               <div class="modal fade" id="myModal{{equipment.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+               aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                
+                <h4 class="modal-title"> Informations intervention  </h4>
+              </div>
+
+              <div class="modal-body" style="font-size:16px">
+                    
+              <div class="form-group">
+
+              <div class="input-group col-xs-7">
+                {% set inter = interventions[equipment.id] %}
+                Id : {{ inter.id }} <br/>
+                Réparateur: {{ inter.intervention.repairer.username }} <br/>
+                Date début : {{ inter.intervention.dateBegin }} <br/>
+
+                {% if inter.intervention.dateEnd != null %}
+                Date fin : {{ inter.intervention.dateEnd }} <br/>
+                Statut : Terminé 
+                {% else %}
+
+                Statut : En cours
+                {% endif %} 
+                
+              </div>
+              </div>
+
+              </div>
+
+              <div class="modal-footer" >
+               <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              </div>
+
+              </div>
+              </div>
+              </div>
+              <!-- FIN MODAL -->
+           
+        </td>
+        <td> <a href="{{ path('ho_intervention_equipment_back',{'id': equipment.id }) }}" class="btn btn-default btn-primary"> retourner matériel </a> </td>
+
+        {% else %}
+
+        <td>  Présent  </td>
+        <td> </td>
+        <td> <a href="{{ path('ho_intervention_equipment_out',{'id': equipment.id }) }}" class="btn btn-default btn-primary"> sortir matériel  </a> </td>
+
+        {% endif %}
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ 
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}

@@ -6,8 +6,21 @@
 <div class="container">
   <h2> Les services </h2>
 
-  <a href="{{ path('ho_create_service') }}" class="btn btn-default btn-sm" >
-    <span class="glyphicon glyphicon-bell"></span> Ajouter</a><br/><br/>
+   <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-sitemap w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_create_service') }}">  Ajouter un service  </a> </h4>
+      </div>
+  </div>
+</div>
+
+  <br/><br/>
+
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
   <table class="table table-striped">
@@ -15,11 +28,11 @@
       <tr>
       	<th> Id  </th>
         <th> Nom </th>
-        <th> Localisation </th>
         <th> Ajouter équipement de base </th>
         <th> Ajouter équipement de stock </th>
         <th> Liste des équipements </th>
-        <th> Alerte </th>
+        <th> Liste des salles </th>
+        <th> Signaler Alerte </th>
         
       </tr>
     </thead>
@@ -28,11 +41,102 @@
       <tr>
         <td> {{ serv.id }} </td>
         <td> {{ serv.name }} </td>
-        <td> {{ serv.zone.name }} </td>
-        <td>  <a href="{{ path('ho_service_add_equipment_base',{'serviceId': serv.id }) }}"> lien </a></td> 
-        <td> <a href="{{ path('ho_service_add_equipment_stock',{'serviceId': serv.id }) }}"> lien </a></td>
-        <td></td>
-        <td> <a href="{{ path('ho_create_alert_service',{'serviceId': serv.id }) }}"> signaler alerte </a> </td>
+        <td>  <a href="{{ path('ho_service_add_equipment_base',{'serviceId': serv.id }) }}" class="btn btn-default btn-primary">
+         lien </a>
+        </td> 
+        <td> <a href="{{ path('ho_service_add_equipment_stock',{'serviceId': serv.id }) }}" class="btn btn-default btn-primary">
+         lien </a>
+        </td>
+
+        <td>
+        {% if serv.equipments is not empty %}
+         <a href="#" data-toggle="modal" data-target="#myModalEq{{serv.id}}" class="btn btn-default btn-primary" > Voir </a> 
+
+         
+          <!--  MODAL EQUIPEMENT    -->
+               <div class="modal fade" id="myModalEq{{serv.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+               aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                <h4 class="modal-title"> Liste des équipements </h4>
+              </div>
+
+              <div class="modal-body" style="font-size:16px">
+                    
+              <div class="form-group">
+
+              <div class="input-group col-xs-7">
+                {% for equipment in serv.equipments  %}
+                 Salle : {% if equipment.serviceRoom!=null %} {{equipment.serviceRoom.name}} {% endif %} <br/>
+                 {{ equipment.name }}/{{equipment.code}} <br/> 
+                <hr/>
+                {% endfor %}
+                
+              </div>
+              </div>
+
+              </div>
+
+              <div class="modal-footer" >
+               <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              </div>
+
+              </div>
+              </div>
+              </div>
+              <!-- FIN MODAL -->
+             
+        {% endif %}
+
+        </td>
+
+
+        <td>
+        {% if serv.rooms is not empty %}
+         <a href="#" data-toggle="modal" data-target="#myModal{{serv.id}}" class="btn btn-default btn-primary" > Voir </a> 
+
+         
+          <!--  MODAL SALLES    -->
+               <div class="modal fade" id="myModal{{serv.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+               aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                
+                <h4 class="modal-title"> Liste des salles </h4>
+              </div>
+
+              <div class="modal-body" style="font-size:16px">
+                    
+              <div class="form-group">
+
+              
+                {% for room in serv.rooms  %}
+                 {{ room.name }} <br/>
+                <hr/>
+                {% endfor %}
+                <br/><a href="{{ path('ho_service_add_room',{'serviceId': serv.id }) }}" class="btn btn-default btn-primary"> Ajouter une salle  </a>
+              
+              </div>
+
+              </div>
+
+              <div class="modal-footer" >
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              </div>
+
+              </div>
+              </div>
+              </div>
+              <!-- FIN MODAL -->
+             
+        {% endif %}
+        </td>
+        
+        <td> <a href="{{ path('ho_create_alert_from_service',{'serviceId': serv.id }) }}" class="btn btn-default btn-danger" >
+         <i class="fa fa-exclamation-triangle" ></i> </a>
+        </td>
         
       </tr>
     {% endfor %}

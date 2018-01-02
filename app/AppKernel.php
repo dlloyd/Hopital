@@ -22,6 +22,8 @@ class AppKernel extends Kernel
             new HOEquipmentBundle\HOEquipmentBundle(),
             new HOSparePartBundle\HOSparePartBundle(),
             new HOCompanyBundle\HOCompanyBundle(),
+            new HOStockBundle\HOStockBundle(),
+            new HOInterventionBundle\HOInterventionBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

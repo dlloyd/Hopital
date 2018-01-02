@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class EquipmentType extends AbstractType
 {
+
     /**
      * {@inheritdoc}
      */
@@ -19,11 +20,12 @@ class EquipmentType extends AbstractType
         $builder
         ->add('code',TextType::class)
         ->add('name',TextType::class)
-        ->add('manufactureDate',DateType::class,array('required' => false,))
-        ->add('useDate',DateType::class,array('required' => false,))
-        ->add('service',EntityType::class,array(
+        ->add('manufactureDate',DateType::class,array('required' => false,'widget'=>'single_text'))
+        ->add('useDate',DateType::class,array('required' => false,'widget'=>'single_text',))
+        ->add('serviceRoom',EntityType::class,array(
                     'required' => false,
                     'class'    => 'HOCompanyBundle:Service',
+                    'choices'  => $service->getRooms(),
                     'property' => 'name',
                     'multiple' => false ,))
         ->add('category',EntityType::class,array(

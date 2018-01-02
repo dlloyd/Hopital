@@ -30,16 +30,20 @@ class Repairer
     private $username;
     
     /**
-     * @var string
-     *
      * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\RepairerStatus")
      */
     private $status;
 
     /**
-    * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\EquipmentReparation", mappedBy="repairer", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\RepairerFunction")
+     */
+    private $function;
+
+
+     /**
+    * @ORM\OneToMany(targetEntity="HOInterventionBundle\Entity\Intervention", mappedBy="repairer", cascade={"persist"})
     */
-    private $reparations;
+    private $interventions;
 
 
     /**
@@ -77,47 +81,7 @@ class Repairer
     }
 
     
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reparations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add reparation
-     *
-     * @param \HOEquipmentBundle\Entity\EquipmentReparation $reparation
-     *
-     * @return Repairer
-     */
-    public function addReparation(\HOEquipmentBundle\Entity\EquipmentReparation $reparation)
-    {
-        $this->reparations[] = $reparation;
-
-        return $this;
-    }
-
-    /**
-     * Remove reparation
-     *
-     * @param \HOEquipmentBundle\Entity\EquipmentReparation $reparation
-     */
-    public function removeReparation(\HOEquipmentBundle\Entity\EquipmentReparation $reparation)
-    {
-        $this->reparations->removeElement($reparation);
-    }
-
-    /**
-     * Get reparations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getReparations()
-    {
-        return $this->reparations;
-    }
+    
 
     /**
      * Set status
@@ -141,5 +105,74 @@ class Repairer
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set function
+     *
+     * @param \HOCompanyBundle\Entity\RepairerFunction $function
+     *
+     * @return Repairer
+     */
+    public function setFunction(\HOCompanyBundle\Entity\RepairerFunction $function = null)
+    {
+        $this->function = $function;
+
+        return $this;
+    }
+
+    /**
+     * Get function
+     *
+     * @return \HOCompanyBundle\Entity\RepairerFunction
+     */
+    public function getFunction()
+    {
+        return $this->function;
+    }
+
+   
+
+   
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->interventions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add intervention
+     *
+     * @param \HOInterventionBundle\Entity\Intervention $intervention
+     *
+     * @return Repairer
+     */
+    public function addIntervention(\HOInterventionBundle\Entity\Intervention $intervention)
+    {
+        $this->interventions[] = $intervention;
+
+        return $this;
+    }
+
+    /**
+     * Remove intervention
+     *
+     * @param \HOInterventionBundle\Entity\Intervention $intervention
+     */
+    public function removeIntervention(\HOInterventionBundle\Entity\Intervention $intervention)
+    {
+        $this->interventions->removeElement($intervention);
+    }
+
+    /**
+     * Get interventions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInterventions()
+    {
+        return $this->interventions;
     }
 }

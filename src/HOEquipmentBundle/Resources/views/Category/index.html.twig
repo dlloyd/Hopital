@@ -14,18 +14,18 @@
     <thead>
       <tr>
       	<th> Id  </th>
-        <th> Catégorie </th>
+        <th> Famille </th>
+        <th> Name </th>
         <th> Mettre à jour </th>
-        <th> Supprimer </th>
       </tr>
     </thead>
     <tbody id="myTable">
     {% for categ in categories %}
       <tr>
         <td> {{ categ.id }} </td>
+        <td>  {{ categ.family.name }}  </td>
         <td> {{ categ.name }} </td>
         <td> <a href="{{ path('ho_update_category',{'id': categ.id }) }}"> lien </a></td>
-        <td> <a href="{{ path('ho_delete_category',{'id': categ.id }) }}"> lien </a> </td>
       </tr>
     {% endfor %}
       

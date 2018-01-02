@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Sortie matériel d'intervention </h2>
+
+ Equipement concerné : <br/>
+ Code: {{ equipment.code }} <br/>
+ Nom: {{ equipment.name }} <br/>
+ Catégorie: {{ equipment.category.name }}
+
+<br/><br/>
+<h3> Formulaire :  </h3>
+{{ form_start(form, {'method': 'post', 'action': path('ho_intervention_equipment_out',{'id':equipment.id}) }) }}
+                
+    {{ form_rest(form) }}
+    <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

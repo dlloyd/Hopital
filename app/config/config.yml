@@ -6,6 +6,8 @@ imports:
     - { resource: "@HOEquipmentBundle/Resources/config/services.yml" }
     - { resource: "@HOSparePartBundle/Resources/config/services.yml" }
     - { resource: "@HOCompanyBundle/Resources/config/services.yml" }
+    - { resource: "@HOStockBundle/Resources/config/services.yml" }
+    - { resource: "@HOInterventionBundle/Resources/config/services.yml" }
 
     
 

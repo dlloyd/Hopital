@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Créer alerte service </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_alert_service') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

@@ -28,18 +28,17 @@ class Service
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Zone")
-     */
-    private $zone;
 
+    /**
+    * @ORM\OneToMany(targetEntity="HOCompanyBundle\Entity\ServiceRoom",mappedBy="service")
+    */
+    private $rooms;
 
     /**
     * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\Equipment",mappedBy="service")
     */
     private $equipments;
+
 
 
     /**
@@ -51,12 +50,72 @@ class Service
     {
         return $this->id;
     }
+    
+   
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->equipments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->rooms = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Service
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add room
+     *
+     * @param \HOCompanyBundle\Entity\ServiceRoom $room
+     *
+     * @return Service
+     */
+    public function addRoom(\HOCompanyBundle\Entity\ServiceRoom $room)
+    {
+        $this->rooms[] = $room;
+
+        return $this;
+    }
+
+    /**
+     * Remove room
+     *
+     * @param \HOCompanyBundle\Entity\ServiceRoom $room
+     */
+    public function removeRoom(\HOCompanyBundle\Entity\ServiceRoom $room)
+    {
+        $this->rooms->removeElement($room);
+    }
+
+    /**
+     * Get rooms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRooms()
+    {
+        return $this->rooms;
     }
 
     /**
@@ -91,53 +150,5 @@ class Service
     public function getEquipments()
     {
         return $this->equipments;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Service
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set zone
-     *
-     * @param \HOCompanyBundle\Entity\Zone $zone
-     *
-     * @return Service
-     */
-    public function setZone(\HOCompanyBundle\Entity\Zone $zone = null)
-    {
-        $this->zone = $zone;
-
-        return $this;
-    }
-
-    /**
-     * Get zone
-     *
-     * @return \HOCompanyBundle\Entity\Zone
-     */
-    public function getZone()
-    {
-        return $this->zone;
     }
 }

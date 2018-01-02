@@ -10,4 +10,15 @@ namespace HOCompanyBundle\Repository;
  */
 class RepairerRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findNbrTasks($repId){
+		$qb = $this->createQueryBuilder('r');
+		$qb->select('count(i)');
+		$qb->innerJoin('r.interventions', 'i', 'WITH', 'i.repairer = :rep');
+		$qb->where('i.isClosed = false');
+		$qb->setParameter('rep',$repId);
+
+		return $qb->getQuery()->getSingleScalarResult();
+
+	}
 }

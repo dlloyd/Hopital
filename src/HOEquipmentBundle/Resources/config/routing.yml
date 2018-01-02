@@ -41,6 +41,12 @@ ho_update_category:
     path:     /update/categ/{id}
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:update }
 
+ho_equipment_interventions:
+    path:     /equipment/interv/{id}
+    defaults: { _controller: HOEquipmentBundle:Equipment:equipmentInterventions }
+
+
+
 
 
 
@@ -54,6 +60,18 @@ ho_delete_equipment:
 ho_delete_category:
     path:     /del/categ/{id}
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:delete }
+
+ho_equipment_print_equipments:
+    path:     /equi/print/eqs
+    defaults: { _controller: HOEquipmentBundle:Equipment:printingEquipments }
+
+ho_equipment_print_material:
+    path:     /equi/print/mats
+    defaults: { _controller: HOEquipmentBundle:Equipment:printingMaterial }
+
+ho_equipment_print_eq_to_control:
+    path:     /equi/print/panneeqs
+    defaults: { _controller: HOEquipmentBundle:Equipment:printingEquipmentsToControl }
 
 
 

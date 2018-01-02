@@ -41,6 +41,12 @@ class EquipmentController extends Controller
 
 	}
 
+    public function equipmentInterventionsAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $equipment = $em->getRepository('HOEquipmentBundle:Equipment')->find($id);
+        return $this->render('HOEquipmentBundle:Equipment:interventions.html.twig',array('equipment'=>$equipment,));
+    }
+
 
 	public function updateAction(Request $request,$id){
 		$em = $this->getDoctrine()->getManager();
@@ -48,7 +54,6 @@ class EquipmentController extends Controller
         $form = $this->createForm(new EquipmentType(),$equipment);
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
-            $em = $this->getDoctrine()->getManager();
 
             $em->merge($equipment);
             $em->flush();
@@ -72,53 +77,47 @@ class EquipmentController extends Controller
 	}
 
 
-
-
-    public function reparationEquipmentAction(Request $request,$id){
+    public function printingEquipmentsAction(){
         $em = $this->getDoctrine()->getManager();
-        $equipment = $em->getRepository('HOEquipmentBundle:Equipment')->find($id);
-        $state = $em->getRepository('HOEquipmentBundle:EquipmentState')->findOneBy(array('state' => 'Fonctionnel'));
         
-        if($equipment){
-            $data = array();
-            $reparation = new EquipmentReparation();
-            $form = $this->createFormBuilder($data)
-            ->add('repairer','entity',array(
-                    'class'    => 'HOCompanyBundle:Repairer',
-                    'property' => 'username',
-                    'required' => true, 
-                    'expanded' => false,
-                    'multiple' => false ,))
-            ->add('comment','textarea')
-            ->getForm();
+        $title = "Liste des équipements";
+        $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findEquipments() ;
 
-            if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
-                $data= $form->getData();
-                $reparation->setRepairer($data['repairer']);
-                $reparation->setEquipment($equipment);
-                $reparation->setDate(new MyDateTime());
-                $reparation->setComment($data['comment']);
-
-                $em->persist($reparation);
-
-                $equipment->setIsBroken(false);
-                $equipment->SetState($state);
-                $equipment->addReparation($reparation);
-                $em->merge($equipment);
-                $em->flush();
-
-                return $this->redirectToRoute('ho_equipment_homepage');
-            }
-            return $this->render('HOEquipmentBundle:Equipment:reparation.html.twig', array('form' => $form->createView(),
-                                                                                            'equipment' => $equipment,));
-       }
-       else{
-            throw $this->createAccessDeniedException(" L'équipement avec pour id:".$id." est inexistant !! ");
-       }
-
-        
+        return $this->render('HOEquipmentBundle:Equipment:print-page.html.twig', array('title' => $title,'equipments'=>$equipments,));
+       
 
     }
+
+
+    public function printingMaterialAction(){
+        $em = $this->getDoctrine()->getManager();
+        
+        $title = "Liste du matériel d'interventions ";
+        $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findMaterialInterventions() ;
+
+        return $this->render('HOEquipmentBundle:Equipment:print-page.html.twig', array('title' => $title,'equipments'=>$equipments,));
+       
+
+    }
+
+    public function printingEquipmentsToControlAction(){
+        $em = $this->getDoctrine()->getManager();
+        
+        $title = "Liste des équipements à controller";
+        $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findEquipmentsToControl() ;
+
+        return $this->render('HOEquipmentBundle:Equipment:print-page.html.twig', array('title' => $title,'equipments'=>$equipments,));
+       
+
+    }
+
+
+
+
+
+
+
+    
 
 
 }

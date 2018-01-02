@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+
+</style>
+
+</head>
+<body>
+  <br/><br/><br/>
+<h1 align="center"> {{ title }}  </h1>
+
+<br/><br/>
+
+<table>
+
+<tr>
+ <th>Equipement</th>
+ <th> Code </th>
+ <th> Catégorie </th>
+ <th> Date de fabrication </th>
+ <th> Date d'utilisation </th>
+ <th> Localisation </th>
+
+</tr>
+{% for equipment in equipments  %}
+<tr>
+ <td width="20%"> {{ equipment.name }} </td>
+ <td width="10% "> {{ equipment.code }} </td>
+ <td width="20%"> {{ equipment.category.name }} </td>
+ <td width="15%"> {{ equipment.manufactureDate }} </td>
+ <td width="15%">  {% if equipment.useDate != null %} {{ equipment.useDate }} {% endif %} </td>
+ <td width="20%">  </td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+
+<script>
+function print_page() {
+    window.print();
+}
+window.onload=print_page;
+</script>
+
+</body>
+</html>

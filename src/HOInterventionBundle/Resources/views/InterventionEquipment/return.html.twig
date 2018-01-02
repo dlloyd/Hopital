@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Retour matériel d'intervention </h2>
+
+Equipement concerné : {{ equipment.name }} <br/>
+
+Réparateur : {{ intervention.repairer.username }} <br/>
+Intervention id : {{ intervention.id }} <br/>
+Date début intervention : {{ intervention.dateBegin }} <br/>
+
+<br/><br/>
+<h3> Formulaire : </h3>
+{{ form_start(form, {'method': 'post', 'action': path('ho_intervention_equipment_back',{'id':equipment.id}) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

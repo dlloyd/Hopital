@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2> Liste des alertes </h2>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-exclamation-triangle w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_create_alert_service') }}"> Signaler Alerte </a> </h4>
+      </div>
+  </div>
+</div>
+
+  <br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Service  </th>
+        <th> Date </th>
+        <th> Description </th>
+        <th> Equipement </th>
+        <th> Etat </th>
+        <th> Attribuer la tâche </th>
+       
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for alert in alerts|reverse %}
+
+     {% if alert.alertState.code == "RSL" %} <tr class="success">
+     {% elseif alert.alertState.code == "ECT" %} <tr class="bg-warning"> {% else %} <tr class="danger"> {% endif %}
+        <td> {{ alert.service.name }} </td>
+        <td> {{ alert.date }} </td>
+        <td> {{ alert.designation }}  </td>
+        <td> {% if alert.equipment!=null %} {{ alert.equipment.name }} {% endif %} </td>
+        <td> {{ alert.alertState.name }} </td>
+        <td>
+        {% if alert.isAwarded == false %}  
+         <a href="{{ path('ho_create_intervention_alert',{'alertId': alert.id }) }}" class="btn btn-default btn-success"> Attribuer  </a> 
+        {% endif %}
+        </td>
+        
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ <br/><br/><br/><br/><br/>
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}

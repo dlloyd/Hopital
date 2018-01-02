@@ -6,18 +6,31 @@
 <div class="container">
   <h2> Réparateurs </h2>
 
-  <a href="{{ path('ho_create_repairer') }}" class="btn btn-default btn-sm" >
-    <span class="glyphicon glyphicon-user"></span> Ajouter</a><br/><br/>
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-user-plus w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_create_repairer') }}"> Ajouter un réparateur </a> </h4>
+      </div>
+  </div>
+</div>
+
+  <br/><br/>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
   <table class="table table-striped">
     <thead>
       <tr>
       	<th> Id  </th>
-        <th> Nom </th>
+        <th> Nom Prénom </th>
         <th> Statut </th>
-        <th> tâches </th>
-        <th> Attribuer tâche </th>
+        <th> Fonction </th>
+        <th> Nombre tâches en cours </th>
+        <th> Toutes les tâches </th>
         <th> Mettre à jour </th>
         
       </tr>
@@ -27,10 +40,16 @@
       <tr>
         <td> {{ rep.id }} </td>
         <td> {{ rep.username }} </td>
-        <td>  {{ rep.status.status }}  </td>
-        <td> <a href="#"> Voir </a></td>
-        <td> <a href="#"> lien </a></td>
+        <td> {{ rep.status.status }}  </td>
+        <td> {{ rep.function.name }} </td>
+        <td> {{ nbrTasks[rep.id] }} </td>
+        <td>
+        {% if rep.interventions is not empty %}
+         <a href="{{ path('ho_repairer_interventions',{'id':rep.id}) }}"  class="btn btn-default btn-primary" > Voir </a>  
+        {% endif %}
+        </td>
         <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}"> lien </a> </td>
+      
       </tr>
     {% endfor %}
       

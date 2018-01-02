@@ -10,4 +10,30 @@ namespace HOEquipmentBundle\Repository;
  */
 class EquipmentRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findEquipments(){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('e');
+		$qb->where('e.toolBox IS NULL');
+
+		return $qb->getQuery()->getResult();
+
+	}
+
+	public function findMaterialInterventions(){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('e');
+		$qb->where('e.toolBox IS NOT NULL');
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findEquipmentsToControl(){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('e');
+		$qb->where('e.isBroken = true');
+
+		return $qb->getQuery()->getResult();
+
+	}
 }

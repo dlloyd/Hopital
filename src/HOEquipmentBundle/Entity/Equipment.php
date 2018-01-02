@@ -26,55 +26,28 @@ class Equipment
      *
      * @ORM\Column(name="code", type="string")
      */
-    private $code;
+    private $code;  // numéro de série
 
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string")
      */
-    private $name;
-
-    
-    
-    /**
-    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategory",inversedBy="equipments")
-    * @ORM\JoinColumn(nullable=false)
-    **/
-    private $category;
+    private $name;  // marque
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Stock",inversedBy="equipments")
-    * @ORM\JoinColumn(nullable=true)
-    **/
-    private $stock;
-
-    /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",inversedBy="equipments")
-    * @ORM\JoinColumn(nullable=true)
-    **/
-    private $service;
-
-
-
-    /**
-     * @var boolean
+     * @var string
      *
-     * @ORM\Column(name="is_broken", type="boolean")
+     * @ORM\Column(name="model", type="string",nullable=true)
      */
-    private $isBroken;
+    private $model;
 
     /**
-    * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\EquipmentReparation", mappedBy="equipment", cascade={"persist"})
-    */
-    private $reparations;
-
-   
-   /**
-   *@ORM\OneToMany(targetEntity="HOSparePartBundle\Entity\SparePart", mappedBy="equipment", cascade={"persist"}) 
-   */
-   private $spareParts;
-
+     * @var string
+     *
+     * @ORM\Column(name="designation_compl", type="string",nullable=true)
+     */
+    private $complDesignation; //désignation complémentaire
 
     /**
      * @ORM\Column(name="manufacture_date", type="datetime", nullable=true)     
@@ -87,6 +60,69 @@ class Equipment
      */
     private $useDate;  // date d'utilisation
 
+  
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategory",inversedBy="equipments")
+    * @ORM\JoinColumn(nullable=false)
+    **/
+    private $category;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOStockBundle\Entity\Stock",inversedBy="equipments")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $stock;
+
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",inversedBy="equipments")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $service;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $serviceRoom;
+
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\ToolBox")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $toolBox;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_out", type="boolean")
+     */
+    private $isOut;   // Uniquement dans le cas de la caisse à outils
+
+    /**
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Supplier")
+    * @ORM\JoinColumn(nullable=true)
+    **/
+    private $supplier;
+
+    /**
+    * @ORM\OneToMany(targetEntity="HOInterventionBundle\Entity\Intervention", mappedBy="equipment", cascade={"persist"})
+    */
+    private $interventions;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_broken", type="boolean")
+     */
+    private $isBroken;
+
+   
+
+
+    
 
     /**
      * Get id
@@ -195,56 +231,16 @@ class Equipment
     {
         return $this->isBroken;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reparations = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add reparation
-     *
-     * @param \HOEquipmentBundle\Entity\EquipmentReparation $reparation
-     *
-     * @return Equipment
-     */
-    public function addReparation(\HOEquipmentBundle\Entity\EquipmentReparation $reparation)
-    {
-        $this->reparations[] = $reparation;
-
-        return $this;
-    }
-
-    /**
-     * Remove reparation
-     *
-     * @param \HOEquipmentBundle\Entity\EquipmentReparation $reparation
-     */
-    public function removeReparation(\HOEquipmentBundle\Entity\EquipmentReparation $reparation)
-    {
-        $this->reparations->removeElement($reparation);
-    }
-
-    /**
-     * Get reparations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getReparations()
-    {
-        return $this->reparations;
-    }
+   
 
     /**
      * Set stock
      *
-     * @param \HOCompanyBundle\Entity\Stock $stock
+     * @param \HOStockBundle\Entity\Stock $stock
      *
      * @return Equipment
      */
-    public function setStock(\HOCompanyBundle\Entity\Stock $stock)
+    public function setStock(\HOStockBundle\Entity\Stock $stock)
     {
         $this->stock = $stock;
 
@@ -254,37 +250,14 @@ class Equipment
     /**
      * Get stock
      *
-     * @return \HOCompanyBundle\Entity\Stock
+     * @return \HOStockBundle\Entity\Stock
      */
     public function getStock()
     {
         return $this->stock;
     }
 
-    /**
-     * Set service
-     *
-     * @param \HOCompanyBundle\Entity\Service $service
-     *
-     * @return Equipment
-     */
-    public function setService(\HOCompanyBundle\Entity\Service $service)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * Get service
-     *
-     * @return \HOCompanyBundle\Entity\Service
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
-
+    
     /**
      * Set manufactureDate
      *
@@ -337,37 +310,214 @@ class Equipment
         return $this->useDate;
     }
 
+    
+
     /**
-     * Add sparePart
+     * Set model
      *
-     * @param \HOSparePartBundle\Entity\SparePart $sparePart
+     * @param string $model
      *
      * @return Equipment
      */
-    public function addSparePart(\HOSparePartBundle\Entity\SparePart $sparePart)
+    public function setModel($model)
     {
-        $this->spareParts[] = $sparePart;
+        $this->model = $model;
 
         return $this;
     }
 
     /**
-     * Remove sparePart
+     * Get model
      *
-     * @param \HOSparePartBundle\Entity\SparePart $sparePart
+     * @return string
      */
-    public function removeSparePart(\HOSparePartBundle\Entity\SparePart $sparePart)
+    public function getModel()
     {
-        $this->spareParts->removeElement($sparePart);
+        return $this->model;
     }
 
     /**
-     * Get spareParts
+     * Set complDesignation
+     *
+     * @param string $complDesignation
+     *
+     * @return Equipment
+     */
+    public function setComplDesignation($complDesignation)
+    {
+        $this->complDesignation = $complDesignation;
+
+        return $this;
+    }
+
+    /**
+     * Get complDesignation
+     *
+     * @return string
+     */
+    public function getComplDesignation()
+    {
+        return $this->complDesignation;
+    }
+
+    /**
+     * Set isOut
+     *
+     * @param boolean $isOut
+     *
+     * @return Equipment
+     */
+    public function setIsOut($isOut)
+    {
+        $this->isOut = $isOut;
+
+        return $this;
+    }
+
+    /**
+     * Get isOut
+     *
+     * @return boolean
+     */
+    public function getIsOut()
+    {
+        return $this->isOut;
+    }
+
+    /**
+     * Set serviceRoom
+     *
+     * @param \HOCompanyBundle\Entity\ServiceRoom $serviceRoom
+     *
+     * @return Equipment
+     */
+    public function setServiceRoom(\HOCompanyBundle\Entity\ServiceRoom $serviceRoom = null)
+    {
+        $this->serviceRoom = $serviceRoom;
+
+        return $this;
+    }
+
+    /**
+     * Get serviceRoom
+     *
+     * @return \HOCompanyBundle\Entity\ServiceRoom
+     */
+    public function getServiceRoom()
+    {
+        return $this->serviceRoom;
+    }
+
+    /**
+     * Set toolBox
+     *
+     * @param \HOInterventionBundle\Entity\ToolBox $toolBox
+     *
+     * @return Equipment
+     */
+    public function setToolBox(\HOInterventionBundle\Entity\ToolBox $toolBox = null)
+    {
+        $this->toolBox = $toolBox;
+
+        return $this;
+    }
+
+    /**
+     * Get toolBox
+     *
+     * @return \HOInterventionBundle\Entity\ToolBox
+     */
+    public function getToolBox()
+    {
+        return $this->toolBox;
+    }
+
+    /**
+     * Set supplier
+     *
+     * @param \HOCompanyBundle\Entity\Supplier $supplier
+     *
+     * @return Equipment
+     */
+    public function setSupplier(\HOCompanyBundle\Entity\Supplier $supplier = null)
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    /**
+     * Get supplier
+     *
+     * @return \HOCompanyBundle\Entity\Supplier
+     */
+    public function getSupplier()
+    {
+        return $this->supplier;
+    }
+
+    /**
+     * Set service
+     *
+     * @param \HOCompanyBundle\Entity\Service $service
+     *
+     * @return Equipment
+     */
+    public function setService(\HOCompanyBundle\Entity\Service $service = null)
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    /**
+     * Get service
+     *
+     * @return \HOCompanyBundle\Entity\Service
+     */
+    public function getService()
+    {
+        return $this->service;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->interventions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add intervention
+     *
+     * @param \HOInterventionBundle\Entity\Intervention $intervention
+     *
+     * @return Equipment
+     */
+    public function addIntervention(\HOInterventionBundle\Entity\Intervention $intervention)
+    {
+        $this->interventions[] = $intervention;
+
+        return $this;
+    }
+
+    /**
+     * Remove intervention
+     *
+     * @param \HOInterventionBundle\Entity\Intervention $intervention
+     */
+    public function removeIntervention(\HOInterventionBundle\Entity\Intervention $intervention)
+    {
+        $this->interventions->removeElement($intervention);
+    }
+
+    /**
+     * Get interventions
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSpareParts()
+    public function getInterventions()
     {
-        return $this->spareParts;
+        return $this->interventions;
     }
 }

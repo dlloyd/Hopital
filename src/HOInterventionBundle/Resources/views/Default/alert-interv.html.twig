@@ -1,0 +1,99 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Alerte </h2>
+Service : {{ alert.service.name  }} <br/>
+Description:{{ alert.designation }} <br/>
+Date de demande:{{ alert.date}} <br/>
+Catégorie de l'alerte:{{ alert.alertCategory.name}}
+<br/>
+
+<h2> Formulaire d'attribution </h2>
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_intervention_alert',{'alertId':alert.id}) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+<br/>
+<h2>Liste des réparateurs:</h2>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id </th>
+        <th> Nom  </th>
+        <th> Fonction </th>
+        <th> Statut </th>
+        <th> Tâches en cours </th>
+       
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for repairer in repairers %}
+      <tr>
+        <td> {{ repairer.id }} </td>
+        <td> {{ repairer.username }} </td>
+        <td> {{ repairer.function.name }} </td>
+        <td> {{ repairer.status.status }} </td>
+        <td>
+        {% if repairer.interventions is not empty %}
+         <a href="#" data-toggle="modal" data-target="#myModal{{repairer.id}}" class="btn btn-default btn-primary" > Voir </a> 
+
+         
+          <!--  MODAL TACHES    -->
+               <div class="modal fade" id="myModal{{repairer.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+               aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                <h4 class="modal-title"> Liste des tâches </h4>
+              </div>
+
+              <div class="modal-body" style="font-size:16px">
+                    
+              <div class="form-group">
+
+              <div class="input-group col-xs-7">
+                {% for intervention in repairer.interventions  %}
+                 Intervention Id: {{intervention.id}} <br/>
+                 Statut: {% if intervention.isClosed == true %} Effectuée {% else %} En cours {% endif %} <br/>
+                 Date d'attribution : {{ intervention.dateBegin }} 
+                 Date de réalisation : {% if intervention.dateEnd !=null %} {{ intervention.dateEnd }} {% endif %}
+                <hr/>
+                {% endfor %}
+                
+              </div>
+              </div>
+
+              </div>
+
+              <div class="modal-footer" >
+              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+              </div>
+
+              </div>
+              </div>
+              </div>
+              <!-- FIN MODAL -->
+             
+        {% endif %}
+
+        </td>
+
+        
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+
+
+</div>
+
+
+{% endblock %}
+

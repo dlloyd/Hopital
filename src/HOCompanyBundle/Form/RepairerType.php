@@ -16,6 +16,10 @@ class RepairerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('username',TextType::class)
+        ->add('function',EntityType::class,array(
+                    'class'    => 'HOCompanyBundle:RepairerFunction',
+                    'property' => 'name',
+                    'multiple' => false ,))
         ->add('status',EntityType::class,array(
                     'class'    => 'HOCompanyBundle:RepairerStatus',
                     'property' => 'status',
