@@ -1,12 +1,12 @@
 <?php
 
-namespace HOCompanyBundle\Form;
+namespace HOEquipmentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ZoneType extends AbstractType
+class EquipmentBrandType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -22,7 +22,7 @@ class ZoneType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'HOCompanyBundle\Entity\Zone'
+            'data_class' => 'HOEquipmentBundle\Entity\EquipmentBrand'
         ));
     }
 
@@ -31,7 +31,7 @@ class ZoneType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'hocompanybundle_zone';
+        return 'hoequipmentbundle_equipmentbrand';
     }
 
 

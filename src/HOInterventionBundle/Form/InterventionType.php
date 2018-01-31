@@ -24,6 +24,9 @@ class InterventionType extends AbstractType
                     'choice_label' => function ($equipment) {
                             return $equipment->getName()." / ".$equipment->getCode();
                         },
+                    'group_by' => function($equipment){
+                        return $equipment->getCategory()->getName();
+                    },
                     'required' => false, 
                     'expanded' => false,
                     'multiple' => false ,))

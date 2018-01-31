@@ -7,6 +7,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+
 
 class SparePartType extends AbstractType
 {
@@ -16,7 +19,13 @@ class SparePartType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('name',TextType::class)
+        ->add('serialNumber',TextType::class)
+        ->add('complDesignation',TextareaType::class,array('required' =>false,))
+        ->add('manufactureDate',DateType::class,array('required' => false,'widget'=>'single_text'))
+        ->add('brand',EntityType::class,array(
+                    'class'    => 'HOEquipmentBundle:EquipmentBrand',
+                    'property' => 'name',
+                    'multiple' => false ,))
         ->add('type',EntityType::class,array(
                     'class'    => 'HOSparePartBundle:SparePartType',
                     'property' => 'name',

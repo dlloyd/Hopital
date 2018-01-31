@@ -14,7 +14,7 @@
           <h3></h3>
         </div>
         <div class="w3-clear"></div>
-        <h4> <a href="{{ path('ho_category_homepage') }}"> Ajouter une Catégorie </a> </h4>
+        <h4> <a href="{{ path('ho_create_equipment') }}"> Ajouter un équipement </a> </h4>
       </div>
     </div>
     <div class="w3-quarter">
@@ -38,12 +38,13 @@
     <thead>
       <tr>
       	<th> Code  </th>
-        <th> Equipement </th>
-        <th> Catégorie </th>
+        <th> Marque </th>
+        <th> Modèle </th>
+        <th> Domaine </th>
         <th> Etat </th>
-        <th> Stock </th>
-        <th> Service - Salle </th>
+        <th> Localisation </th>
         <th> Liste interventions </th>
+        <th> Transferer </th>
         
       </tr>
     </thead>
@@ -51,22 +52,22 @@
     {% for equipment in equipments %}
       {% if equipment.isBroken %}<tr class="danger"> {% else %} <tr> {% endif %} 
         <td> {{ equipment.code }} </td>
-        <td> {{ equipment.name }} </td>
+        <td> {{ equipment.brand.name }} </td>
+        <td> {{ equipment.model }} </td>
         <td> {{ equipment.category.name }} </td>
         <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
-        <td> {% if equipment.stock != null %} {{ equipment.stock.id }} {% endif %} </td>
         <td>
          {% if equipment.serviceRoom != null  %} {{equipment.serviceRoom.service.name}} - {{ equipment.serviceRoom.name }} {% endif %} 
         </td>
         
         <td> 
         {% if equipment.interventions is not empty %}
-         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > Voir Détails </a> 
-
-         
-          
+         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > Voir Détails </a>    
              
-        {% endif %} </td>
+        {% endif %} 
+        </td>
+
+        <td> <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > lien </a> </td>
         
       </tr>
     {% endfor %}
@@ -106,6 +107,7 @@ $(document).ready(function(){
                 <a href=" {{ path('ho_equipment_print_equipments') }} "> <i class="fa fa-print"></i> Imprimer équipements </a> <br/><hr/>
                 <a href=" {{ path('ho_equipment_print_material') }} "> <i class="fa fa-print"></i>Imprimer matériel d'interventions  </a> <br/><hr/>
                 <a href=" {{ path('ho_equipment_print_eq_to_control') }} "> <i class="fa fa-print"></i> Imprimer équipement en panne </a> <br/><hr/>
+                {{ render(controller('HOEquipmentBundle:Equipment:printingByCriteria')) }}
               </div>
               </div>
 

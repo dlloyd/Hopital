@@ -49,13 +49,23 @@ class InterventionController extends Controller
 		$em = $this->getDoctrine()->getManager();
 		$alert = $em->getRepository('HOInterventionBundle:AlertService')->find($alertId);
 		$repairers = $em->getRepository('HOCompanyBundle:Repairer')->findAll();
+
+        foreach ($repairers as $rep) {
+            $nbrTasks[$rep->getId()] = $em->getRepository('HOCompanyBundle:Repairer')->findNbrTasks($rep->getId());
+        }
+
 		$inter = new Intervention();
         $form = $this->createFormBuilder($inter)
         ->add('equipment',EntityType::class,array(
                     'class'    => 'HOEquipmentBundle:Equipment',
-                    'property' => 'name',
+                    'choice_label' => function ($equipment) {
+                            return $equipment->getName()." / ".$equipment->getCode();
+                        },
                     'choices'  => $alert->getService()->getEquipments(),
                     'data'  => $alert->getEquipment(),
+                    'group_by' => function($eq){
+                        return $eq->getCategory()->getName();
+                    },
                     'required' => false, 
                     'expanded' => false,
                     'multiple' => false ,))
@@ -93,7 +103,7 @@ class InterventionController extends Controller
             return $this->redirectToRoute('ho_intervention_homepage');
         }
         return $this->render('HOInterventionBundle:Default:alert-interv.html.twig', array('form' => $form->createView(),
-        						'alert'=>$alert,'repairers' => $repairers,));
+        						'alert'=>$alert,'repairers' => $repairers,'nbrTasks'=>$nbrTasks,));
 
 
 	}

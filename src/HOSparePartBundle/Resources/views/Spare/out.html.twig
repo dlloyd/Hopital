@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2>  Sortie pièce détachée </h2>
+
+ Pièce concernée : <br/>
+ Numéro de série: {{ sparePart.serialNumber }} <br/>
+ Nom: {{ sparePart.brand.name }} <br/>
+ Type: {{ sparePart.type.name }}
+
+<br/><br/>
+<h3> Formulaire :  </h3>
+{{ form_start(form, {'method': 'post', 'action': path('ho_spare_part_out',{'id':sparePart.id}) }) }}
+                
+    {{ form_rest(form) }}
+    <br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

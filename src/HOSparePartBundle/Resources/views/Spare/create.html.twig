@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2> Nouvel pièce détachée </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_spare_part') }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.type,"Type *") }}
+    {{ form_widget(form.type,{'attr':{'class':'field-divided'}}) }}
+    &nbsp &nbsp <a href="#" data-toggle="modal" data-target="#myModalCateg" > <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i> </a>
+  </li>
+	<li>
+	{{ form_label(form.serialNumber,"Numéro de série *") }}
+    {{ form_widget(form.serialNumber,{'attr':{'class':'field-long', 'placeholder':'Numéro de série'}}) }}
+    </li>
+    <li>
+	{{ form_label(form.brand,"Marque *") }}
+    {{ form_widget(form.brand,{'attr':{'class':'field-divided'}}) }}
+    &nbsp &nbsp <a href="#" data-toggle="modal" data-target="#myModalBrand" > <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i> </a>
+    </li>
+    <li>
+	{{ form_label(form.complDesignation,"Désignation complémentaire") }}
+    {{ form_widget(form.complDesignation,{'attr':{'class':'field-long'}}) }}
+    </li>
+    
+    <li>
+	{{ form_label(form.manufactureDate,"Date de fabrication *") }}
+    {{ form_widget(form.manufactureDate) }}
+    </li>
+    
+                
+    {{ form_rest(form) }}
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+{{ form_end(form) }}
+
+
+<!--  MODAL NEW BRAND    -->
+   <div class="modal fade" id="myModalBrand" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+   aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    <h4 class="modal-title"> Création nouvelle marque </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+  {% render controller('HOSparePartBundle:Default:createBrand') %}
+  </div>
+
+  </div>
+
+  <div class="modal-footer" >
+   <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+<!-- FIN MODAL -->
+
+
+<!--  MODAL NEW TYPE    -->
+   <div class="modal fade" id="myModalCateg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+   aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    <h4 class="modal-title"> Création nouveau type </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+  {% render controller('HOSparePartBundle:Default:createType') %}
+  </div>
+
+  </div>
+
+  <div class="modal-footer" >
+   <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+<!-- FIN MODAL -->
+
+
+</div>
+
+
+{% endblock %}
+

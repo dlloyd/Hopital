@@ -27,11 +27,10 @@ class EquipmentCategoryController extends Controller
             $em->persist($categ);
             $em->flush();
 
-            return $this->redirectToRoute('ho_create_category');
+            return $this->redirectToRoute('ho_create_equipment');
         }
 
-        return $this->render('HOEquipmentBundle:Category:create.html.twig', array('form' => $form->createView(),
-        																					'categories' => $categories,));
+        return $this->render('HOEquipmentBundle:Category:create.html.twig', array('form' => $form->createView(),));
 
 
 	}

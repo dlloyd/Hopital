@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/form.css') }}">
 
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
@@ -67,12 +68,11 @@ h4>a:hover {
     <a href="{{ path('ho_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sitemap fa-fw"></i>  Services </a>
     <a href="{{ path('ho_intervention_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Interventions </a>
     <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Equipements </a>
-    <a href="{{ path('ho_repairer_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Réparateurs </a>
-    <a href="{{ path('ho_intervention_toolbox') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Boîte à outils </a>
-    <a href="{{ path('ho_stock_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Stocks </a>
+    <a href="{{ path('ho_repairer_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Intervenants </a>
+    <a href="{{ path('ho_intervention_toolbox') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Matériel d'intervention </a>
+    <a href="{{ path('ho_spare_part_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Stocks </a>
    
     <a href="{{ path('ho_moderator_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Modérateurs </a>
-    <a href="{{ path('ho_zone_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-map-signs fa-fw"></i>  Localisation </a>
     <br><br>
   </div>
   

@@ -22,7 +22,7 @@ class InterventionEquipment
     private $id;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\Intervention")  
+     * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\Intervention",inversedBy="interventionTools")  
      */
     private $intervention;
 

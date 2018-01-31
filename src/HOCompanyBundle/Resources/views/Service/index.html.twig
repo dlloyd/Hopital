@@ -26,10 +26,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
         <th> Nom </th>
-        <th> Ajouter équipement de base </th>
-        <th> Ajouter équipement de stock </th>
         <th> Liste des équipements </th>
         <th> Liste des salles </th>
         <th> Signaler Alerte </th>
@@ -39,14 +36,7 @@
     <tbody id="myTable">
     {% for serv in services %}
       <tr>
-        <td> {{ serv.id }} </td>
         <td> {{ serv.name }} </td>
-        <td>  <a href="{{ path('ho_service_add_equipment_base',{'serviceId': serv.id }) }}" class="btn btn-default btn-primary">
-         lien </a>
-        </td> 
-        <td> <a href="{{ path('ho_service_add_equipment_stock',{'serviceId': serv.id }) }}" class="btn btn-default btn-primary">
-         lien </a>
-        </td>
 
         <td>
         {% if serv.equipments is not empty %}

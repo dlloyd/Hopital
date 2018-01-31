@@ -13,10 +13,7 @@ class StockType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('zone',EntityType::class,array(
-                    'class'    => 'HOCompanyBundle:Zone',
-                    'property' => 'name',
-                    'multiple' => false ,));
+        
     }
     
     /**

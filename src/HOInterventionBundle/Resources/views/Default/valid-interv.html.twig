@@ -3,7 +3,14 @@
 {% block body %}
 
 <div class="container">
-<h2>  Valider intervention {{intervention.id}}  </h2>
+<h2>  <u>Valider intervention {{intervention.id}}:</u>  </h2> <br/><br/>
+
+<form class="form-style-7">
+<ul>
+<li>
+<label for="intervention">Intervention</label> <br/>
+    
+
 {% if intervention.serviceRoom != null %}
 Service-Salle :  {{ intervention.serviceRoom.service.name }} - {{ intervention.serviceRoom.name }} <br/><hr/>
 {% endif %}
@@ -14,40 +21,83 @@ Date début d'intervention: {{ intervention.dateBegin}} <br/> <hr/>
 {% if intervention.equipment != null %}
 Equipement : {{ intervention.equipment.name }} <br/> <hr/>
 {% endif %}
+</li>
+</ul>
+</form>
 
 {% if intervention.alert != null %}
   <br/><br/>
-  <h3> Informations alerte : </h3>
+  <form class="form-style-7">
+  <ul>
+  <li>
+  <label for="infos"> Informations alerte </label><br/>
   Description : {{ intervention.alert.designation }} <br/> <hr/>
   Catégorie : {{ intervention.alert.alertCategory.name  }} <br/> <hr/>
   Date de l'alerte : {{ intervention.alert.date }} <br/> <hr/>
-  Service-Salle : {{ intervention.alert.service.name }} - {{intervention.alert.serviceRoom.name}} <br/> <hr/>
-
+  Service-Salle : {{ intervention.alert.service.name }} - {{intervention.alert.serviceRoom.name}} <br/> 
+  </li>
+  </ul>
+  </form>
 {% endif %}
 
 <br/><br/>
-  <h3> Outils empruntés : </h3>
-{% for data in intervention.interventionTools %}
+<form class="form-style-7">
+  <ul>
+  <li>
+  <label for="spares"> Pièces utilisées </label><br/>
+  
+  {% for spar in intervention.spareParts %}
 
-  Outil : {{ data.equipment.name }} <br/> 
-  Code : {{  data.equipment.code  }} <br/>
-  Date emprunt : {{ data.dateOut }} <br/>
-  {% if data.isBack == false %}
-  <a href="{{ path('ho_intervention_equipment_back_from_validate',{'interventionId':intervention.id,'equipmentId':data.equipment.id }) }}" class="btn btn-default btn-primary" > Rendre </a> 
-  {% else %}
-  	Date retour : {{ data.dateReturn }} <br/>
-  {% endif %} 
-  <hr/>
+    Type : {{ spar.type.name }} <br/> 
+    Numéro de série : {{  spar.serialNumber  }} <br/>
+    Marque : {{ spar.brand.name }} <br/>
+    Date de fabrication : {{ spar.manufactureDate|date('d/m/Y') }} <br/>
+    
+    <hr/>
 
-{% endfor %}
+  {% endfor %}
+  </li>
+  </ul>
+</form>
+
+<br/><br/>
+<form class="form-style-7">
+  <ul>
+  <li>
+  <label for="tools"> Outils empruntés </label><br/>
+  
+  {% for data in intervention.interventionTools %}
+
+    Outil : {{ data.equipment.name }} <br/> 
+    Code : {{  data.equipment.code  }} <br/>
+    Date emprunt : {{ data.dateOut }} <br/>
+    {% if data.isBack == false %}
+    <a href="{{ path('ho_intervention_equipment_back_from_validate',{'interventionId':intervention.id,'equipmentId':data.equipment.id }) }}" class="btn btn-default btn-primary" > Rendre </a> 
+    {% else %}
+    	Date retour : {{ data.dateReturn }} <br/>
+    {% endif %} 
+    <hr/>
+
+  {% endfor %}
+  </li>
+  </ul>
+</form>
 
 
 <br/><br/>
-<h3> Formulaire : </h3>
+<h3> Formulaire de validation : </h3>
+
 {{ form_start(form, {'method': 'post', 'action': path('ho_intervention_validate',{'id':intervention.id}) }) }}
-                
-            {{ form_rest(form) }} <br/>
-            <button class="btn btn-default btn-primary" type="submit" >Valider</button>
+ <ul class="form-style-1">
+ <li>
+ {{ form_label(form.comment,"Diagnostic *") }}
+ {{ form_widget(form.comment,{'attr':{'class':'field-long field-textarea' }}) }} 
+ </li>  
+ {{ form_rest(form) }}
+ </ul>
+ <br/> <br/>
+ <button class="btn btn-default btn-primary" type="submit" >Valider</button>
+
 {{ form_end(form) }}
 
 

@@ -1,0 +1,13 @@
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_brand_spare_part') }) }}
+
+<ul class="form-style-1">
+ <li>
+ {{ form_label(form.name,"Marque") }}
+ {{ form_widget(form.name,{'attr':{'class':'field-divided' }}) }} 
+ </li>  
+ {{ form_rest(form) }}
+ <li>
+<button class="btn btn-primary" type="submit" >Enregistrer</button>
+</li>
+</ul>
+{{ form_end(form) }}

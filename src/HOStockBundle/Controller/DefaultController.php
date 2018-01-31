@@ -64,28 +64,6 @@ class DefaultController extends Controller
 
 
 
-    public function addEquipmentAction(Request $request, $stockId){
-        $em = $this->getDoctrine()->getManager();
-        $stock = $em->getRepository('HOStockBundle:Stock')->find($stockId);
-        $equipment = new \HOEquipmentBundle\Entity\Equipment();
-        $form = $this->createForm(new \HOEquipmentBundle\Form\EquipmentType(),$equipment);
-
-        if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
-            $em = $this->getDoctrine()->getManager();
-
-            $equipment->setIsBroken(false);
-            $equipment->setStock($stock);
-            $em->persist($equipment);
-            //$em->merge($stock);
-            $em->flush();
-
-            return $this->redirectToRoute('ho_stock_homepage');
-        }
-
-        return $this->render('HOStockBundle:Stock:add-equipment.html.twig', array('form' => $form->createView(),'stock'=>$stock,));
-
-    }
-
 
     public function addSparePartAction(Request $request,$stockId){
         $em = $this->getDoctrine()->getManager();

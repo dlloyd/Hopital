@@ -12,6 +12,7 @@ use HOEquipmentBundle\Entity\MyDateTime;
 
 use HOEquipmentBundle\Form\EquipmentType;
 
+
 class EquipmentController extends Controller
 {
 
@@ -29,6 +30,10 @@ class EquipmentController extends Controller
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
 
+            $code = $this->generateInternalCode();
+            $equipment->setCode($code);
+            $equipment->setIsOut(false);
+            $equipment->setIsBroken(false);
             $em->persist($equipment);
             $em->flush();
 
@@ -37,9 +42,25 @@ class EquipmentController extends Controller
 
         return $this->render('HOEquipmentBundle:Equipment:create.html.twig', array('form' => $form->createView(),
         																					'equipments' => $equipments,));
-
-
 	}
+
+    public function createBrandAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $brand = new \HOEquipmentBundle\Entity\EquipmentBrand();
+        $form = $this->createForm(new \HOEquipmentBundle\Form\EquipmentBrandType(),$brand);
+
+        if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
+            $em->persist($brand);
+            $em->flush();
+
+            return $this->redirectToRoute('ho_create_equipment');
+        }
+
+        return $this->render('HOEquipmentBundle:Equipment:brand.html.twig', array('form' => $form->createView(),));
+
+
+    }
+
 
     public function equipmentInterventionsAction($id){
         $em = $this->getDoctrine()->getManager();
@@ -109,6 +130,95 @@ class EquipmentController extends Controller
         return $this->render('HOEquipmentBundle:Equipment:print-page.html.twig', array('title' => $title,'equipments'=>$equipments,));
        
 
+    }
+
+
+
+    public function printingByCriteriaAction(Request $request){
+        $data =array();
+        $list = array();
+
+        $form = $this->createFormBuilder($data)
+                ->add('brand',\Symfony\Bridge\Doctrine\Form\Type\EntityType::class,array(
+                    'required' => false,
+                    'class'    => 'HOEquipmentBundle:EquipmentBrand',
+                    'property' => 'name',))
+                ->add('category',\Symfony\Bridge\Doctrine\Form\Type\EntityType::class,array(
+                    'required' => false,
+                    'class'    => 'HOEquipmentBundle:EquipmentCategory',
+                    'property' => 'name',))
+                ->add('period', \Symfony\Component\Form\Extension\Core\Type\CheckboxType::class, array(
+                    'label'    => 'Période?',
+                    'required' => false,
+                ))
+                ->add('dateBegin',\Symfony\Component\Form\Extension\Core\Type\DateType::class,array('required' => false,
+                    'widget'=>'single_text',))
+                ->add('dateEnd',\Symfony\Component\Form\Extension\Core\Type\DateType::class,array('required' => false,
+                    'widget'=>'single_text',))
+                ->getForm();
+
+        if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
+            $em = $this->getDoctrine()->getManager();    
+            $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findAll() ;
+            $param= $form->getData();
+            $title = "Liste des équipements";
+            foreach ($equipments as $eq) {
+                $valid = true;
+                if($param['brand']!=null && $param['brand']!=$eq->getBrand() ){
+                    $valid = false;
+                }
+                if($param['category']!= null && $param['category']!=$eq->getCategory() ){
+                    $valid = false;
+                }
+                if($param['period'] && ($param['dateBegin'] > $eq->getUseDate()  || $param['dateEnd'] < $eq->getUseDate() ) ){
+                    $valid = false;
+                }
+                if($valid){
+                    array_push($list,$eq);
+                }
+            }
+
+            $criterias = $this->getPrintCriterias($param);
+            return $this->render('HOEquipmentBundle:Equipment:print-page.html.twig', array('title' => $title,
+                                    'equipments'=>$list,
+                                    'criterias'=>$criterias,));
+   
+        }
+
+        return $this->render('HOEquipmentBundle:Equipment:print-crit-form.html.twig', array('form' => $form->createView(),));
+
+    }
+
+
+
+    public function generateInternalCode(){
+        $totalEquipments = $this->getDoctrine()->getManager()->getRepository('HOEquipmentBundle:Equipment')->findEquipmentsCount();
+
+        $totalEquipments++; // on incrémente le code pour le nouvel équipement
+
+        //calcul nombre de zéros devant . ex: 0001 ou lieu de 1
+        $zeros ="";
+        $digitNumber = strlen($totalEquipments);
+        while ($digitNumber < 4) {
+            $zeros .="0";
+            $digitNumber++;
+        }
+ 
+        $code = "HIAOBO".$zeros.$totalEquipments;
+        return $code;   
+    }
+
+    public function getPrintCriterias($data){
+        if($data['brand']!=null){
+            $crit['Marque'] = $data['brand']->getName();
+        }
+        if($data['category']!=null){
+            $crit['Domaine'] = $data['category']->getName();
+        }
+        if($data['period']){
+            $crit['date'] = $data['dateBegin']->format('d/m/Y')." - ".$data['dateEnd']->format('d/m/Y');
+        }
+        return $crit;
     }
 
 

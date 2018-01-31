@@ -36,7 +36,7 @@ class DefaultController extends Controller
             $user->setUsername($data['name']);
             $user->setEmail($data['email']);
             $user->setPlainPassword($pass);
-            $user->addRole('ROLE_MODERATEUR');
+            $user->addRole('ROLE_MODERATOR');
            
             $user->setEnabled(true);
 

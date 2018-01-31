@@ -26,7 +26,14 @@ class Equipment
      *
      * @ORM\Column(name="code", type="string")
      */
-    private $code;  // numéro de série
+    private $code;  // code interne
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="serial_number", type="string")
+     */
+    private $serialNumber;
 
     /**
      * @var string
@@ -63,16 +70,18 @@ class Equipment
   
     
     /**
+    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentBrand")
+    * @ORM\JoinColumn(nullable=false)
+    **/
+    private $brand;
+
+
+    /**
     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategory",inversedBy="equipments")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $category;
 
-    /**
-    * @ORM\ManyToOne(targetEntity="HOStockBundle\Entity\Stock",inversedBy="equipments")
-    * @ORM\JoinColumn(nullable=true)
-    **/
-    private $stock;
 
 
     /**
@@ -89,7 +98,7 @@ class Equipment
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\ToolBox")
+    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\ToolBox",inversedBy="equipments")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $toolBox;
@@ -101,11 +110,6 @@ class Equipment
      */
     private $isOut;   // Uniquement dans le cas de la caisse à outils
 
-    /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Supplier")
-    * @ORM\JoinColumn(nullable=true)
-    **/
-    private $supplier;
 
     /**
     * @ORM\OneToMany(targetEntity="HOInterventionBundle\Entity\Intervention", mappedBy="equipment", cascade={"persist"})
@@ -233,30 +237,6 @@ class Equipment
     }
    
 
-    /**
-     * Set stock
-     *
-     * @param \HOStockBundle\Entity\Stock $stock
-     *
-     * @return Equipment
-     */
-    public function setStock(\HOStockBundle\Entity\Stock $stock)
-    {
-        $this->stock = $stock;
-
-        return $this;
-    }
-
-    /**
-     * Get stock
-     *
-     * @return \HOStockBundle\Entity\Stock
-     */
-    public function getStock()
-    {
-        return $this->stock;
-    }
-
     
     /**
      * Set manufactureDate
@@ -305,8 +285,8 @@ class Equipment
      */
     public function getUseDate()
     {
-        if($this->useDate!=null)
-            return $this->useDate->format('d/m/Y');
+        //if($this->useDate!=null)
+         //   return $this->useDate->format('d/m/Y');
         return $this->useDate;
     }
 
@@ -432,29 +412,7 @@ class Equipment
         return $this->toolBox;
     }
 
-    /**
-     * Set supplier
-     *
-     * @param \HOCompanyBundle\Entity\Supplier $supplier
-     *
-     * @return Equipment
-     */
-    public function setSupplier(\HOCompanyBundle\Entity\Supplier $supplier = null)
-    {
-        $this->supplier = $supplier;
-
-        return $this;
-    }
-
-    /**
-     * Get supplier
-     *
-     * @return \HOCompanyBundle\Entity\Supplier
-     */
-    public function getSupplier()
-    {
-        return $this->supplier;
-    }
+    
 
     /**
      * Set service
@@ -519,5 +477,53 @@ class Equipment
     public function getInterventions()
     {
         return $this->interventions;
+    }
+
+    /**
+     * Set serialNumber
+     *
+     * @param string $serialNumber
+     *
+     * @return Equipment
+     */
+    public function setSerialNumber($serialNumber)
+    {
+        $this->serialNumber = $serialNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get serialNumber
+     *
+     * @return string
+     */
+    public function getSerialNumber()
+    {
+        return $this->serialNumber;
+    }
+
+    /**
+     * Set brand
+     *
+     * @param \HOEquipmentBundle\Entity\EquipmentBrand $brand
+     *
+     * @return Equipment
+     */
+    public function setBrand(\HOEquipmentBundle\Entity\EquipmentBrand $brand)
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * Get brand
+     *
+     * @return \HOEquipmentBundle\Entity\EquipmentBrand
+     */
+    public function getBrand()
+    {
+        return $this->brand;
     }
 }

@@ -1,19 +1,18 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-
-<div class="container">
-<h2>  Créer une catégorie </h2>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_category') }) }}
+<ul class="form-style-1">
+<li>
+ {{ form_label(form.family,"Famille") }}
+ {{ form_widget(form.family,{'attr':{'class':'field-select' }}) }} 
+ </li>  
+<li>
+ {{ form_label(form.name,"Domaine") }}
+ {{ form_widget(form.name,{'attr':{'class':'field-long' }}) }} 
+ </li>  
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_rest(form) }}
+<li><button class="btn btn-primary" type="submit" >Enregistrer</button></li>
+</ul>
 {{ form_end(form) }}
 
-
-</div>
-
-
-{% endblock %}
-
+<br/><br/><br/>

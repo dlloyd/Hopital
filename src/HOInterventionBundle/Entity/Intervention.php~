@@ -359,38 +359,4 @@ class Intervention
     {
         return $this->interventionTools;
     }
-
-    /**
-     * Add sparePart
-     *
-     * @param \HOSparePartBundle\Entity\SparePart $sparePart
-     *
-     * @return Intervention
-     */
-    public function addSparePart(\HOSparePartBundle\Entity\SparePart $sparePart)
-    {
-        $this->spareParts[] = $sparePart;
-
-        return $this;
-    }
-
-    /**
-     * Remove sparePart
-     *
-     * @param \HOSparePartBundle\Entity\SparePart $sparePart
-     */
-    public function removeSparePart(\HOSparePartBundle\Entity\SparePart $sparePart)
-    {
-        $this->spareParts->removeElement($sparePart);
-    }
-
-    /**
-     * Get spareParts
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSpareParts()
-    {
-        return $this->spareParts;
-    }
 }

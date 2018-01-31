@@ -15,7 +15,8 @@ Catégorie de l'alerte:{{ alert.alertCategory.name}}
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_intervention_alert',{'alertId':alert.id}) }) }}
                 
             {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+            <br/><br/>
+            <button class="btn btn-default btn-primary" type="submit" >Enregistrer</button>
 {{ form_end(form) }}
 
 <br/>
@@ -28,7 +29,8 @@ Catégorie de l'alerte:{{ alert.alertCategory.name}}
         <th> Nom  </th>
         <th> Fonction </th>
         <th> Statut </th>
-        <th> Tâches en cours </th>
+        <th> Nombre tâches en cours </th>
+        <th> Fiche </th>
        
       </tr>
     </thead>
@@ -39,46 +41,10 @@ Catégorie de l'alerte:{{ alert.alertCategory.name}}
         <td> {{ repairer.username }} </td>
         <td> {{ repairer.function.name }} </td>
         <td> {{ repairer.status.status }} </td>
+        <td> {{ nbrTasks[repairer.id] }}  </td>
         <td>
         {% if repairer.interventions is not empty %}
-         <a href="#" data-toggle="modal" data-target="#myModal{{repairer.id}}" class="btn btn-default btn-primary" > Voir </a> 
-
-         
-          <!--  MODAL TACHES    -->
-               <div class="modal fade" id="myModal{{repairer.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
-               aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                <h4 class="modal-title"> Liste des tâches </h4>
-              </div>
-
-              <div class="modal-body" style="font-size:16px">
-                    
-              <div class="form-group">
-
-              <div class="input-group col-xs-7">
-                {% for intervention in repairer.interventions  %}
-                 Intervention Id: {{intervention.id}} <br/>
-                 Statut: {% if intervention.isClosed == true %} Effectuée {% else %} En cours {% endif %} <br/>
-                 Date d'attribution : {{ intervention.dateBegin }} 
-                 Date de réalisation : {% if intervention.dateEnd !=null %} {{ intervention.dateEnd }} {% endif %}
-                <hr/>
-                {% endfor %}
-                
-              </div>
-              </div>
-
-              </div>
-
-              <div class="modal-footer" >
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-              </div>
-
-              </div>
-              </div>
-              </div>
-              <!-- FIN MODAL -->
+         <a href="{{ path('ho_repairer_interventions',{'id':repairer.id}) }}" class="btn btn-default btn-primary" > Détails </a> 
              
         {% endif %}
 

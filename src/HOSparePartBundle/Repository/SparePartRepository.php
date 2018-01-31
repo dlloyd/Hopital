@@ -10,4 +10,13 @@ namespace HOSparePartBundle\Repository;
  */
 class SparePartRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findAllNotUsed(){
+		$qb = $this->createQueryBuilder('s');
+		$qb->select('s');
+		$qb->where('s.isUsed = false');
+
+		return $qb->getQuery()->getResult();
+
+	}
 }

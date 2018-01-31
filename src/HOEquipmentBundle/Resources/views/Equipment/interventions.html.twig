@@ -8,8 +8,9 @@
 <br/><br/>
 {% for intervention in equipment.interventions  %}
 Statut : {% if intervention.isClosed == true %} Effectuée {% else %} En cours {% endif %} <br/>
-Problème : {% if intervention.comment != null %} {{ intervention.comment }} {% endif %} </br>
-Réparateur : {{ intervention.repairer.username }} <br/>
+Intervenant : {{ intervention.repairer.username }} <br/>
+Défaut : {{ intervention.alert.designation }} <br/>
+Diagnostic : {% if intervention.comment != null %} {{ intervention.comment }} {% endif %} </br>
 Date d'attribution : {{ intervention.dateBegin }} <br/>
 Date de réalisation : {% if intervention.dateEnd!= null %} {{intervention.dateEnd }} {% endif %} <br/>
 <hr/>

@@ -34,11 +34,6 @@ class Repairer
      */
     private $status;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\RepairerFunction")
-     */
-    private $function;
-
 
      /**
     * @ORM\OneToMany(targetEntity="HOInterventionBundle\Entity\Intervention", mappedBy="repairer", cascade={"persist"})
@@ -105,30 +100,6 @@ class Repairer
     public function getStatus()
     {
         return $this->status;
-    }
-
-    /**
-     * Set function
-     *
-     * @param \HOCompanyBundle\Entity\RepairerFunction $function
-     *
-     * @return Repairer
-     */
-    public function setFunction(\HOCompanyBundle\Entity\RepairerFunction $function = null)
-    {
-        $this->function = $function;
-
-        return $this;
-    }
-
-    /**
-     * Get function
-     *
-     * @return \HOCompanyBundle\Entity\RepairerFunction
-     */
-    public function getFunction()
-    {
-        return $this->function;
     }
 
    

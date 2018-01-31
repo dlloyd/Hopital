@@ -39,6 +39,11 @@ class Service
     */
     private $equipments;
 
+    /**
+    * @ORM\OneToMany(targetEntity="HOInterventionBundle\Entity\AlertService",mappedBy="service")
+    */
+    private $alerts;
+
 
 
     /**
@@ -150,5 +155,39 @@ class Service
     public function getEquipments()
     {
         return $this->equipments;
+    }
+
+    /**
+     * Add alert
+     *
+     * @param \HOInterventionBundle\Entity\AlertService $alert
+     *
+     * @return Service
+     */
+    public function addAlert(\HOInterventionBundle\Entity\AlertService $alert)
+    {
+        $this->alerts[] = $alert;
+
+        return $this;
+    }
+
+    /**
+     * Remove alert
+     *
+     * @param \HOInterventionBundle\Entity\AlertService $alert
+     */
+    public function removeAlert(\HOInterventionBundle\Entity\AlertService $alert)
+    {
+        $this->alerts->removeElement($alert);
+    }
+
+    /**
+     * Get alerts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAlerts()
+    {
+        return $this->alerts;
     }
 }

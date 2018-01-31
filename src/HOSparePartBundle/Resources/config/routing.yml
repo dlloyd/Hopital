@@ -31,3 +31,11 @@ ho_delete_spare_part:
 ho_delete_spare_part_type:
     path:     /del/spar/type/{id}
     defaults: { _controller: HOSparePartBundle:Default:deleteType }
+
+ho_spare_part_out:
+    path:     /out/spar/{id}
+    defaults: { _controller: HOSparePartBundle:Default:setOutSparePart }
+
+ho_create_brand_spare_part:
+    path:     /brand/a/spa/equibrand/
+    defaults: { _controller: HOSparePartBundle:Default:createBrand }

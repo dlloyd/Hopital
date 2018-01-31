@@ -48,6 +48,13 @@ class AlertServiceType extends AbstractType
                             return $equipment->getName()." / ".$equipment->getCode();
                         },
                     'choices'  => $equipments,
+                    'group_by' => function($equipment){
+                        return $equipment->getServiceRoom()->getService()->getName();
+                    },
+                    'query_builder' => function (\HOEquipmentBundle\Repository\EquipmentRepository $er) {
+                        return $er->createQueryBuilder('e')
+                            ->where('e.serviceRoom IS NOT NULL');
+                    },
                     'required' => false, 
                     'expanded' => false,
                     'multiple' => false ,))

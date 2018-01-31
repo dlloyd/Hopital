@@ -28,13 +28,21 @@ tr:nth-child(even) {
 <h1 align="center"> {{ title }}  </h1>
 
 <br/><br/>
+{%  if criterias is defined and criterias is not null %}
+Critères:<br/>
+{% for key,value in criterias %}
+    {{ key }} : {{ value }} <br/>
+ 
+{% endfor %}
+<br/><br/>
+{% endif %}
 
 <table>
 
 <tr>
- <th>Equipement</th>
+ <th>Marque</th>
  <th> Code </th>
- <th> Catégorie </th>
+ <th> Domaine </th>
  <th> Date de fabrication </th>
  <th> Date d'utilisation </th>
  <th> Localisation </th>
@@ -42,12 +50,15 @@ tr:nth-child(even) {
 </tr>
 {% for equipment in equipments  %}
 <tr>
- <td width="20%"> {{ equipment.name }} </td>
+ <td width="20%"> {{ equipment.brand.name }} </td>
  <td width="10% "> {{ equipment.code }} </td>
  <td width="20%"> {{ equipment.category.name }} </td>
  <td width="15%"> {{ equipment.manufactureDate }} </td>
- <td width="15%">  {% if equipment.useDate != null %} {{ equipment.useDate }} {% endif %} </td>
- <td width="20%">  </td>
+ <td width="15%">  {% if equipment.useDate != null %} {{ equipment.useDate|date('d/m/Y') }} {% endif %} </td>
+ <td width="20%">
+  {% if equipment.serviceRoom!= null %}
+    {{equipment.service.name}}-{{equipment.serviceRoom.name}}
+  {% endif %}  </td>
 
 </tr>
 {% endfor %}

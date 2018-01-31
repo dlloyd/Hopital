@@ -15,9 +15,6 @@ ho_delete_stock:
     path:     /del/stock/{id}
     defaults: { _controller: HOStockBundle:Default:delete }
 
-ho_stock_add_equipment:
-    path:    /stock/add/eq/{stockId}
-    defaults: { _controller: HOStockBundle:Default:addEquipment }
 
 ho_stock_add_spare_part:
     path:    /stock/add/spar/{stockId}

@@ -20,6 +20,15 @@ class EquipmentRepository extends \Doctrine\ORM\EntityRepository
 
 	}
 
+	public function findEquipmentsCount(){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('COUNT(e)');
+		$qb->where('e.toolBox IS NULL');
+
+		return $qb->getQuery()->getSingleScalarResult();
+
+	}
+
 	public function findMaterialInterventions(){
 		$qb = $this->createQueryBuilder('e');
 		$qb->select('e');

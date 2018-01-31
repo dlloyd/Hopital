@@ -6,29 +6,40 @@
 <div class="container">
   <h2> Liste des pièces détachées </h2>
 
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-diamond w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_create_spare_part') }}">  Ajouter une pièce détachée  </a> </h4>
+      </div>
+  </div>
+</div>
+
   <br/><br/>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
         <th> Type </th>
-        <th> Quantité </th>
-        <th> Stock </th>
-        <th> Mettre à jour </th>
-        <th> Supprimer </th>
+        <th> Numéro de série </th>
+        <th> Marque </th>
+        <th> Date de fabrication </th>
+        <th> Sortir pièce </th>
       </tr>
     </thead>
     <tbody id="myTable">
     {% for spar in spareParts %}
       <tr>
-        <td> {{ spar.id }} </td>
         <td> {{ spar.type.name }} </td>
-        <td></td>
-        <td> {{ spar.stock.id }}  </td>
-        <td> <a href="{{ path('ho_update_spare_part',{'id': spar.id }) }}"> lien </a></td>
-        <td> <a href="{{ path('ho_delete_spare_part',{'id': spar.id }) }}"> lien </a> </td>
+        <td> {{ spar.serialNumber }}  </td>
+        <td> {{ spar.brand.name }}  </td>
+        <td> {{ spar.manufactureDate|date('d/m/Y') }} </td>
+        <td> <a href="{{ path('ho_spare_part_out',{'id': spar.id }) }}" class="btn btn-default btn-primary"> Lien </a> </td>
       </tr>
     {% endfor %}
       

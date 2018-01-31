@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h2> Nouvel équipement </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_equipment') }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.category,"Domaine *") }}
+    {{ form_widget(form.category,{'attr':{'class':'field-divided'}}) }}
+    &nbsp &nbsp <a href="#" data-toggle="modal" data-target="#myModalCateg" > <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i> </a>
+  </li>
+	<li>
+	{{ form_label(form.serialNumber,"Numéro de série *") }}
+    {{ form_widget(form.serialNumber,{'attr':{'class':'field-long', 'placeholder':'Numéro de série'}}) }}
+    </li>
+    <li>
+	{{ form_label(form.brand,"Marque *") }}
+    {{ form_widget(form.brand,{'attr':{'class':'field-divided'}}) }}
+    &nbsp &nbsp <a href="#" data-toggle="modal" data-target="#myModalBrand" > <i class="fa fa-plus-square fa-2x" aria-hidden="true"></i> </a>
+    </li>
+    <li>
+	{{ form_label(form.model,"Modèle") }}
+    {{ form_widget(form.model,{'attr':{'class':'field-long', 'placeholder':'Modèle'}}) }}
+    </li>
+    
+    <li>
+	{{ form_label(form.manufactureDate,"Date de fabrication *") }}
+    {{ form_widget(form.manufactureDate) }}
+    </li>
+    <li>
+	{{ form_label(form.useDate,"Date d'utilisation") }}
+    {{ form_widget(form.useDate) }}
+    </li>
+                
+    {{ form_rest(form) }}
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+{{ form_end(form) }}
+
+
+<!--  MODAL NEW BRAND    -->
+   <div class="modal fade" id="myModalBrand" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+   aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    <h4 class="modal-title"> Création nouvelle marque </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+  {% render controller('HOEquipmentBundle:Equipment:createBrand') %}
+  </div>
+
+  </div>
+
+  <div class="modal-footer" >
+   <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+<!-- FIN MODAL -->
+
+
+<!--  MODAL NEW CATEGORY    -->
+   <div class="modal fade" id="myModalCateg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+   aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    <h4 class="modal-title"> Création nouveau domaine </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+  {% render controller('HOEquipmentBundle:EquipmentCategory:create') %}
+  </div>
+
+  </div>
+
+  <div class="modal-footer" >
+   <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+<!-- FIN MODAL -->
+
+
+</div>
+
+
+{% endblock %}
+

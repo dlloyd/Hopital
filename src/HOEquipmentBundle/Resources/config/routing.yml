@@ -65,6 +65,10 @@ ho_equipment_print_equipments:
     path:     /equi/print/eqs
     defaults: { _controller: HOEquipmentBundle:Equipment:printingEquipments }
 
+ho_equipment_print_by_criteria:
+    path:     /equi/printcrit/eqs
+    defaults: { _controller: HOEquipmentBundle:Equipment:printingByCriteria }
+
 ho_equipment_print_material:
     path:     /equi/print/mats
     defaults: { _controller: HOEquipmentBundle:Equipment:printingMaterial }
@@ -72,6 +76,11 @@ ho_equipment_print_material:
 ho_equipment_print_eq_to_control:
     path:     /equi/print/panneeqs
     defaults: { _controller: HOEquipmentBundle:Equipment:printingEquipmentsToControl }
+
+
+ho_create_brand_equipment:
+    path:     /brand/a/equibrand/
+    defaults: { _controller: HOEquipmentBundle:Equipment:createBrand }
 
 
 

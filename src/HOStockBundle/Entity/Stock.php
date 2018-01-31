@@ -21,24 +21,13 @@ class Stock
      */
     private $id;
 
-    /**
-    * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\Equipment",mappedBy="stock", cascade={"persist"})
-    */
-    private $equipments;
-
 
     /**
     * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\Equipment",mappedBy="stock", cascade={"persist"})
     */
     private $spareParts;
 
-    /**
-     * @var string
-     *
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Zone")
-     */
-    private $zone;
-
+    
 
     /**
      * Get id

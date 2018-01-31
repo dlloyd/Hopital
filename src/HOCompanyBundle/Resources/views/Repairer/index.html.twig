@@ -14,7 +14,7 @@
           <h3></h3>
         </div>
         <div class="w3-clear"></div>
-        <h4> <a href="{{ path('ho_create_repairer') }}"> Ajouter un réparateur </a> </h4>
+        <h4> <a href="{{ path('ho_create_repairer') }}"> Ajouter un intervenant </a> </h4>
       </div>
   </div>
 </div>
@@ -28,10 +28,9 @@
       	<th> Id  </th>
         <th> Nom Prénom </th>
         <th> Statut </th>
-        <th> Fonction </th>
         <th> Nombre tâches en cours </th>
         <th> Toutes les tâches </th>
-        <th> Mettre à jour </th>
+        <th> Modifier </th>
         
       </tr>
     </thead>
@@ -41,7 +40,6 @@
         <td> {{ rep.id }} </td>
         <td> {{ rep.username }} </td>
         <td> {{ rep.status.status }}  </td>
-        <td> {{ rep.function.name }} </td>
         <td> {{ nbrTasks[rep.id] }} </td>
         <td>
         {% if rep.interventions is not empty %}

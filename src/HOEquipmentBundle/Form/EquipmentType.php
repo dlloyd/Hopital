@@ -18,19 +18,20 @@ class EquipmentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('code',TextType::class)
-        ->add('name',TextType::class)
-        ->add('manufactureDate',DateType::class,array('required' => false,'widget'=>'single_text'))
-        ->add('useDate',DateType::class,array('required' => false,'widget'=>'single_text',))
-        ->add('serviceRoom',EntityType::class,array(
-                    'required' => false,
-                    'class'    => 'HOCompanyBundle:Service',
-                    'choices'  => $service->getRooms(),
+        ->add('serialNumber',TextType::class)
+        ->add('brand',EntityType::class,array(
+                    'class'    => 'HOEquipmentBundle:EquipmentBrand',
                     'property' => 'name',
                     'multiple' => false ,))
+        ->add('model',TextType::class)
+        ->add('manufactureDate',DateType::class,array('required' => false,'widget'=>'single_text'))
+        ->add('useDate',DateType::class,array('required' => false,'widget'=>'single_text',))
         ->add('category',EntityType::class,array(
                     'class'    => 'HOEquipmentBundle:EquipmentCategory',
                     'property' => 'name',
+                    'group_by' => function($categ){
+                        return $categ->getFamily()->getName();
+                    },
                     'multiple' => false ,));
     }
     

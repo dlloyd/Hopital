@@ -4,25 +4,23 @@
 {% block body %}
 
 <div class="container">
-  <h2>Catégories </h2>
 
-  <a href="{{ path('ho_create_category') }}" class="btn btn-default btn-sm" >
-    <span class="glyphicon glyphicon-th-large"></span> Ajouter</a><br/><br/>
-  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+ {% render controller('HOEquipmentBundle:EquipmentCategory:create') %}
+  <h2> Liste des domaines </h2>
+
+ <br/><br/>
            
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
         <th> Famille </th>
-        <th> Name </th>
-        <th> Mettre à jour </th>
+        <th> Domaine </th>
+        <th> Modifier </th>
       </tr>
     </thead>
     <tbody id="myTable">
     {% for categ in categories %}
       <tr>
-        <td> {{ categ.id }} </td>
         <td>  {{ categ.family.name }}  </td>
         <td> {{ categ.name }} </td>
         <td> <a href="{{ path('ho_update_category',{'id': categ.id }) }}"> lien </a></td>

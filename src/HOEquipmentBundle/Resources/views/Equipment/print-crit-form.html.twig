@@ -1,0 +1,33 @@
+<i class="fa fa-print"></i>Impression spécifique:<br/>
+{{ form_start(form, {'method': 'post', 'action': path('ho_equipment_print_by_criteria') }) }}
+<ul class="form-style-1">
+  <li>
+	{{ form_label(form.brand,"Marque") }}
+    {{ form_widget(form.brand,{'attr':{'class':'field-divided'}}) }}
+    
+  </li>
+
+    <li>
+	{{ form_label(form.category,"Domaine ") }}
+    {{ form_widget(form.category,{'attr':{'class':'field-divided'}}) }}
+  </li>
+
+    <li>
+	{{ form_label(form.period,"Période ?") }}
+    {{ form_widget(form.period) }}
+  </li>
+
+    <li>
+	{{ form_label(form.dateBegin,"Date de début") }}
+    {{ form_widget(form.dateBegin,{'attr':{'class':'field-divided'}}) }}
+  </li>
+
+    <li>
+	{{ form_label(form.dateEnd,"Date de fin") }}
+    {{ form_widget(form.dateEnd,{'attr':{'class':'field-divided'}}) }}
+  </li>
+                
+{{ form_rest(form) }}
+<li><button class="btn btn-primary" type="submit" >Imprimer</button></li>
+</ul>
+{{ form_end(form) }}

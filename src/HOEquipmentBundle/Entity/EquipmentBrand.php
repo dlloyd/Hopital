@@ -1,16 +1,16 @@
 <?php
 
-namespace HOCompanyBundle\Entity;
+namespace HOEquipmentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Zone
+ * EquipmentBrand
  *
- * @ORM\Table(name="zone")
- * @ORM\Entity(repositoryClass="HOCompanyBundle\Repository\ZoneRepository")
+ * @ORM\Table(name="equipment_brand")
+ * @ORM\Entity(repositoryClass="HOEquipmentBundle\Repository\EquipmentBrandRepository")
  */
-class Zone
+class EquipmentBrand
 {
     /**
      * @var int
@@ -24,12 +24,10 @@ class Zone
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string")
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
-
-    
 
     /**
      * Get id
@@ -40,20 +38,13 @@ class Zone
     {
         return $this->id;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->equipments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Set name
      *
      * @param string $name
      *
-     * @return Zone
+     * @return EquipmentBrand
      */
     public function setName($name)
     {
@@ -71,7 +62,5 @@ class Zone
     {
         return $this->name;
     }
-
-   
 }
 
