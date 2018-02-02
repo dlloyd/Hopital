@@ -4,7 +4,7 @@
 {% block body %}
 
 <div class="container">
-<h2>  Alerte </h2>
+<h3>  Alerte </h3>
 Service : {{ alert.service.name  }} <br/>
 Description:{{ alert.designation }} <br/>
 Date de demande:{{ alert.date}} <br/>
@@ -25,9 +25,7 @@ Catégorie de l'alerte:{{ alert.alertCategory.name}}
 <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id </th>
         <th> Nom  </th>
-        <th> Fonction </th>
         <th> Statut </th>
         <th> Nombre tâches en cours </th>
         <th> Fiche </th>
@@ -37,9 +35,7 @@ Catégorie de l'alerte:{{ alert.alertCategory.name}}
     <tbody id="myTable">
     {% for repairer in repairers %}
       <tr>
-        <td> {{ repairer.id }} </td>
         <td> {{ repairer.username }} </td>
-        <td> {{ repairer.function.name }} </td>
         <td> {{ repairer.status.status }} </td>
         <td> {{ nbrTasks[repairer.id] }}  </td>
         <td>

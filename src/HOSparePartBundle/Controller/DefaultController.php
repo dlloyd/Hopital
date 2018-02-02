@@ -20,6 +20,15 @@ class DefaultController extends Controller
         return $this->render('HOSparePartBundle:Spare:index.html.twig',array('spareParts'=>$spareParts,));
     }
 
+    public function spareByTypeAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $type = $em->getRepository('HOSparePartBundle:SparePartType')->find($id);
+
+        $spareParts = $em->getRepository('HOSparePartBundle:SparePart')->findAllNotUsedByType($id);
+
+        return $this->render('HOSparePartBundle:Spare:spares-by-type.html.twig',array('spareParts'=>$spareParts,'type'=>$type,));
+    }
+
 	public function createAction(Request $request){
 		$em = $this->getDoctrine()->getManager();
 		$sparePart = new \HOSparePartBundle\Entity\SparePart();
@@ -30,7 +39,12 @@ class DefaultController extends Controller
             $em->persist($sparePart);
             $em->flush();
 
-            return $this->redirectToRoute('ho_create_spare_part');
+            $message = " Pièce détachée ajoutée avec succès ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
+
+            return $this->redirectToRoute('ho_spare_part_type_homepage');
         }
 
         return $this->render('HOSparePartBundle:Spare:create.html.twig', array('form' => $form->createView(),));
@@ -69,8 +83,15 @@ class DefaultController extends Controller
 
 	public function indexTypeAction(){
         $em = $this->getDoctrine()->getManager();
+        $nbrStock = array();
         $types = $em->getRepository('HOSparePartBundle:SparePartType')->findAll();
-        return $this->render('HOSparePartBundle:Type:index.html.twig',array('types'=>$types,));
+
+        foreach ($types as $type) {
+            $id = $type->getId();
+            $nbr = $em->getRepository('HOSparePartBundle:SparePartType')->findCountAllNotUsed($id);
+            $nbrStock[$id] = $nbr;
+        }
+        return $this->render('HOSparePartBundle:Type:index.html.twig',array('types'=>$types,'nbrStock'=>$nbrStock));
     }
 
     public function createBrandAction(Request $request){

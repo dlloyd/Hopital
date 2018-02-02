@@ -10,4 +10,13 @@ namespace HOInterventionBundle\Repository;
  */
 class AlertServiceRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findAllFromService($serviceId){
+		$qb = $this->createQueryBuilder('a');
+		$qb->select('a');
+		$qb->innerJoin('a.service', 's', 'WITH', 's.id = :service');
+		$qb->setParameter('service',$serviceId);
+
+		return $qb->getQuery()->getResult();
+	}
 }

@@ -4,21 +4,45 @@
 
 <div class="container">
 
-<h2>  Ajouter une salle au service {{ service.name }} </h2>
+<h3>  Ajouter une salle au service {{ service.name }} </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_service_add_room',{'serviceId':service.id}  ) }) }}
+    <ul class="form-style-1">
+	<li>
+	{{ form_label(form.name,"Nom de la salle *") }}
+    {{ form_widget(form.name,{'attr':{'class':'field-long'}}) }}
+    
+  </li>
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+    {{ form_rest(form) }}
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
 {{ form_end(form) }}
 
 
 <br/><br/>
-Liste des salles:<br/>
+ <h4>Liste des salles:</h4>
 
-{% for room in service.rooms  %}
-	{{room.name}} <br/>
-{% endfor %}
+ <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Salle </th>
+        
+
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for room in service.rooms  %}
+		<tr>
+			<td>{{room.name}}</td> 
+		</tr>
+	{% endfor %}
+      
+    </tbody>
+  </table>
+
+
 </div>
 
 

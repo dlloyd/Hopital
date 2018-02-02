@@ -19,4 +19,16 @@ class SparePartRepository extends \Doctrine\ORM\EntityRepository
 		return $qb->getQuery()->getResult();
 
 	}
+
+
+	public function findAllNotUsedByType($id){
+		$qb = $this->createQueryBuilder('s');
+		$qb->select('s');
+		$qb->innerJoin('s.type', 't', 'WITH', 't.id = :id');
+		$qb->where('s.isUsed = false');
+		$qb->setParameter('id',$id);
+
+		return $qb->getQuery()->getResult();
+
+	}
 }

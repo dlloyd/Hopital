@@ -4,7 +4,7 @@
 {% block body %}
 
 <div class="container">
-  <h2> Réparateurs </h2>
+  <h3> Réparateurs </h3>
 
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
@@ -28,6 +28,7 @@
       	<th> Id  </th>
         <th> Nom Prénom </th>
         <th> Statut </th>
+        <th> Disponibilité </th>
         <th> Nombre tâches en cours </th>
         <th> Toutes les tâches </th>
         <th> Modifier </th>
@@ -40,13 +41,14 @@
         <td> {{ rep.id }} </td>
         <td> {{ rep.username }} </td>
         <td> {{ rep.status.status }}  </td>
+        <td>  {% if rep.isActive %}  Disponible {% else %}  <span style="color:red" > <strong> Absent <strong></span> {% endif %}  </td>
         <td> {{ nbrTasks[rep.id] }} </td>
         <td>
         {% if rep.interventions is not empty %}
          <a href="{{ path('ho_repairer_interventions',{'id':rep.id}) }}"  class="btn btn-default btn-primary" > Voir </a>  
         {% endif %}
         </td>
-        <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}"> lien </a> </td>
+        <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}" class="btn btn-primary"> lien </a> </td>
       
       </tr>
     {% endfor %}

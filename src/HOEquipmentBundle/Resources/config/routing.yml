@@ -82,6 +82,10 @@ ho_create_brand_equipment:
     path:     /brand/a/equibrand/
     defaults: { _controller: HOEquipmentBundle:Equipment:createBrand }
 
+ho_transfert_equipment:
+    path:     /trans/equipment/{id}
+    defaults: { _controller: HOEquipmentBundle:Equipment:transfertEquipment }
+
 
 
 

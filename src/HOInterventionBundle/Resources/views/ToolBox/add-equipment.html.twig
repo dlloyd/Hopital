@@ -3,12 +3,44 @@
 {% block body %}
 
 <div class="container">
-<h2>  Ajouter équipement dans la caisse à outils: </h2>
+<h3>  Ajouter équipement dans la caisse à outils: </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_intervention_toolbox_add_equipment') }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.category,"Domaine *") }}
+    {{ form_widget(form.category,{'attr':{'class':'field-divided'}}) }}
+    
+  	</li>
+	<li>
+	{{ form_label(form.serialNumber,"Numéro de série *") }}
+    {{ form_widget(form.serialNumber,{'attr':{'class':'field-long', 'placeholder':'Numéro de série'}}) }}
+    </li>
+    <li>
+	{{ form_label(form.brand,"Marque *") }}
+    {{ form_widget(form.brand,{'attr':{'class':'field-divided'}}) }}
+    
+    </li>
+    <li>
+	{{ form_label(form.model,"Modèle") }}
+    {{ form_widget(form.model,{'attr':{'class':'field-long', 'placeholder':'Modèle'}}) }}
+    </li>
+    
+    <li>
+	{{ form_label(form.manufactureDate,"Date de fabrication *") }}
+    {{ form_widget(form.manufactureDate) }}
+    </li>
+    <li>
+	{{ form_label(form.useDate,"Date d'utilisation") }}
+    {{ form_widget(form.useDate) }}
+    </li>
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+    {{ form_rest(form) }}
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+                
+            
 {{ form_end(form) }}
 
 

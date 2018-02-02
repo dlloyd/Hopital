@@ -18,7 +18,15 @@ class EquipmentController extends Controller
 
     public function indexAction(){
         $em = $this->getDoctrine()->getManager();
-        $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findAll();
+        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || 
+            $this->get('security.authorization_checker')->isGranted('ROLE_MODERATOR')){
+            $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findAll();
+        }
+        else{
+           $service = $em->getRepository('HOUserBundle:User')->find($this->getUser()->getId())->getService();
+           $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findAllFromService($service->getId()); 
+        }
+        
         return $this->render('HOEquipmentBundle:Equipment:index.html.twig',array('equipments'=>$equipments,));
     }
 
@@ -36,6 +44,11 @@ class EquipmentController extends Controller
             $equipment->setIsBroken(false);
             $em->persist($equipment);
             $em->flush();
+
+            $message = " Equipement ajoutée avec succès ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
 
             return $this->redirectToRoute('ho_create_equipment');
         }
@@ -219,6 +232,42 @@ class EquipmentController extends Controller
             $crit['date'] = $data['dateBegin']->format('d/m/Y')." - ".$data['dateEnd']->format('d/m/Y');
         }
         return $crit;
+    }
+
+
+    public function transfertEquipmentAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $equipment = $em->getRepository('HOEquipmentBundle:Equipment')->find($id);
+        $form = $this->createFormBuilder($equipment)
+              ->add('serviceRoom',\Symfony\Bridge\Doctrine\Form\Type\EntityType::class,array(
+                    'required' => false,
+                    'class'    => 'HOCompanyBundle:serviceRoom',
+                    'property' => 'name',
+                    'group_by' => function($serviceRoom){
+                        return $serviceRoom->getService()->getName();
+                    },))
+                
+                ->getForm();
+
+        if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
+            $service = $equipment->getServiceRoom()->getService();
+            $equipment->setService($service);
+            $em->merge($equipment);
+            $em->flush();
+
+            $message = " Transfert de l'équipement ".$equipment->getCode()." réalisé avec succès ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
+
+            return $this->redirectToRoute('ho_equipment_homepage');
+   
+        }
+
+        return $this->render('HOEquipmentBundle:Equipment:transfert.html.twig', array('form' => $form->createView(),
+                                                                                        'equipment'=>$equipment,));
+
+
     }
 
 

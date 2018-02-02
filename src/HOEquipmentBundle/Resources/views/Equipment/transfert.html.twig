@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h3> Transfert de l'équipement {{ equipment.code }}</h3>
+{% if equipment.service != null %}
+<h4>Service actuel: {{ equipment.service.name }} - {{ equipment.serviceRoom.name }} </h4>
+{% endif %}
+<br/><br/>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_transfert_equipment',{'id':equipment.id}) }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.serviceRoom,"Salle de service *") }}
+  {{ form_widget(form.serviceRoom,{'attr':{'class':'field-long'}}) }}
+  </li>
+	
+                
+  {{ form_rest(form) }}
+  <br/><br/>
+  <button class="btn btn-primary" type="submit" >Enregistrer</button>
+  </ul>
+{{ form_end(form) }}
+
+
+
+</div>
+
+
+{% endblock %}
+

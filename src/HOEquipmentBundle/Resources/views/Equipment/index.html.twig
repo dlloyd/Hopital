@@ -4,8 +4,8 @@
 {% block body %}
 
 <div class="container">
-  <h2> Equipement </h2>
-
+  <h3> Equipement </h3>
+ {% if is_granted('ROLE_MODERATOR') %}
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
       <div class="w3-container w3-red w3-padding-16">
@@ -29,10 +29,13 @@
     </div>
 
 </div>
+{% endif %}
 
   
   <br/><br/>
-  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+  <input id="myInputCode"  placeholder="Recherche par code.." >
+  <input id="myInputBrand"  placeholder="Recherche par marque.." > 
+  <input id="myInputCateg"  placeholder="Recherche par domaine.." ><br/><br/><br/><br/>
            
   <table class="table table-striped">
     <thead>
@@ -51,10 +54,10 @@
     <tbody id="myTable">
     {% for equipment in equipments %}
       {% if equipment.isBroken %}<tr class="danger"> {% else %} <tr> {% endif %} 
-        <td> {{ equipment.code }} </td>
-        <td> {{ equipment.brand.name }} </td>
+        <td class="code"> {{ equipment.code }} </td>
+        <td class="brand"> {{ equipment.brand.name }} </td>
         <td> {{ equipment.model }} </td>
-        <td> {{ equipment.category.name }} </td>
+        <td class="categ"> {{ equipment.category.name }} </td>
         <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
         <td>
          {% if equipment.serviceRoom != null  %} {{equipment.serviceRoom.service.name}} - {{ equipment.serviceRoom.name }} {% endif %} 
@@ -67,7 +70,7 @@
         {% endif %} 
         </td>
 
-        <td> <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > lien </a> </td>
+        <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > lien </a> </td>
         
       </tr>
     {% endfor %}
@@ -78,13 +81,29 @@
  <br/><br/><br/><br/><br/>
 <script>
 $(document).ready(function(){
-	$("#myInput").on("keyup", function(){
+	$("#myInputCode").on("keyup", function(){
 	var value = $(this).val().toLowerCase();
 
 	$("#myTable tr").each(function(){
-	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	 $(this).toggle($(this).find('.code').text().toLowerCase().indexOf(value) > -1)
 	});
 	});
+
+  $("#myInputBrand").on("keyup", function(){
+  var value = $(this).val().toLowerCase();
+
+  $("#myTable tr").each(function(){
+   $(this).toggle($(this).find('.brand').text().toLowerCase().indexOf(value) > -1)
+  });
+  });
+
+  $("#myInputCateg").on("keyup", function(){
+  var value = $(this).val().toLowerCase();
+
+  $("#myTable tr").each(function(){
+   $(this).toggle($(this).find('.categ').text().toLowerCase().indexOf(value) > -1)
+  });
+  });
 });
 
 </script>

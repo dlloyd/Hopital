@@ -33,6 +33,7 @@ class InterventionController extends Controller
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
         	$inter->setIsClosed(true);
+            $inter->setDateBegin(new \Datetime());
             $em->persist($inter);
             $em->flush();
 
@@ -48,7 +49,7 @@ class InterventionController extends Controller
 	public function createAlertInterventionAction($alertId,Request $request){
 		$em = $this->getDoctrine()->getManager();
 		$alert = $em->getRepository('HOInterventionBundle:AlertService')->find($alertId);
-		$repairers = $em->getRepository('HOCompanyBundle:Repairer')->findAll();
+		$repairers = $em->getRepository('HOCompanyBundle:Repairer')->findAllActive();
 
         foreach ($repairers as $rep) {
             $nbrTasks[$rep->getId()] = $em->getRepository('HOCompanyBundle:Repairer')->findNbrTasks($rep->getId());
@@ -72,7 +73,7 @@ class InterventionController extends Controller
         ->add('repairer',EntityType::class,array(
                     'class'    => 'HOCompanyBundle:Repairer',
                     'choice_label' => function ($rep) {
-                            return $rep->getUsername()." / ".$rep->getFunction()->getName()."-".$rep->getStatus()->getStatus();
+                            return $rep->getUsername()." / ".$rep->getStatus()->getStatus();
                         }, 
                     'required' => false, 
                     'expanded' => false,

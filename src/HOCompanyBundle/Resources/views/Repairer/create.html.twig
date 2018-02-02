@@ -3,12 +3,33 @@
 {% block body %}
 
 <div class="container">
-<h2>  Créer un intervenant </h2>
+<h3>  Créer un intervenant </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_repairer') }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.username,"Nom intervenant *") }}
+    {{ form_widget(form.username,{'attr':{'class':'field-long'}}) }}
+    
+  	</li>
+
+  	<li>
+	{{ form_label(form.status,"Statut *") }}
+    {{ form_widget(form.status,{'attr':{'class':'field-long'}}) }}
+    
+  	</li>
+
+  	<li>
+	{{ form_rest(form) }}
+    
+  	</li>
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+    
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+                
+    
 {{ form_end(form) }}
 
 

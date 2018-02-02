@@ -7,6 +7,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+
 
 class RepairerType extends AbstractType
 {
@@ -19,7 +21,11 @@ class RepairerType extends AbstractType
         ->add('status',EntityType::class,array(
                     'class'    => 'HOCompanyBundle:RepairerStatus',
                     'property' => 'status',
-                    'multiple' => false ,));
+                    'multiple' => false ,))
+        ->add('isActive',CheckboxType::class, array(
+                        'label'    => 'Disponible?',
+                        'required' => false,
+                    ));
     }
     
     /**

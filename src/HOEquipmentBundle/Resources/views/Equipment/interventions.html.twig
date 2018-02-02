@@ -4,7 +4,7 @@
 
 <div class="container">
 
-<h2>  Interventions {{ equipment.name }}/{{ equipment.code }} </h2>
+<h3>  Interventions {{ equipment.name }}/{{ equipment.code }} </h3>
 <br/><br/>
 {% for intervention in equipment.interventions  %}
 Statut : {% if intervention.isClosed == true %} Effectuée {% else %} En cours {% endif %} <br/>

@@ -4,28 +4,40 @@
 {% block body %}
 
 <div class="container">
-  <h2> Types de pièces détachées </h2>
+  <h3> Liste des pièces détachées </h3>
 
-  <a href="{{ path('ho_create_spare_part_type') }}" class="btn btn-default btn-sm" >
-    <span class="glyphicon glyphicon-bell"></span> Ajouter</a><br/><br/>
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-diamond w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_create_spare_part') }}">  Ajouter une pièce détachée  </a> </h4>
+      </div>
+  </div>
+</div>
+
+  <br/><br/>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
-        <th> Nom </th>
-        <th> Mettre à jour </th>
-        <th> Supprimer </th>
+        <th> Domaine </th>
+        <th> Nombre de pièces  </th>
+        <th> Voir les pièces </th>
+        
       </tr>
     </thead>
     <tbody id="myTable">
     {% for type in types %}
       <tr>
-        <td> {{ type.id }} </td>
         <td> {{ type.name }} </td>
-        <td> <a href="{{ path('ho_update_stare_part_type',{'id': type.id }) }}"> lien </a></td>
-        <td> <a href="{{ path('ho_delete_state_part_type',{'id': type.id }) }}"> lien </a> </td>
+        <td> {{ nbrStock[type.id] }}  </td>  
+        <td> <a href="{{ path('ho_spare_parts_by_type',{'id':type.id}) }}" class="btn btn-primary"> lien </a></td>
+        
       </tr>
     {% endfor %}
       

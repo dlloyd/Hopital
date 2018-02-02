@@ -62,18 +62,34 @@ h4>a:hover {
   </div>
   
   <div class="w3-bar-block">
-    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-    
-    <a href="{{ path('ho_alert_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell"></i>  Alertes services</a>
+
+    {% if is_granted("ROLE_MODERATOR") %}
+      <a href="{{ path('ho_alert_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell"></i>  Alertes services</a>
     <a href="{{ path('ho_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sitemap fa-fw"></i>  Services </a>
     <a href="{{ path('ho_intervention_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Interventions </a>
     <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Equipements </a>
     <a href="{{ path('ho_repairer_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Intervenants </a>
     <a href="{{ path('ho_intervention_toolbox') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Matériel d'intervention </a>
-    <a href="{{ path('ho_spare_part_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Stocks </a>
-   
+    <a href="{{ path('ho_spare_part_type_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Stocks </a>
+    
+    
+    {% endif %}
+
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
+    
     <a href="{{ path('ho_moderator_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Modérateurs </a>
-    <br><br>
+    
+    {% endif %}
+
+    {% if not is_granted("ROLE_SUPER_ADMIN") and not is_granted("ROLE_MODERATOR") and is_granted("ROLE_USER") %}
+      <a href="{{ path('ho_alert_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell"></i> Mes Alertes</a>
+      <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Mes équipements </a>
+    
+    {% endif %}
+
+
+
+    <br/><br/>
   </div>
   
 </nav>
@@ -84,6 +100,14 @@ h4>a:hover {
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+{% endif %}
+
 {% block body %}
 
 

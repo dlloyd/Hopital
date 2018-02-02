@@ -20,12 +20,12 @@
 </div>
 
   <br/><br/>
+  <h4> Domaine : {{ type.name }} </h4>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
   <table class="table table-striped">
     <thead>
       <tr>
-        <th> Type </th>
         <th> Numéro de série </th>
         <th> Marque </th>
         <th> Date de fabrication </th>
@@ -35,7 +35,6 @@
     <tbody id="myTable">
     {% for spar in spareParts %}
       <tr>
-        <td> {{ spar.type.name }} </td>
         <td> {{ spar.serialNumber }}  </td>
         <td> {{ spar.brand.name }}  </td>
         <td> {{ spar.manufactureDate|date('d/m/Y') }} </td>

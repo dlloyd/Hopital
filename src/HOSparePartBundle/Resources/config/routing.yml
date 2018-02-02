@@ -2,6 +2,10 @@ ho_spare_part_homepage:
     path:     /spar
     defaults: { _controller: HOSparePartBundle:Default:index }
 
+ho_spare_parts_by_type:
+    path:     /type/{id}/spar
+    defaults: { _controller: HOSparePartBundle:Default:spareByType }
+
 
 ho_spare_part_type_homepage:
     path:     /spar/type

@@ -17,7 +17,6 @@ class InterventionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('dateBegin',DateType::class,array('data' => new \Datetime() ,))
         ->add('comment',TextareaType::class)
         ->add('equipment',EntityType::class,array(
                     'class'    => 'HOEquipmentBundle:Equipment',
@@ -33,7 +32,7 @@ class InterventionType extends AbstractType
         ->add('repairer',EntityType::class,array(
                     'class'    => 'HOCompanyBundle:Repairer',
                     'choice_label' => function ($rep) {
-                            return $rep->getUsername()." / ".$rep->getFunction()->getName()."-".$rep->getStatus()->getStatus();
+                            return $rep->getUsername()." / ".$rep->getStatus()->getStatus();
                         },  
                     'required' => false, 
                     'expanded' => false,

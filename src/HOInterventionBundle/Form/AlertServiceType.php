@@ -59,7 +59,7 @@ class AlertServiceType extends AbstractType
                     'expanded' => false,
                     'multiple' => false ,))
         
-        ->add('AlertCategory',EntityType::class,array(
+        ->add('alertCategory',EntityType::class,array(
                 'class'    => 'HOInterventionBundle:AlertCategory',
                 'property' => 'name',
                 'required' => true, 

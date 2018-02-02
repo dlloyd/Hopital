@@ -21,4 +21,13 @@ class RepairerRepository extends \Doctrine\ORM\EntityRepository
 		return $qb->getQuery()->getSingleScalarResult();
 
 	}
+
+	public function findAllActive(){
+		$qb = $this->createQueryBuilder('r');
+		$qb->select('r');
+		$qb->where('r.isActive = true');
+
+		return $qb->getQuery()->getResult();
+
+	}
 }

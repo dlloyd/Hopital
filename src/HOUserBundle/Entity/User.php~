@@ -29,28 +29,5 @@ class User extends BaseUser
     private $service;
 
 
-
-    /**
-     * Set service
-     *
-     * @param \HOCompanyBundle\Entity\Service $service
-     *
-     * @return User
-     */
-    public function setService(\HOCompanyBundle\Entity\Service $service = null)
-    {
-        $this->service = $service;
-
-        return $this;
-    }
-
-    /**
-     * Get service
-     *
-     * @return \HOCompanyBundle\Entity\Service
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
 }
+

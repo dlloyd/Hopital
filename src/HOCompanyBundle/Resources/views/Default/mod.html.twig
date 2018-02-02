@@ -4,17 +4,8 @@
 {% block body %}
 
 <div class="container">
-  <h2> Modérateurs  </h2>
+  <h3> Modérateurs  </h3>
 
-
-  {% if app.session.flashBag.has('success') %}
-        <div class="alert alert-success">
-            {% for msg in app.session.flashBag.get('success') %}
-                {{ msg }}
-            {% endfor %}
-        </div>
-    {% endif %}
-  <br/><br/>
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
       <div class="w3-container w3-red w3-padding-16">
@@ -34,26 +25,39 @@
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
-        <th> Nom  </th>
+      	<th> Nom  </th>
+        <th> Service - Rôle  </th>
+        <th> Etat </th>
         <th> Activer / Désactiver </th>
-        <th> Supprimer </th>
+
       </tr>
     </thead>
     <tbody id="myTable">
     {% for mod in moderators %}
     {% if not mod.role("ROLE_SUPER_ADMIN") %}
       <tr>
-        <td> {{ mod.id }} </td>
         <td> {{ mod.username }} </td>
         <td>
+          {{ mod.service.name }} -
+          {% if mod.role("ROLE_MODERATOR") %}
+            Gestionnaire d'intervention
+          {% else %}
+            Alerteur
+          {% endif %}
+        </td>
+        
         {% if mod.enabled == true %}
-         <a href="{{ path('ho_disable_moderator',{'id': mod.id }) }}"> Désactiver </a>
-        {% else %}
-          <a href="{{ path('ho_enable_moderator',{'id': mod.id }) }}"> Activer </a>
-        {% endif %}
+         <td>Activé</td>
+         <td>
+         <a href="{{ path('ho_disable_moderator',{'id': mod.id }) }}" class="btn btn-danger" > Désactiver </a>
          </td>
-        <td> <a href="{{ path('ho_delete_moderator',{'id': mod.id }) }}"> lien </a> </td>
+        {% else %}
+          <td> Désactivé </td>
+          <td>
+          <a href="{{ path('ho_enable_moderator',{'id': mod.id }) }}" class="btn btn-success" > Activer </a>
+          </td>
+        {% endif %}
+         
       </tr>
     {% endif %}
     {% endfor %}

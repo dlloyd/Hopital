@@ -3,12 +3,22 @@
 {% block body %}
 
 <div class="container">
-<h2>  Créer un service: </h2>
+<h3>  Créer un service: </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_service') }) }}
+	
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.name,"Nom du service *") }}
+    {{ form_widget(form.name,{'attr':{'class':'field-long'}}) }}
+    
+  </li>
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+    {{ form_rest(form) }}
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+                
 {{ form_end(form) }}
 
 

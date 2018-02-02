@@ -31,21 +31,7 @@ class InterventionEquipmentController extends Controller
 
 	public function addEquipmentAction(Request $request){
         $equipment = new \HOEquipmentBundle\Entity\Equipment();
-        $form = $this->createFormBuilder($equipment)
-        ->add('code',TextType::class)
-        ->add('name',TextType::class)
-        ->add('manufactureDate',DateType::class,array('required' => false,'widget'=>'single_text'))
-        ->add('useDate',DateType::class,array('required' => false,'widget'=>'single_text',))
-        ->add('category',EntityType::class,array(
-                    'class'    => 'HOEquipmentBundle:EquipmentCategory',
-                    'choice_label' => function ($categ) {
-                            return $categ->getName();
-                        },
-                    'group_by' => function($categ) {
-                                        return $categ->getFamily()->getName();
-                                    },
-                    'multiple' => false ,))
-        ->getForm();
+        $form = $this->createForm(new \HOEquipmentBundle\Form\EquipmentType(),$equipment);
         
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){

@@ -3,12 +3,32 @@
 {% block body %}
 
 <div class="container">
-<h2>  Créer alerte service {{ service.name }} </h2>
+<h3>  Créer alerte service {{ service.name }} </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_alert_from_service',{'serviceId':service.id}) }) }}
+<ul class="form-style-1">
+<li>
+ {{ form_label(form.serviceRoom,"Salle de service *") }}
+ {{ form_widget(form.serviceRoom,{'attr':{'class':'field-long' }}) }} 
+ </li>  
+<li>
+ {{ form_label(form.equipment,"Equipement/Code *") }}
+ {{ form_widget(form.equipment,{'attr':{'class':'field-long' }}) }} 
+ </li>  
+ <li>
+ {{ form_label(form.alertCategory,"Type d'alerte *") }}
+ {{ form_widget(form.alertCategory,{'attr':{'class':'field-long' }}) }} 
+ </li>  
+
+ <li>
+ {{ form_label(form.designation,"Explication du problème *") }}
+ {{ form_widget(form.designation,{'attr':{'class':'field-long' }}) }} 
+ </li>  
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_rest(form) }}
+<li><button class="btn btn-primary" type="submit" >Enregistrer</button></li>
+</ul>
+  
 {{ form_end(form) }}
 
 

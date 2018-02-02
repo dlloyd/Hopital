@@ -11,6 +11,15 @@ namespace HOEquipmentBundle\Repository;
 class EquipmentRepository extends \Doctrine\ORM\EntityRepository
 {
 
+	public function findAllFromService($serviceId){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('e');
+		$qb->innerJoin('e.service', 's', 'WITH', 's.id = :service');
+		$qb->setParameter('service',$serviceId);
+
+		return $qb->getQuery()->getResult();
+	}
+
 	public function findEquipments(){
 		$qb = $this->createQueryBuilder('e');
 		$qb->select('e');

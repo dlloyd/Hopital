@@ -3,12 +3,34 @@
 {% block body %}
 
 <div class="container">
-<h2>  Créer un modérateur </h2>
+<h3>  Créer un modérateur </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_moderator') }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.name,"Nom *") }}
+    {{ form_widget(form.name,{'attr':{'class':'field-long'}}) }}
+
+  	</li>
+	<li>
+	{{ form_label(form.email,"Email *") }}
+    {{ form_widget(form.email,{'attr':{'class':'field-long', 'placeholder':'Email'}}) }}
+    </li>
+    <li>
+	{{ form_label(form.role,"Rôle *") }}
+    {{ form_widget(form.role,{'attr':{'class':'field-long'}}) }}
+
+    </li>
+    <li>
+	{{ form_label(form.service,"Service *") }}
+    {{ form_widget(form.service,{'attr':{'class':'field-long'}}) }}
+    </li>
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+    {{ form_rest(form) }}
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+                
 {{ form_end(form) }}
 
 </div>

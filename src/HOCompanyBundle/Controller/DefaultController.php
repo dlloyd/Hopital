@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DefaultController extends Controller
 {
@@ -19,10 +21,20 @@ class DefaultController extends Controller
    public function addModeratorAction(Request $request){
       
     	$userData = array();
+        $roles = array( 1 =>'GESTIONNAIRE D\'INTERVENTION', 2 =>'ALERTEUR',);
   
     	$form = $this->createFormBuilder($userData)
     		->add('name',TextType::class)
     		->add('email',EmailType::class)
+            ->add('role',ChoiceType::class, array('choices' => $roles,))
+            ->add('service',EntityType::class,array(
+                    'class'    => 'HOCompanyBundle:Service',
+                    'choice_label' => function ($service) {
+                            return $service->getName();
+                        },
+                    'required' => true, 
+                    'expanded' => false,
+                    'multiple' => false ,))
     		->getForm();
 
     	$form->handleRequest($request);
@@ -36,7 +48,18 @@ class DefaultController extends Controller
             $user->setUsername($data['name']);
             $user->setEmail($data['email']);
             $user->setPlainPassword($pass);
-            $user->addRole('ROLE_MODERATOR');
+            if($data['service']){
+                $user->setService($data['service']);
+            }
+            
+
+            if($data['role']==1){
+                $user->addRole('ROLE_MODERATOR');
+            }
+            else{
+                $user->addRole('ROLE_USER');
+            }
+            
            
             $user->setEnabled(true);
 
@@ -60,7 +83,7 @@ class DefaultController extends Controller
         $mod = $em->getRepository('HOUserBundle:User')->find($id); 
 
         if($mod){
-            $mod->setEnabled(true);
+            $mod->setEnabled(false);
             $em->merge($mod);
             $em->flush();
         }

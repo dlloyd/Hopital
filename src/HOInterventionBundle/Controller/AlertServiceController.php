@@ -13,8 +13,18 @@ class AlertServiceController extends Controller
 {
     public function indexAction(){
         $em = $this->getDoctrine()->getManager();
-        $alerts = $em->getRepository('HOInterventionBundle:AlertService')->findAll();
-        return $this->render('HOInterventionBundle:Alert:index.html.twig',array('alerts'=>$alerts,));
+        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || 
+            $this->get('security.authorization_checker')->isGranted('ROLE_MODERATOR')){
+            $alerts = $em->getRepository('HOInterventionBundle:AlertService')->findAll();
+            return $this->render('HOInterventionBundle:Alert:index.html.twig',array('alerts'=>$alerts,));
+        }
+        else{
+           $service = $em->getRepository('HOUserBundle:User')->find($this->getUser()->getId())->getService();
+           $alerts = $em->getRepository('HOInterventionBundle:AlertService')->findAllFromService($service->getId());
+           return $this->render('HOInterventionBundle:Alert:index.html.twig',array('alerts'=>$alerts,'service'=>$service,)); 
+        }
+        
+        
 	}
 
 

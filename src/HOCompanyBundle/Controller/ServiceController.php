@@ -30,8 +30,12 @@ class ServiceController extends Controller
 
             $em->persist($service);
             $em->flush();
+            $message = " Service ajoutée avec succès ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
 
-            return $this->redirectToRoute('ho_create_service');
+            return $this->redirectToRoute('ho_service_homepage');
         }
 
         return $this->render('HOCompanyBundle:Service:create.html.twig', array('form' => $form->createView(),));
@@ -82,6 +86,10 @@ class ServiceController extends Controller
             $serviceRoom->setService($service);
             $em->persist($serviceRoom);
             $em->flush();
+            $message = "Salle ".$serviceRoom->getName()." ajoutée avec succès";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
 
             return $this->redirectToRoute('ho_service_add_room',array('serviceId'=> $serviceId,));
         }
