@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="container">
+<h3>  Créer abscence </h3>
+
+{{ form_start(form, {'method': 'post', 'action': path('ho_create_repairer_abscence') }) }}
+	<ul class="form-style-1">
+	<li>
+	    {{ form_label(form.repairer,"Nom intervenant *") }}
+      {{ form_widget(form.repairer,{'attr':{'class':'field-long'}}) }}
+    
+  	</li>
+
+  	<li>
+	    {{ form_label(form.dateBegin,"Date de début *") }}
+      {{ form_widget(form.dateBegin,{'attr':{'class':'field-divided'}}) }}
+    
+  	</li>
+
+    <li>
+      {{ form_label(form.dateEnd,"Date de fin *") }}
+      {{ form_widget(form.dateEnd,{'attr':{'class':'field-divided'}}) }}
+    
+    </li>
+
+    <li>
+      {{ form_label(form.motif,"Motif *") }}
+      {{ form_widget(form.motif,{'attr':{'class':'field-long'}}) }}
+    
+    </li>
+
+  	<li>
+	{{ form_rest(form) }}
+    
+  	</li>
+                
+    
+    <br/><br/>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </ul>
+                
+    
+{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+

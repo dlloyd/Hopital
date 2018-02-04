@@ -1,0 +1,11 @@
+{{ form_start(form, {'method': 'post', 'action': path('ho_repairers_compare_by_month') }) }}
+	<div style="display:none">
+	{{ form_widget(form.date.day) }}
+	</div>
+	{{ form_widget(form.date.month) }}
+    {{ form_widget(form.date.year) }}
+  
+	{{ form_rest(form) }}
+	<button class="btn btn-primary" type="submit" ><i class="fa fa-search"></i></button>
+
+{{ form_end(form) }}

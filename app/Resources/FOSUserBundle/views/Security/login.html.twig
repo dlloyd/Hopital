@@ -6,14 +6,22 @@
                  
   <div class="container">  
   
-  
-  <h2>Connexion au compte </h2>
+  <br/><br/>
+  <h3><i class="fa fa-user"></i> Connexion au compte </h3>
   <form action="{{ path('fos_user_security_check') }}" method="post">
+    {% trans_default_domain 'FOSUserBundle' %}
+
+    {% if error is not null %}
+        <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+         <strong> {{ error.message | trans }} </strong>
+       </div>
+        {% endif %}
 
   <div class="row">
     <div class="col-6">
     <input class="form-control width" type="text" id="email" name="_username" placeholder="Nom d'utilisateur ou email" required />
-  <br>
+  <br/>
   </div></div>
 
   <div class="row">
@@ -21,7 +29,7 @@
   <input class="form-control width" type="password" id="password" name="_password" placeholder="Mot de passe" required />
   <br/>
   </div></div>
-   <button class="btn btn-default" type="submit" id="_submit" name="_submit" >Se connecter </button>
+   <button class="btn btn-primary" type="submit" id="_submit" name="_submit" >Se connecter </button>
   </form>
 </div>
 <div>

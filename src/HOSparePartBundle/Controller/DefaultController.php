@@ -20,6 +20,12 @@ class DefaultController extends Controller
         return $this->render('HOSparePartBundle:Spare:index.html.twig',array('spareParts'=>$spareParts,));
     }
 
+    public function listOfMostUsedAction(){
+        $em = $this->getDoctrine()->getManager();
+        $sparePartType = $em->getRepository('HOSparePartBundle:SparePart')->findCountAllUsedByType();
+        return $this->render('HOSparePartBundle:Spare:list-most-used.html.twig',array('sparePartType'=>$sparePartType,)); 
+    }
+
     public function spareByTypeAction($id){
         $em = $this->getDoctrine()->getManager();
         $type = $em->getRepository('HOSparePartBundle:SparePartType')->find($id);

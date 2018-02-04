@@ -91,7 +91,7 @@ select{
 .form-style-7 li{
     display: block;
     padding: 9px;
-    border:1px solid #DDDDDD;
+    border:2px solid black;
     margin-bottom: 30px;
     border-radius: 3px;
 }

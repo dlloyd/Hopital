@@ -3,13 +3,13 @@ ho_equipment_homepage:
     defaults: { _controller: HOEquipmentBundle:Equipment:index }
 
 ho_category_homepage:
-    path:     /categ
+    path:     /gest/categ
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:index }
 
 
 
 ho_equipment_reparation:
-    path:     /eq/reparation/{id}
+    path:     /gest/eq/reparation/{id}
     defaults: { _controller: HOEquipmentBundle:Equipment:reparationEquipment }
 
 ho_equipment_broken:
@@ -22,11 +22,11 @@ ho_equipment_broken:
 
 
 ho_create_equipment:
-    path:     /create/equipment
+    path:     /gest/create/equipment
     defaults: { _controller: HOEquipmentBundle:Equipment:create }
 
 ho_create_category:
-    path:     /create/categ
+    path:     /gest/create/categ
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:create }
 
 
@@ -34,11 +34,11 @@ ho_create_category:
 
 
 ho_update_equipment:
-    path:     /update/equipment/{id}
+    path:     /gest/update/equipment/{id}
     defaults: { _controller: HOEquipmentBundle:Equipment:update }
 
 ho_update_category:
-    path:     /update/categ/{id}
+    path:     /gest/update/categ/{id}
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:update }
 
 ho_equipment_interventions:
@@ -54,36 +54,36 @@ ho_equipment_interventions:
 
 
 ho_delete_equipment:
-    path:     /del/equipment/{id}
+    path:     /admin/del/equipment/{id}
     defaults: { _controller: HOEquipmentBundle:Equipment:delete }
 
 ho_delete_category:
-    path:     /del/categ/{id}
+    path:     /admin/del/categ/{id}
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:delete }
 
 ho_equipment_print_equipments:
-    path:     /equi/print/eqs
+    path:     /gest/equi/print/eqs
     defaults: { _controller: HOEquipmentBundle:Equipment:printingEquipments }
 
 ho_equipment_print_by_criteria:
-    path:     /equi/printcrit/eqs
+    path:     /gest/equi/printcrit/eqs
     defaults: { _controller: HOEquipmentBundle:Equipment:printingByCriteria }
 
 ho_equipment_print_material:
-    path:     /equi/print/mats
+    path:     /gest/equi/print/mats
     defaults: { _controller: HOEquipmentBundle:Equipment:printingMaterial }
 
 ho_equipment_print_eq_to_control:
-    path:     /equi/print/panneeqs
+    path:     /gest/equi/print/panneeqs
     defaults: { _controller: HOEquipmentBundle:Equipment:printingEquipmentsToControl }
 
 
 ho_create_brand_equipment:
-    path:     /brand/a/equibrand/
+    path:     /gest/brand/a/equibrand/
     defaults: { _controller: HOEquipmentBundle:Equipment:createBrand }
 
 ho_transfert_equipment:
-    path:     /trans/equipment/{id}
+    path:     /gest/trans/equipment/{id}
     defaults: { _controller: HOEquipmentBundle:Equipment:transfertEquipment }
 
 

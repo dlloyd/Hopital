@@ -1,23 +1,23 @@
 ho_moderator_homepage:
-    path:     /mod/
+    path:     /admin/mod/
     defaults: { _controller: HOCompanyBundle:Default:index }
 
 ho_create_moderator:
-    path:     /add/mod/
+    path:     /admin/add/mod/
     defaults: { _controller: HOCompanyBundle:Default:addModerator }
 
 
 ho_disable_moderator:
-    path:     /mod/dis/{id}
+    path:     /admin/mod/dis/{id}
     defaults: { _controller: HOCompanyBundle:Default:disableModerator }
 
 ho_enable_moderator:
-    path:     /mod/ena/{id}
+    path:     admin/mod/ena/{id}
     defaults: { _controller: HOCompanyBundle:Default:enableModerator }
 
 
 ho_delete_moderator:
-    path:     /mod/del/{id}
+    path:     /admin/mod/del/{id}
     defaults: { _controller: HOCompanyBundle:Default:deleteModerator }
 
 
@@ -29,13 +29,10 @@ ho_delete_moderator:
 
 
 ho_repairer_homepage:
-    path:     /repairer
+    path:     /gest/repairer
     defaults: { _controller: HOCompanyBundle:Repairer:index }
 
 
-ho_zone_homepage:
-    path:     /zone
-    defaults: { _controller: HOCompanyBundle:Zone:index }
 
 ho_service_homepage:
     path:    /serv
@@ -48,17 +45,17 @@ ho_service_homepage:
 
 
 ho_create_repairer:
-    path:     /create/repairer
+    path:     /gest/create/repairer
     defaults: { _controller: HOCompanyBundle:Repairer:create }
 
+ho_create_repairer_abscence:
+    path:     /gest/create/rep/abs/
+    defaults: { _controller: HOCompanyBundle:Repairer:createAbscence }
 
 
-ho_create_zone:
-    path:     /create/zone
-    defaults: { _controller: HOCompanyBundle:Zone:create }
 
 ho_create_service:
-    path:    /create/serv
+    path:    /gest/create/serv
     defaults: { _controller: HOCompanyBundle:Service:create }
 
 
@@ -67,17 +64,13 @@ ho_create_service:
 
 
 ho_update_repairer:
-    path:     /update/repairer/{id}
+    path:     /gest/update/repairer/{id}
     defaults: { _controller: HOCompanyBundle:Repairer:update }
 
 
 
-ho_update_zone:
-    path:     /update/zone/{id}
-    defaults: { _controller: HOCompanyBundle:Zone:update }
-
 ho_update_service:
-    path:    /update/serv/{id}
+    path:    /gest/update/serv/{id}
     defaults: { _controller: HOCompanyBundle:Service:update }
 
 
@@ -87,39 +80,41 @@ ho_update_service:
 
 
 ho_delete_repairer:
-    path:     /del/repairer/{id}
+    path:     /admin/del/repairer/{id}
     defaults: { _controller: HOCompanyBundle:Repairer:delete }
 
 
 
-ho_delete_zone:
-    path:     /del/zone/{id}
-    defaults: { _controller: HOCompanyBundle:Zone:delete }
-
 ho_delete_service:
-    path:    /del/serv/{id}
+    path:    /admin/del/serv/{id}
     defaults: { _controller: HOCompanyBundle:Service:delete }
 
 
 
 
 ho_service_add_room:
-    path:    /serv/{serviceId}/add_room
+    path:    /gest/serv/{serviceId}/add_room
     defaults: { _controller: HOCompanyBundle:Service:addRoom }
 
 
-ho_service_add_equipment_base:
-    path:    /servbase/add/eq/{serviceId}
-    defaults: { _controller: HOCompanyBundle:Service:addEquipmentBase }
-
-ho_service_add_equipment_stock:
-    path:    /servstock/add/eq/{serviceId}
-    defaults: { _controller: HOCompanyBundle:Service:addEquipmentFromStock }
 
 
 ho_repairer_interventions:
-    path:     /repairer/interventions/{id}
+    path:     /gest/repairer/interventions/{id}
     defaults: { _controller: HOCompanyBundle:Repairer:repairerInterventions }
+
+ho_repairer_abscences:
+    path:     /gest/repairer/{id}/abscences
+    defaults: { _controller: HOCompanyBundle:Repairer:repairerAbscences }
+
+
+ho_repairers_compare_by_year:
+    path:     /gest/repairers/comp/year
+    defaults: { _controller: HOCompanyBundle:Repairer:compareByYear }
+
+ho_repairers_compare_by_month:
+    path:     /gest/repairers/comp/month
+    defaults: { _controller: HOCompanyBundle:Repairer:compareByMonth }
 
 
 

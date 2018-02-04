@@ -19,5 +19,33 @@ class InterventionRepository extends \Doctrine\ORM\EntityRepository
 
 	}
 
+	public function findCountTasksRepairerByYear($year){
+		$qb = $this->createQueryBuilder('i');
+		$qb->select('r.id ,r.username, count(i.id) as counter');
+		$qb->innerJoin('i.repairer', 'r');
+		$qb->where('i.isClosed = true');
+		$qb->andWhere('YEAR(i.dateEnd) = :year');
+		$qb->groupby('r.username,r.id');
+		$qb->setParameter('year', $year);
+
+		return $qb->getQuery()->getResult();
+
+	}
+
+	public function findCountTasksRepairerByMonth($month,$year){
+		$qb = $this->createQueryBuilder('i');
+		$qb->select('r.id,r.username, count(i.id) as counter');
+		$qb->innerJoin('i.repairer', 'r');
+		$qb->where('i.isClosed = true');
+		$qb->andWhere('YEAR(i.dateEnd) = :year');
+		$qb->andWhere('MONTH(i.dateEnd) = :month');
+		$qb->groupby('r.username,r.id');
+		$qb->setParameter('month', $month);
+		$qb->setParameter('year', $year);
+
+		return $qb->getQuery()->getResult();
+
+	}
+
 	
 }

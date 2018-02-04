@@ -44,6 +44,11 @@ class InterventionEquipmentController extends Controller
             $em->merge($toolBox);
             $em->flush();
 
+            $message = " Equipement ajoutée avec succès dans la caisse à outils ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
+
             return $this->redirectToRoute('ho_intervention_toolbox');
         }
 
@@ -59,7 +64,6 @@ class InterventionEquipmentController extends Controller
         $interventions = $em->getRepository('HOInterventionBundle:Intervention')->findAllCurrent();
 		$interventionEquipment = new \HOInterventionBundle\Entity\InterventionEquipment();
         $form = $this->createFormBuilder($interventionEquipment)
-        ->add('dateOut',DateType::class,array('required' => true,'widget'=>'single_text'))
         ->add('intervention',EntityType::class,array(
                     'class'    => 'HOInterventionBundle:Intervention',
                     'property' => 'id',
@@ -73,9 +77,15 @@ class InterventionEquipmentController extends Controller
             $interventionEquipment->setIsBack(false);
             $interventionEquipment->setEquipment($equipment);
             $equipment->setIsOut(true);
+            $equipment->setDateOut(new \Datetime());
             $em->merge($equipment);
             $em->persist($interventionEquipment);
             $em->flush();
+
+            $message = " Equipement sortie pour intervention ".$interventionEquipment->getId();
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
 
             return $this->redirectToRoute('ho_intervention_toolbox');
         }
@@ -92,7 +102,6 @@ class InterventionEquipmentController extends Controller
 		$interventionEquipment = $em->getRepository('HOInterventionBundle:InterventionEquipment')->findLastIntervention($id);
 		$intervention = $interventionEquipment->getIntervention();
         $form = $this->createFormBuilder($interventionEquipment)
-        ->add('dateReturn',DateType::class,array('required' => true,'widget'=>'single_text','date'=> new \Datetime(),))
         ->getForm();
         
         
@@ -101,6 +110,7 @@ class InterventionEquipmentController extends Controller
             
             $interventionEquipment->setIsBack(true);
             $equipment->setIsOut(false);
+            $equipment->setDateReturn(new \Datetime());
             $em->merge($equipment);
             $em->merge($interventionEquipment);
             $em->flush();
@@ -127,6 +137,10 @@ class InterventionEquipmentController extends Controller
                 $em->merge($equipment);
                 $em->merge($interventionEquipment);
                 $em->flush();
+                $message = " Equipement rendu avec succès ";
+                $request->getSession()
+                ->getFlashBag()
+                ->add('success', $message);
             }
         }
 

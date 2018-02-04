@@ -5,7 +5,7 @@
 
 <div class="container">
   <h3> Equipement </h3>
- {% if is_granted('ROLE_MODERATOR') %}
+ 
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
       <div class="w3-container w3-red w3-padding-16">
@@ -14,9 +14,12 @@
           <h3></h3>
         </div>
         <div class="w3-clear"></div>
+        {% if is_granted('ROLE_MODERATOR') %}
         <h4> <a href="{{ path('ho_create_equipment') }}"> Ajouter un équipement </a> </h4>
+        {% endif %}
       </div>
     </div>
+    {% if is_granted('ROLE_MODERATOR') %}
     <div class="w3-quarter">
       <div class="w3-container w3-teal w3-padding-16">
         <div class="w3-left"><i class="fa fa-print w3-xxxlarge"></i></div>
@@ -28,9 +31,9 @@
       </div>
     </div>
 
-</div>
-{% endif %}
 
+{% endif %}
+</div>
   
   <br/><br/>
   <input id="myInputCode"  placeholder="Recherche par code.." >
@@ -47,7 +50,9 @@
         <th> Etat </th>
         <th> Localisation </th>
         <th> Liste interventions </th>
+        {% if is_granted('ROLE_MODERATOR') %}
         <th> Transferer </th>
+        {% endif %}
         
       </tr>
     </thead>
@@ -68,10 +73,12 @@
          <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > Voir Détails </a>    
              
         {% endif %} 
+
+        {% if is_granted('ROLE_MODERATOR') %}
         </td>
 
         <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > lien </a> </td>
-        
+        {% endif %}
       </tr>
     {% endfor %}
       

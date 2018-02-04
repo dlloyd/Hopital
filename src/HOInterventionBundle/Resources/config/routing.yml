@@ -3,7 +3,7 @@ ho_alert_service_homepage:
     defaults: { _controller: HOInterventionBundle:AlertService:index }
 
 ho_intervention_homepage:
-    path:     /interv
+    path:     /gest/interv
     defaults: { _controller:HOInterventionBundle:Intervention:index  }
 
 ho_create_alert_from_service:
@@ -11,39 +11,39 @@ ho_create_alert_from_service:
     defaults: { _controller: HOInterventionBundle:AlertService:createFromService }
 
 ho_create_alert_service:
-    path:    /alert/create/
+    path:    /gest/alert/create/
     defaults: { _controller: HOInterventionBundle:AlertService:create }
 
 ho_create_intervention_alert:
-    path:     /interv/alert/c/{alertId}
+    path:     /gest/interv/alert/c/{alertId}
     defaults: { _controller:HOInterventionBundle:Intervention:createAlertIntervention  }
 
 ho_create_intervention:
-    path:     /interv/create/
+    path:     /gest/interv/create/
     defaults: { _controller:HOInterventionBundle:Intervention:create }
 
 ho_intervention_validate:
-    path:     /interv/v/{id}
+    path:     /gest/interv/v/{id}
     defaults: { _controller:HOInterventionBundle:Intervention:validateIntervention }
 
 
 ho_intervention_toolbox:
-    path:     /interv/tool
+    path:     /gest/interv/tool
     defaults: { _controller:HOInterventionBundle:InterventionEquipment:index  }
 
 
 ho_intervention_toolbox_add_equipment:
-    path:     /interv/tool/add 
+    path:     /gest/interv/tool/add 
     defaults: { _controller:HOInterventionBundle:InterventionEquipment:addEquipment  }
 
 ho_intervention_equipment_out:
-    path:     /interv/tool/eq/out/{id}
+    path:     /gest/interv/tool/eq/out/{id}
     defaults: { _controller:HOInterventionBundle:InterventionEquipment:getOutEquipment  }
 
 ho_intervention_equipment_back:
-    path:     /interv/tool/eq/back/{id}
+    path:     /gest/interv/tool/eq/back/{id}
     defaults: { _controller:HOInterventionBundle:InterventionEquipment:getBackEquipment  }
 
 ho_intervention_equipment_back_from_validate:
-    path:     /interv/tool/eq/back/{interventionId}/{equipmentId}
+    path:     /gest/interv/tool/eq/back/{interventionId}/{equipmentId}
     defaults: { _controller:HOInterventionBundle:InterventionEquipment:getBackEquipmentFromIntervention  }

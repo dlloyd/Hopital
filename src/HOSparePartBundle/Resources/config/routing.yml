@@ -1,45 +1,49 @@
 ho_spare_part_homepage:
-    path:     /spar
+    path:     /gest/spar
     defaults: { _controller: HOSparePartBundle:Default:index }
 
 ho_spare_parts_by_type:
-    path:     /type/{id}/spar
+    path:     /gest/type/{id}/spar
     defaults: { _controller: HOSparePartBundle:Default:spareByType }
 
 
 ho_spare_part_type_homepage:
-    path:     /spar/type
+    path:     /gest/spar/type
     defaults: { _controller: HOSparePartBundle:Default:indexType }
 
 
 ho_create_spare_part:
-    path:     /create/spar
+    path:     /gest/create/spar
     defaults: { _controller: HOSparePartBundle:Default:create }
 
 ho_create_spare_part_type:
-    path:     /create/spar/type
+    path:     /gest/create/spar/type
     defaults: { _controller: HOSparePartBundle:Default:createType }
 
 ho_update_spare_part:
-    path:     /update/spar/{id}
+    path:     /gest/update/spar/{id}
     defaults: { _controller: HOSparePartBundle:Default:update }
 
 ho_update_spare_part_type:
-    path:     /update/spar/type/{id}
+    path:     /gest/update/spar/type/{id}
     defaults: { _controller: HOSparePartBundle:Default:updateType }
 
 ho_delete_spare_part:
-    path:     /del/spar/{id}
+    path:     /admin/del/spar/{id}
     defaults: { _controller: HOSparePartBundle:Default:delete }
 
 ho_delete_spare_part_type:
-    path:     /del/spar/type/{id}
+    path:     /admin/del/spar/type/{id}
     defaults: { _controller: HOSparePartBundle:Default:deleteType }
 
 ho_spare_part_out:
-    path:     /out/spar/{id}
+    path:     /gest/out/spar/{id}
     defaults: { _controller: HOSparePartBundle:Default:setOutSparePart }
 
 ho_create_brand_spare_part:
-    path:     /brand/a/spa/equibrand/
+    path:     /gest/brand/a/spa/equibrand/
     defaults: { _controller: HOSparePartBundle:Default:createBrand }
+
+ho_spare_part_most_used:
+    path:     /gest/mostused/spars/
+    defaults: { _controller: HOSparePartBundle:Default:listOfMostUsed }

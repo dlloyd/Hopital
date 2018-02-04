@@ -4,10 +4,10 @@
 {% block body %}
 
 <div class="container">
-<h2> Votre profile: </h2>
+<h3> <i class="fa fa-user fa"></i> Votre profile: </h3> <br/><br/>
 {% include "@FOSUser/Profile/show_content.html.twig" %}
 <br/>
-<a href="{{ path('fos_user_change_password') }} "> Changer de mot de passe </a>
+<a href="{{ path('fos_user_change_password') }}" class="btn btn-primary" > Changer de mot de passe </a>
 
 </div>
 

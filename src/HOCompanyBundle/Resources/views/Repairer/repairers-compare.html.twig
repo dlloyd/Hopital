@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  
+  <h3> Liste des meilleurs intervenants </h3>
+  <h4> Période: {% if month is defined %} {{ month}}/{% endif %} {{ year }} </h4>
+
+  <br/><br/><br/>    
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th> Nom </th>
+        <th> Total tâches réalisées </th>
+        <th> Abscences </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for rep in repairers %}
+      <tr>
+        <td> {{ rep['username'] }}  </td>
+        <td> {{ rep['counter'] }}  </td>
+        <td>
+          {% if abscences[rep['id']] is defined %}
+            <a href="#" data-toggle="modal" data-target="#myModal{{rep['id']}}" class="btn btn-danger"> Voir période </a>
+            <!--  MODAL ABSCENCE   -->
+             <div class="modal fade" id="myModal{{rep['id']}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+             aria-hidden="true">
+                   <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+              
+              <h4 class="modal-title"> Périodes: </h4>
+            </div>
+
+            <div class="modal-body" style="font-size:16px">
+                  
+            <div class="form-group">
+
+            
+              {% for abscence in abscences[rep['id']]  %}
+               <strong>Période:</strong> &nbsp {{ abscence.dateBegin| date('d/m/Y') }} -
+               {{ abscence.dateEnd | date('d/m/Y') }}  <br/>
+               <strong>Motif:</strong><br/>
+               {{ abscence.motif }} <br/>
+              <hr/>
+              {% endfor %}
+              
+            
+            </div>
+
+            </div>
+
+            <div class="modal-footer" >
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+            </div>
+
+            </div>
+            </div>
+            </div>
+            <!-- FIN MODAL -->
+
+          {% endif %}
+       </td>
+        
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+
+   
+</div>
+
+
+{% endblock %}

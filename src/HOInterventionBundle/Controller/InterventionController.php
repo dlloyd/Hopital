@@ -111,13 +111,13 @@ class InterventionController extends Controller
 
 
 	public function validateInterventionAction($id,Request $request){
-		$em = $this->getDoctrine()->getManager();
+
+        $em = $this->getDoctrine()->getManager();
 		$intervention = $em->getRepository('HOInterventionBundle:Intervention')->find($id);
 
 		$form = $this->createFormBuilder($intervention)
-		->add('comment',TextareaType::class)
-		->add('dateEnd',DateType::class,array('data' => new \Datetime() ,))
-		->getForm();
+		  ->add('comment',TextareaType::class)
+		  ->getForm();
 
 		if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
 			//Change l'état de l'alerte à résolue
@@ -125,6 +125,7 @@ class InterventionController extends Controller
 
 			$categ = $em->getRepository('HOInterventionBundle:InterventionCategory')->findOneBy(array('code' => "CUR",));
         	$intervention->setIsClosed(true);
+            $intervention->setDateEnd(new \Datetime());
         	$intervention->setCategory($categ);
 
             if($intervention->getEquipment()){

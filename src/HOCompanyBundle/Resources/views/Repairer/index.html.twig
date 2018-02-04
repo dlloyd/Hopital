@@ -17,7 +17,29 @@
         <h4> <a href="{{ path('ho_create_repairer') }}"> Ajouter un intervenant </a> </h4>
       </div>
   </div>
+
+  <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-right">
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href=" {{ path('ho_create_repairer_abscence') }} ">Créer une abscence </a></h4>
+      </div>
+    </div> 
+  <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+      <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+      <div class="w3-right">
+      </div>
+      <div class="w3-clear"></div>
+      <h4><a href="#" data-toggle="modal" data-target="#myModalCompare"> Liste des meilleurs intervenants</a></h4>
+    </div>
+  </div>
+
 </div>
+
+  
 
   <br/><br/>
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
@@ -31,6 +53,7 @@
         <th> Disponibilité </th>
         <th> Nombre tâches en cours </th>
         <th> Toutes les tâches </th>
+        <th> Absences </th>
         <th> Modifier </th>
         
       </tr>
@@ -48,6 +71,13 @@
          <a href="{{ path('ho_repairer_interventions',{'id':rep.id}) }}"  class="btn btn-default btn-primary" > Voir </a>  
         {% endif %}
         </td>
+
+        <td>
+        {% if rep.abscences is not empty %}
+         <a href="{{ path('ho_repairer_abscences',{'id':rep.id}) }}"  class="btn btn-default btn-danger" > Voir </a>  
+        {% endif %}
+        </td>
+
         <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}" class="btn btn-primary"> lien </a> </td>
       
       </tr>
@@ -55,6 +85,41 @@
       
     </tbody>
   </table>
+
+  <!--  MODAL REPAIRER COMPARE   -->
+   <div class="modal fade" id="myModalCompare" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    
+    <h4 class="modal-title"> Choisir Année ou mois :  </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+    <strong> Année : </strong>
+    {{ render(controller('HOCompanyBundle:Repairer:compareByYear')) }}
+    <br/>
+    ou
+    <br/><br/>
+    <strong>Mois de l'année :</strong>
+
+    {{ render(controller('HOCompanyBundle:Repairer:compareByMonth')) }}
+  </div>
+  </div>
+
+
+
+  <div class="modal-footer" >
+  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <!-- FIN MODAL -->
+
 </div>
  <br/><br/><br/><br/><br/>
 <script>

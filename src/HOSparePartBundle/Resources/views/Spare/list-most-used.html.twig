@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <br/>
+  <h3> Liste des pièces détachées les plus utilisées </h3>
+
+  <br/><br/><br/>    
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th> Domaine </th>
+        <th> Total </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for type in sparePartType %}
+      <tr>
+        <td> {{ type['name'] }}  </td>
+        <td> {{ type['counter'] }}  </td>
+        
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

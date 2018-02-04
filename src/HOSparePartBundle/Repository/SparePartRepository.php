@@ -31,4 +31,16 @@ class SparePartRepository extends \Doctrine\ORM\EntityRepository
 		return $qb->getQuery()->getResult();
 
 	}
+
+
+	public function findCountAllUsedByType(){
+		$qb = $this->createQueryBuilder('s');
+		$qb->select('t.name, count(s.id) as counter');
+		$qb->innerJoin('s.type', 't');
+		$qb->where('s.isUsed = true');
+		$qb->groupby('t.name');
+
+		return $qb->getQuery()->getResult();
+
+	}
 }

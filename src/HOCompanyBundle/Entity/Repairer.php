@@ -43,10 +43,15 @@ class Repairer
     private $isActive;
 
 
-     /**
+    /**
     * @ORM\OneToMany(targetEntity="HOInterventionBundle\Entity\Intervention", mappedBy="repairer", cascade={"persist"})
     */
     private $interventions;
+
+    /**
+    * @ORM\OneToMany(targetEntity="HOCompanyBundle\Entity\RepairerAbscence", mappedBy="repairer", cascade={"persist"})
+    */
+    private $abscences;
 
 
     /**
@@ -178,5 +183,41 @@ class Repairer
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    
+
+    /**
+     * Add abscence
+     *
+     * @param \HOCompanyBundle\Entity\RepairerAbscence $abscence
+     *
+     * @return Repairer
+     */
+    public function addAbscence(\HOCompanyBundle\Entity\RepairerAbscence $abscence)
+    {
+        $this->abscences[] = $abscence;
+
+        return $this;
+    }
+
+    /**
+     * Remove abscence
+     *
+     * @param \HOCompanyBundle\Entity\RepairerAbscence $abscence
+     */
+    public function removeAbscence(\HOCompanyBundle\Entity\RepairerAbscence $abscence)
+    {
+        $this->abscences->removeElement($abscence);
+    }
+
+    /**
+     * Get abscences
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAbscences()
+    {
+        return $this->abscences;
     }
 }

@@ -3,23 +3,24 @@
 {% block body %}
 
 <div class="container">
-<h3>  <u>Validation intervention {{intervention.id}}:</u>  </h3> <br/><br/>
+<h3>  Validation intervention {{intervention.id}} </h3> <br/><br/><br/>
 
 <form class="form-style-7">
 <ul>
 <li>
 <label for="intervention">Intervention</label> <br/>
     
-
+<strong>Intervenant : </strong> {{ intervention.repairer.username }}<br/><hr/>
 {% if intervention.serviceRoom != null %}
-Service-Salle :  {{ intervention.serviceRoom.service.name }} - {{ intervention.serviceRoom.name }} <br/><hr/>
+<strong>Service-Salle:</strong>   {{ intervention.serviceRoom.service.name }} - {{ intervention.serviceRoom.name }} <br/><hr/>
 {% endif %}
-Catégorie intervention:  {{ intervention.category.name }} <br/> <hr/>
 
-Date début d'intervention: {{ intervention.dateBegin}} <br/> <hr/>
+<strong>Catégorie intervention: </strong> {{ intervention.category.name }} <br/> <hr/>
+
+<strong>Date début d'intervention:</strong> {{ intervention.dateBegin}} <br/> <hr/>
 
 {% if intervention.equipment != null %}
-Equipement : {{ intervention.equipment.name }} <br/> <hr/>
+<strong>Equipement :</strong> {{ intervention.equipment.name }} <br/> <hr/>
 {% endif %}
 </li>
 </ul>
@@ -31,10 +32,11 @@ Equipement : {{ intervention.equipment.name }} <br/> <hr/>
   <ul>
   <li>
   <label for="infos"> Informations alerte </label><br/>
-  Description : {{ intervention.alert.designation }} <br/> <hr/>
-  Catégorie : {{ intervention.alert.alertCategory.name  }} <br/> <hr/>
-  Date de l'alerte : {{ intervention.alert.date }} <br/> <hr/>
-  Service-Salle : {{ intervention.alert.service.name }} - {{intervention.alert.serviceRoom.name}} <br/> 
+  <strong>Description :</strong> {{ intervention.alert.designation }} <br/> <hr/>
+  <strong>Catégorie :</strong> {{ intervention.alert.alertCategory.name  }} <br/> <hr/>
+  <strong>Date de l'alerte :</strong> {{ intervention.alert.date }} <br/> <hr/>
+  <strong>Service-Salle : </strong> {{ intervention.alert.service.name }} - {{intervention.alert.serviceRoom.name}} <br/> 
+
   </li>
   </ul>
   </form>
@@ -48,10 +50,10 @@ Equipement : {{ intervention.equipment.name }} <br/> <hr/>
   
   {% for spar in intervention.spareParts %}
 
-    Type : {{ spar.type.name }} <br/> 
-    Numéro de série : {{  spar.serialNumber  }} <br/>
-    Marque : {{ spar.brand.name }} <br/>
-    Date de fabrication : {{ spar.manufactureDate|date('d/m/Y') }} <br/>
+    <strong>Type :</strong> {{ spar.type.name }} <br/> 
+    <strong>Numéro de série :</strong> {{  spar.serialNumber  }} <br/>
+    <strong>Marque :</strong> {{ spar.brand.name }} <br/>
+    <strong>Date de fabrication :</strong> {{ spar.manufactureDate|date('d/m/Y') }} <br/>
     
     <hr/>
 
@@ -68,13 +70,13 @@ Equipement : {{ intervention.equipment.name }} <br/> <hr/>
   
   {% for data in intervention.interventionTools %}
 
-    Outil : {{ data.equipment.name }} <br/> 
-    Code : {{  data.equipment.code  }} <br/>
-    Date emprunt : {{ data.dateOut }} <br/>
+    <strong>Outil :</strong> {{ data.equipment.name }} <br/> 
+    <strong>Code :</strong> {{  data.equipment.code  }} <br/>
+    <strong>Date emprunt :</strong> {{ data.dateOut }} <br/>
     {% if data.isBack == false %}
     <a href="{{ path('ho_intervention_equipment_back_from_validate',{'interventionId':intervention.id,'equipmentId':data.equipment.id }) }}" class="btn btn-default btn-primary" > Rendre </a> 
     {% else %}
-    	Date retour : {{ data.dateReturn }} <br/>
+    	<strong>Date retour :</strong> {{ data.dateReturn }} <br/>
     {% endif %} 
     <hr/>
 
@@ -94,9 +96,12 @@ Equipement : {{ intervention.equipment.name }} <br/> <hr/>
  {{ form_widget(form.comment,{'attr':{'class':'field-long field-textarea' }}) }} 
  </li>  
  {{ form_rest(form) }}
- </ul>
- <br/> <br/>
+ 
+ <li>
  <button class="btn btn-default btn-primary" type="submit" >Valider</button>
+ </li>
+ </ul>
+ 
 
 {{ form_end(form) }}
 
