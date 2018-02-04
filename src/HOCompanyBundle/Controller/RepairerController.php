@@ -47,7 +47,10 @@ class RepairerController extends Controller
         $form = $this->createForm(new RepairerAbscenceType(),$abs);
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
-
+            $today = new \Datetime('now');
+            if($abs->getDateBegin()->format('d-m-Y') == $today->format('d-m-Y')){
+                $abs->getRepairer()->setIsActive(false);
+            }
             $em->persist($abs);
             $em->flush();
 
