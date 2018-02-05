@@ -64,14 +64,14 @@ class Equipment
   
     
     /**
-    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentBrand")
+    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentBrand",fetch="EAGER")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $brand;
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategory",inversedBy="equipments")
+    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentCategory",inversedBy="equipments",fetch="EAGER")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $category;
@@ -85,7 +85,7 @@ class Equipment
     private $service;
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom")
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom",fetch="EAGER")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $serviceRoom;

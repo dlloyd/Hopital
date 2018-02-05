@@ -20,7 +20,7 @@
 <strong>Date début d'intervention:</strong> {{ intervention.dateBegin}} <br/> <hr/>
 
 {% if intervention.equipment != null %}
-<strong>Equipement :</strong> {{ intervention.equipment.name }} <br/> <hr/>
+<strong>Equipement :</strong> {{ intervention.equipment.brand.name }} <br/> <hr/>
 {% endif %}
 </li>
 </ul>
@@ -70,7 +70,7 @@
   
   {% for data in intervention.interventionTools %}
 
-    <strong>Outil :</strong> {{ data.equipment.name }} <br/> 
+    <strong>Outil :</strong> {{ data.equipment.brand.name }} / {{ data.equipment.category.name }} <br/> 
     <strong>Code :</strong> {{  data.equipment.code  }} <br/>
     <strong>Date emprunt :</strong> {{ data.dateOut }} <br/>
     {% if data.isBack == false %}
