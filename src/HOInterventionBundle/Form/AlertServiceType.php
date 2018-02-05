@@ -3,7 +3,10 @@
 namespace HOInterventionBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -41,24 +44,6 @@ class AlertServiceType extends AbstractType
                     'required' => false, 
                     'expanded' => false,
                     'multiple' => false ,))
-
-        ->add('equipment',EntityType::class,array(
-                    'class'    => 'HOEquipmentBundle:Equipment',
-                    'choice_label' => function ($equipment) {
-                            return $equipment->getName()." / ".$equipment->getCode();
-                        },
-                    'choices'  => $equipments,
-                    'group_by' => function($equipment){
-                        return $equipment->getServiceRoom()->getService()->getName();
-                    },
-                    'query_builder' => function (\HOEquipmentBundle\Repository\EquipmentRepository $er) {
-                        return $er->createQueryBuilder('e')
-                            ->where('e.serviceRoom IS NOT NULL');
-                    },
-                    'required' => false, 
-                    'expanded' => false,
-                    'multiple' => false ,))
-        
         ->add('alertCategory',EntityType::class,array(
                 'class'    => 'HOInterventionBundle:AlertCategory',
                 'property' => 'name',
@@ -66,6 +51,48 @@ class AlertServiceType extends AbstractType
                 'expanded' => false,
                 'multiple' => false ,))
         ->add('designation',TextareaType::class);
+
+
+        $formModifier = function (FormInterface $form, \HOCompanyBundle\Entity\ServiceRoom $room = null) {
+            $equipments = null === $room ? array() : $room->getEquipments();
+
+            $form->add('equipment',EntityType::class,array(
+                    'class'    => 'HOEquipmentBundle:Equipment',
+                    'choice_label' => function ($equipment) {
+                            return $equipment->getBrand()->getName()." / ".$equipment->getCode();
+                        },
+                    'choices'  => $equipments,
+                    'group_by' => function($equipment){
+                        return $equipment->getServiceRoom()->getService()->getName();
+                    },
+                    'required' => false, 
+                    'expanded' => false,
+                    'multiple' => false ,));
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                // this would be your entity, i.e. SportMeetup
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getServiceRoom());
+            }
+        );
+
+        $builder->get('serviceRoom')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $room = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier($event->getForm()->getParent(), $room);
+            }
+        );
+
     }
     
     /**

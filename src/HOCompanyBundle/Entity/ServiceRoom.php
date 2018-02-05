@@ -24,7 +24,7 @@ class ServiceRoom
      /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string",unique=true)
+     * @ORM\Column(name="name", type="string")
      */
     private $name;
 
@@ -32,6 +32,11 @@ class ServiceRoom
      * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",inversedBy="rooms")
      */
     private $service;
+
+    /**
+    * @ORM\OneToMany(targetEntity="HOEquipmentBundle\Entity\Equipment",mappedBy="serviceRoom")
+    */
+    private $equipments;
 
     
 
@@ -102,4 +107,38 @@ class ServiceRoom
     }
 
     
+
+    /**
+     * Add equipment
+     *
+     * @param \HOEquipmentBundle\Entity\Equipment $equipment
+     *
+     * @return ServiceRoom
+     */
+    public function addEquipment(\HOEquipmentBundle\Entity\Equipment $equipment)
+    {
+        $this->equipments[] = $equipment;
+
+        return $this;
+    }
+
+    /**
+     * Remove equipment
+     *
+     * @param \HOEquipmentBundle\Entity\Equipment $equipment
+     */
+    public function removeEquipment(\HOEquipmentBundle\Entity\Equipment $equipment)
+    {
+        $this->equipments->removeElement($equipment);
+    }
+
+    /**
+     * Get equipments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getEquipments()
+    {
+        return $this->equipments;
+    }
 }

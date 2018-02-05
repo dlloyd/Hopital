@@ -26,8 +26,8 @@
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
-        <th> Nom </th>
+      	<th> Domaine </th>
+        <th> Marque </th>
         <th> Statut </th>
         <th> Fiche Intervention </th>
         <th> Sortir / Retour </th>
@@ -36,8 +36,8 @@
     <tbody id="myTable">
     {% for equipment in equipments %}
       <tr>
-        <td> {{ equipment.id }} </td>
-        <td> {{ equipment.name }} </td>
+        <td> {{ equipment.category.name }} </td>
+        <td> {{ equipment.brand.name }} </td>
         {% if equipment.isOut == true %}
         <td>  Sortie  </td>
         <td>

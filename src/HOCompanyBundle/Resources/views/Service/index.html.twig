@@ -48,7 +48,7 @@
 
 
         <td>
-        {% if serv.rooms is not empty %}
+        
          <a href="#" data-toggle="modal" data-target="#myModal{{serv.id}}" class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir </a> 
 
          
@@ -66,11 +66,12 @@
                     
               <div class="form-group">
 
-              
+                {% if serv.rooms is not empty %}
                 {% for room in serv.rooms  %}
                  {{ room.name }} <br/>
                 <hr/>
                 {% endfor %}
+                {% endif %}
                 <br/><a href="{{ path('ho_service_add_room',{'serviceId': serv.id }) }}" class="btn btn-default btn-primary"> Ajouter une salle  </a>
               
               </div>
@@ -86,7 +87,6 @@
               </div>
               <!-- FIN MODAL -->
              
-        {% endif %}
         </td>
         
         <td> <a href="{{ path('ho_create_alert_from_service',{'serviceId': serv.id }) }}" class="btn btn-default btn-danger" >

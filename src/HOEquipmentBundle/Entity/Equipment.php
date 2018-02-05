@@ -35,12 +35,6 @@ class Equipment
      */
     private $serialNumber;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string")
-     */
-    private $name;  // marque
 
     /**
      * @var string
@@ -160,30 +154,6 @@ class Equipment
     public function getCode()
     {
         return $this->code;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return Equipment
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     

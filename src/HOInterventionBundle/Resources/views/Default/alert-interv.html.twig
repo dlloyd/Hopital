@@ -1,57 +1,43 @@
-
 {% extends 'base.html.twig' %}
 
 {% block body %}
 
 <div class="container">
-<h3>  Alerte </h3>
-Service : {{ alert.service.name  }} <br/>
-Description:{{ alert.designation }} <br/>
-Date de demande:{{ alert.date}} <br/>
-Catégorie de l'alerte:{{ alert.alertCategory.name}}
+<h3>  Alerte attribution </h3>
+<br/><br/>
+<strong>Service : </strong>{{ alert.service.name  }} <br/>
+<strong>Date de demande:</strong>{{ alert.date}} <br/>
+<strong>Catégorie de l'alerte:</strong>{{ alert.alertCategory.name}}
 <br/>
+<strong>Description: </strong><br/>
+<p>{{ alert.designation }}</p>
+<br/><br/>
 
-<h2> Formulaire d'attribution </h2>
+<h3> Formulaire d'attribution </h3>
 {{ form_start(form, {'method': 'post', 'action': path('ho_create_intervention_alert',{'alertId':alert.id}) }) }}
-                
-            {{ form_rest(form) }}
-            <br/><br/>
-            <button class="btn btn-default btn-primary" type="submit" >Enregistrer</button>
+  <ul class="form-style-1">
+    <li>
+     {{ form_label(form.equipment,"Equipement") }}
+     {{ form_widget(form.equipment,{'attr':{'class':'field-select' }}) }} 
+    </li>  
+    <li>
+     {{ form_label(form.repairer,"Intervenant *") }}
+     {{ form_widget(form.repairer,{'attr':{'class':'field-select' }}) }} 
+    </li>  
+    <li>
+     {{ form_label(form.dateBegin,"Date d'attribution *") }}
+     {{ form_widget(form.dateBegin,{'attr':{'class':'field-long' }}) }} 
+     </li>  
+                    
+    {{ form_rest(form) }}
+    <li><button class="btn btn-primary" type="submit" >Enregistrer</button></li>
+  </ul>
+  
 {{ form_end(form) }}
 
 <br/>
-<h2>Liste des réparateurs:</h2>
 
-<table class="table table-striped">
-    <thead>
-      <tr>
-        <th> Nom  </th>
-        <th> Statut </th>
-        <th> Nombre tâches en cours </th>
-        <th> Fiche </th>
-       
-      </tr>
-    </thead>
-    <tbody id="myTable">
-    {% for repairer in repairers %}
-      <tr>
-        <td> {{ repairer.username }} </td>
-        <td> {{ repairer.status.status }} </td>
-        <td> {{ nbrTasks[repairer.id] }}  </td>
-        <td>
-        {% if repairer.interventions is not empty %}
-         <a href="{{ path('ho_repairer_interventions',{'id':repairer.id}) }}" class="btn btn-default btn-primary" > Détails </a> 
-             
-        {% endif %}
 
-        </td>
-
-        
-      </tr>
-    {% endfor %}
-      
-    </tbody>
-  </table>
 
 
 </div>

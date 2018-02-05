@@ -31,10 +31,13 @@
       <tr>
       	<th> Service  </th>
         <th> Date </th>
+        <th> Catégorie </th>
         <th> Description </th>
         <th> Equipement </th>
         <th> Etat </th>
+        {% if is_granted('ROLE_MODERATOR') %}
         <th> Attribuer la tâche </th>
+        {% endif %}
        
       </tr>
     </thead>
@@ -43,15 +46,19 @@
 
      {% if alert.alertState.code == "RSL" %} <tr class="success">
      {% elseif alert.alertState.code == "ECT" %} <tr class="bg-warning"> {% else %} <tr class="danger"> {% endif %}
-        <td> {{ alert.service.name }} </td>
+        <td class="service"> {{ alert.service.name }} </td>
         <td> {{ alert.date }} </td>
+        <td> {{ alert.alertCategory.name }} </td>
         <td> {{ alert.designation }}  </td>
-        <td> {% if alert.equipment!=null %} {{ alert.equipment.name }} {% endif %} </td>
+        <td> {% if alert.equipment!=null %} {{ alert.equipment.brand.name }} {% endif %} </td>
         <td> {{ alert.alertState.name }} </td>
         <td>
-        {% if alert.isAwarded == false %}  
-         <a href="{{ path('ho_create_intervention_alert',{'alertId': alert.id }) }}" class="btn btn-default btn-success"> Attribuer  </a> 
+        {% if is_granted('ROLE_MODERATOR') %}
+          {% if alert.isAwarded == false %}  
+           <a href="{{ path('ho_create_intervention_alert',{'alertId': alert.id }) }}" class="btn btn-default btn-success"> Attribuer  </a> 
+          {% endif %}
         {% endif %}
+        
         </td>
         
       </tr>
@@ -67,7 +74,7 @@ $(document).ready(function(){
 	var value = $(this).val().toLowerCase();
 
 	$("#myTable tr").each(function(){
-	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	 $(this).toggle($(this).find('.service').text().toLowerCase().indexOf(value) > -1)
 	});
 	});
 });

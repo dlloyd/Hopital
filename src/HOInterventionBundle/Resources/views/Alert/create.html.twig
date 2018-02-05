@@ -12,7 +12,7 @@
 	 {{ form_widget(form.serviceRoom,{'attr':{'class':'field-long' }}) }} 
 	 </li>  
 	<li>
-	 {{ form_label(form.equipment,"Equipement/Code *") }}
+	 {{ form_label(form.equipment,"Equipement/Code ") }}
 	 {{ form_widget(form.equipment,{'attr':{'class':'field-long' }}) }} 
 	 </li>  
 	 <li>
@@ -30,6 +30,33 @@
 	</ul>            
   
 {{ form_end(form) }}
+
+
+<script>
+var $serviceRoom = $('#hointerventionbundle_alertservice_serviceRoom');
+// When service room gets selected ...
+$serviceRoom.change(function() {
+  // ... retrieve the corresponding form.
+  var $form = $(this).closest('form');
+  // Simulate form data, but only include the selected sport value.
+  var data = {};
+  data[$serviceRoom.attr('name')] = $serviceRoom.val();
+  // Submit data via AJAX to the form's action path.
+  $.ajax({
+    url : $form.attr('action'),
+    type: $form.attr('method'),
+    data : data,
+    success: function(html) {
+      // Replace current 
+      $('#hointerventionbundle_alertservice_equipment').replaceWith(
+        // ... with the returned one from the AJAX response.
+        $(html).find('#hointerventionbundle_alertservice_equipment')
+      );
+      // Position field now displays the appropriate positions.
+    }
+  });
+});
+</script>
 
 
 </div>

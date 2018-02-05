@@ -58,28 +58,30 @@
     </thead>
     <tbody id="myTable">
     {% for equipment in equipments %}
-      {% if equipment.isBroken %}<tr class="danger"> {% else %} <tr> {% endif %} 
-        <td class="code"> {{ equipment.code }} </td>
-        <td class="brand"> {{ equipment.brand.name }} </td>
-        <td> {{ equipment.model }} </td>
-        <td class="categ"> {{ equipment.category.name }} </td>
-        <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
-        <td>
-         {% if equipment.serviceRoom != null  %} {{equipment.serviceRoom.service.name}} - {{ equipment.serviceRoom.name }} {% endif %} 
-        </td>
-        
-        <td> 
-        {% if equipment.interventions is not empty %}
-         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir Détails </a>    
-             
-        {% endif %} 
+      {% if equipment.toolBox == null %}
+        {% if equipment.isBroken %}<tr class="danger"> {% else %} <tr> {% endif %} 
+          <td class="code"> {{ equipment.code }} </td>
+          <td class="brand"> {{ equipment.brand.name }} </td>
+          <td> {{ equipment.model }} </td>
+          <td class="categ"> {{ equipment.category.name }} </td>
+          <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
+          <td>
+           {% if equipment.serviceRoom != null  %} {{equipment.serviceRoom.service.name}} - {{ equipment.serviceRoom.name }} {% endif %} 
+          </td>
+          
+          <td> 
+          {% if equipment.interventions is not empty %}
+           <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir Détails </a>    
+               
+          {% endif %} 
 
-        {% if is_granted('ROLE_MODERATOR') %}
-        </td>
+          {% if is_granted('ROLE_MODERATOR') %}
+          </td>
 
-        <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > <i class="fa fa-exchange"></i> </a> </td>
-        {% endif %}
-      </tr>
+          <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > <i class="fa fa-exchange"></i> </a> </td>
+          {% endif %}
+        </tr>
+      {% endif %}
     {% endfor %}
       
     </tbody>

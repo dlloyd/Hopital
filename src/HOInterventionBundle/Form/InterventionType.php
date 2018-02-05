@@ -21,7 +21,7 @@ class InterventionType extends AbstractType
         ->add('equipment',EntityType::class,array(
                     'class'    => 'HOEquipmentBundle:Equipment',
                     'choice_label' => function ($equipment) {
-                            return $equipment->getName()." / ".$equipment->getCode();
+                            return $equipment->getBrand()->getName()." / ".$equipment->getCode();
                         },
                     'group_by' => function($equipment){
                         return $equipment->getCategory()->getName();

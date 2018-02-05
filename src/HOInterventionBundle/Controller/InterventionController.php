@@ -60,7 +60,7 @@ class InterventionController extends Controller
         ->add('equipment',EntityType::class,array(
                     'class'    => 'HOEquipmentBundle:Equipment',
                     'choice_label' => function ($equipment) {
-                            return $equipment->getName()." / ".$equipment->getCode();
+                            return $equipment->getBrand()->getName()." / ".$equipment->getCode();
                         },
                     'choices'  => $alert->getService()->getEquipments(),
                     'data'  => $alert->getEquipment(),
