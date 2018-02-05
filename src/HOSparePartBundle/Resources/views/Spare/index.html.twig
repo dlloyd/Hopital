@@ -39,7 +39,7 @@
         <td> {{ spar.serialNumber }}  </td>
         <td> {{ spar.brand.name }}  </td>
         <td> {{ spar.manufactureDate|date('d/m/Y') }} </td>
-        <td> <a href="{{ path('ho_spare_part_out',{'id': spar.id }) }}" class="btn btn-default btn-primary"> Lien </a> </td>
+        <td> <a href="{{ path('ho_spare_part_out',{'id': spar.id }) }}" class="btn btn-default btn-primary"> Sortir </a> </td>
       </tr>
     {% endfor %}
       

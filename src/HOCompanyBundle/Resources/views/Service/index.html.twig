@@ -40,7 +40,7 @@
 
         <td>
         {% if serv.equipments is not empty %}
-         <a href="#" data-toggle="modal" data-target="#myModalEq{{serv.id}}" class="btn btn-default btn-primary" > Voir </a> 
+         <a href="#" data-toggle="modal" data-target="#myModalEq{{serv.id}}" class="btn btn-default btn-primary" > <i class="fa fa-eye"></i>Voir </a> 
 
          
           <!--  MODAL EQUIPEMENT    -->
@@ -84,7 +84,7 @@
 
         <td>
         {% if serv.rooms is not empty %}
-         <a href="#" data-toggle="modal" data-target="#myModal{{serv.id}}" class="btn btn-default btn-primary" > Voir </a> 
+         <a href="#" data-toggle="modal" data-target="#myModal{{serv.id}}" class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir </a> 
 
          
           <!--  MODAL SALLES    -->
@@ -125,7 +125,7 @@
         </td>
         
         <td> <a href="{{ path('ho_create_alert_from_service',{'serviceId': serv.id }) }}" class="btn btn-default btn-danger" >
-         <i class="fa fa-exclamation-triangle" ></i> </a>
+         <i class="fa fa-exclamation-triangle" ></i> Alerte</a>
         </td>
         
       </tr>

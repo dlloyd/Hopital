@@ -70,14 +70,14 @@
         
         <td> 
         {% if equipment.interventions is not empty %}
-         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > Voir Détails </a>    
+         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir Détails </a>    
              
         {% endif %} 
 
         {% if is_granted('ROLE_MODERATOR') %}
         </td>
 
-        <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > lien </a> </td>
+        <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > <i class="fa fa-exchange"></i> </a> </td>
         {% endif %}
       </tr>
     {% endfor %}

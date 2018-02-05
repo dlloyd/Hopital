@@ -66,8 +66,8 @@ h4>a:hover {
     {% if is_granted("ROLE_MODERATOR") %}
       <a href="{{ path('ho_alert_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell"></i>  Alertes services</a>
     <a href="{{ path('ho_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-sitemap fa-fw"></i>  Services </a>
-    <a href="{{ path('ho_intervention_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Interventions </a>
-    <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Equipements </a>
+    <a href="{{ path('ho_intervention_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar fa-fw"></i>  Interventions </a>
+    <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i> Equipements </a>
     <a href="{{ path('ho_repairer_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Intervenants </a>
     <a href="{{ path('ho_intervention_toolbox') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i>  Matériel d'intervention </a>
     <a href="{{ path('ho_spare_part_type_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Stocks </a>
@@ -83,7 +83,7 @@ h4>a:hover {
 
     {% if not is_granted("ROLE_SUPER_ADMIN") and not is_granted("ROLE_MODERATOR") and is_granted("ROLE_USER") %}
       <a href="{{ path('ho_alert_service_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell"></i> Mes Alertes</a>
-      <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Mes équipements </a>
+      <a href="{{ path('ho_equipment_homepage') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-suitcase fa-fw"></i> Mes équipements </a>
     
     {% endif %}
 

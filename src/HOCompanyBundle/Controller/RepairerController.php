@@ -66,6 +66,26 @@ class RepairerController extends Controller
 
     }
 
+
+    public function deleteAbscenceAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $abs = $em->getRepository('HOCompanyBundle:RepairerAbscence')->find($id);
+
+        if($abs){
+            $em->remove($abs);
+            $em->flush();
+
+            $message = " Abscence de ".$abs->getRepairer()->getUsername()." supprimée avec succès ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
+
+        }
+
+        return $this->redirectToRoute('ho_abscence_homepage');
+
+    }
+
 	public function updateAction(Request $request,$id){
 		$em = $this->getDoctrine()->getManager();
         $rep = $em->getRepository('HOCompanyBundle:Repairer')->find($id);
@@ -106,6 +126,12 @@ class RepairerController extends Controller
         $em = $this->getDoctrine()->getManager();
         $repairer = $em->getRepository('HOCompanyBundle:Repairer')->find($id);
         return $this->render('HOCompanyBundle:Repairer:repairer-abscences.html.twig',array('repairer'=>$repairer,));
+    }
+
+     public function abscencesListAction(){
+        $em = $this->getDoctrine()->getManager();
+        $abscences = $em->getRepository('HOCompanyBundle:RepairerAbscence')->findAll();
+        return $this->render('HOCompanyBundle:Repairer:abscences-list.html.twig',array('abscences'=>$abscences,));
     }
 
 

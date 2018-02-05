@@ -20,21 +20,32 @@
 
   <div class="w3-quarter">
       <div class="w3-container w3-teal w3-padding-16">
-        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-left"><i class="fa fa-bed w3-xxxlarge"></i></div>
         <div class="w3-right">
         </div>
         <div class="w3-clear"></div>
-        <h4><a href=" {{ path('ho_create_repairer_abscence') }} ">Créer une abscence </a></h4>
+        <h4><a href=" {{ path('ho_create_repairer_abscence') }} ">Créer une absence </a></h4>
       </div>
     </div> 
   <div class="w3-quarter">
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
-      <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+      <div class="w3-left"><i class="fa fa-database w3-xxxlarge"></i></div>
       <div class="w3-right">
       </div>
       <div class="w3-clear"></div>
-      <h4><a href="#" data-toggle="modal" data-target="#myModalCompare"> Liste des meilleurs intervenants</a></h4>
+      <h4><a href="#" data-toggle="modal" data-target="#myModalCompare"> Lister les meilleurs intervenants</a></h4>
     </div>
+  </div>
+
+  <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-history w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('ho_abscence_homepage') }}"> Liste des absences </a> </h4>
+      </div>
   </div>
 
 </div>
@@ -47,7 +58,6 @@
   <table class="table table-striped">
     <thead>
       <tr>
-      	<th> Id  </th>
         <th> Nom Prénom </th>
         <th> Statut </th>
         <th> Disponibilité </th>
@@ -61,24 +71,23 @@
     <tbody id="myTable">
     {% for rep in repairers %}
       <tr>
-        <td> {{ rep.id }} </td>
         <td> {{ rep.username }} </td>
         <td> {{ rep.status.status }}  </td>
         <td>  {% if rep.isActive %}  Disponible {% else %}  <span style="color:red" > <strong> Absent <strong></span> {% endif %}  </td>
         <td> {{ nbrTasks[rep.id] }} </td>
         <td>
         {% if rep.interventions is not empty %}
-         <a href="{{ path('ho_repairer_interventions',{'id':rep.id}) }}"  class="btn btn-default btn-primary" > Voir </a>  
+         <a href="{{ path('ho_repairer_interventions',{'id':rep.id}) }}"  class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir </a>  
         {% endif %}
         </td>
 
         <td>
         {% if rep.abscences is not empty %}
-         <a href="{{ path('ho_repairer_abscences',{'id':rep.id}) }}"  class="btn btn-default btn-danger" > Voir </a>  
+         <a href="{{ path('ho_repairer_abscences',{'id':rep.id}) }}"  class="btn btn-default btn-danger" ><i class="fa fa-eye"></i> Voir </a>  
         {% endif %}
         </td>
 
-        <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}" class="btn btn-primary"> lien </a> </td>
+        <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}" class="btn btn-primary"> <i class="fa fa-pencil"></i> </a> </td>
       
       </tr>
     {% endfor %}

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h3> Liste des absences </h3>
+
+  <div class="w3-row-padding w3-margin-bottom">
+
+  <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-bed w3-xxxlarge"></i></div>
+        <div class="w3-right">
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href=" {{ path('ho_create_repairer_abscence') }} ">Créer une absence </a></h4>
+      </div>
+    </div> 
+  
+
+</div>
+
+
+  <br/><br/>
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Intervenant </th>
+        <th> Date de début </th>
+        <th> Date de fin </th>
+        <th> Motif </th>
+        <th> Supprimer </th>
+        
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for abs in abscences %}
+      <tr>
+        <td class="repairer"> {{ abs.repairer.username }} </td>
+        <td> {{ abs.dateBegin|date('d-m-Y') }} </td>
+        <td> {{ abs.dateEnd|date('d-m-Y') }}  </td>
+        
+        <td> {{ abs.motif }} </td>
+        
+        <td>
+          {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('ho_delete_abscence',{'id': abs.id }) }}" class="btn btn-danger"> <i class="fa fa-trash"></i> </a>
+          {% endif %}
+        </td>
+      
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+
+ 
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).find(".repairer").text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+
+
+{% endblock %}

@@ -38,6 +38,10 @@ ho_service_homepage:
     path:    /serv
     defaults: { _controller: HOCompanyBundle:Service:index }
 
+ho_abscence_homepage:
+    path:     /gest/abs/
+    defaults: { _controller: HOCompanyBundle:Repairer:abscencesList }
+
 
 
 
@@ -89,6 +93,10 @@ ho_delete_service:
     path:    /admin/del/serv/{id}
     defaults: { _controller: HOCompanyBundle:Service:delete }
 
+
+ho_delete_abscence:
+    path:     /admin/del/abs/{id}
+    defaults: { _controller: HOCompanyBundle:Repairer:deleteAbscence }
 
 
 
