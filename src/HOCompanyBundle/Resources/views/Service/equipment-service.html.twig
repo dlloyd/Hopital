@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h3> Equipements service {{ service.name }} </h3>
+  <br/><br/>
+
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+  
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Code  </th>
+        <th> Marque </th>
+        <th> Modèle </th>
+        <th> Domaine </th>
+        <th> Etat </th>
+        <th> Localisation </th>
+        <th> Liste interventions </th>
+        {% if is_granted('ROLE_MODERATOR') %}
+        <th> Transferer </th>
+        {% endif %}
+        
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for equipment in service.equipments %}
+      {% if equipment.isBroken %}<tr class="danger"> {% else %} <tr> {% endif %} 
+        <td class="code"> {{ equipment.code }} </td>
+        <td class="brand"> {{ equipment.brand.name }} </td>
+        <td> {{ equipment.model }} </td>
+        <td class="categ"> {{ equipment.category.name }} </td>
+        <td> {% if equipment.isBroken %} En panne {% else %} Fonctionne {% endif %} </td>
+        <td>
+         {% if equipment.serviceRoom != null  %} {{equipment.serviceRoom.service.name}} - {{ equipment.serviceRoom.name }} {% endif %} 
+        </td>
+        
+        <td> 
+        {% if equipment.interventions is not empty %}
+         <a href="{{ path('ho_equipment_interventions',{'id':equipment.id}) }}" class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir Détails </a>    
+             
+        {% endif %} 
+
+        {% if is_granted('ROLE_MODERATOR') %}
+        </td>
+
+        <td> <a href="{{ path('ho_transfert_equipment',{'id':equipment.id}) }}" class="btn btn-default btn-primary" > <i class="fa fa-exchange"></i> </a> </td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+ <br/><br/><br/><br/><br/>
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).find('.code').text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+
+});
+
+</script>
+
+
+
+{% endblock %}

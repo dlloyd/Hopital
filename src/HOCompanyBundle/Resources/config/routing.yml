@@ -124,6 +124,11 @@ ho_repairers_compare_by_month:
     path:     /gest/repairers/comp/month
     defaults: { _controller: HOCompanyBundle:Repairer:compareByMonth }
 
+ho_service_equipments:
+    path:     /gest/serv/{id}/eqs
+    defaults: { _controller: HOCompanyBundle:Service:equipmentsService }
+
+
 
 
 

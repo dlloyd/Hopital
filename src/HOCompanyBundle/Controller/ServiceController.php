@@ -60,6 +60,13 @@ class ServiceController extends Controller
 		
 	}
 
+    public function equipmentsServiceAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $service = $em->getRepository('HOCompanyBundle:Service')->find($id);
+        
+        return $this->render('HOCompanyBundle:Service:equipment-service.html.twig', array('service'=>$service,));       
+    }
+
 	public function deleteAction($id){
 		$em = $this->getDoctrine()->getManager();
         $service = $em->getRepository('HOCompanyBundle:Service')->find($id);
