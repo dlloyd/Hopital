@@ -20,8 +20,8 @@
     <tbody id="myTable">
     {% for abscence in repairer.abscences  %}
     <tr>
-     <td>{{ abscence.dateBegin }} </td>
-     <td>{{ abscence.dateEnd }}  </td>
+     <td>{{ abscence.dateBegin | date('d-m-Y')}} </td>
+     <td>{{ abscence.dateEnd | date('d-m-Y')}} </td>
      <td>{{ abscence.motif }} </td>
     </tr>
     {% endfor %}

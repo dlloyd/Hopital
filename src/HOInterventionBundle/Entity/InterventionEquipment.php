@@ -27,7 +27,7 @@ class InterventionEquipment
     private $intervention;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment")  
+     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment",fetch="EAGER")  
      */
     private $equipment;  // équipement de la caisse à outil
 

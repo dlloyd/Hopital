@@ -30,7 +30,7 @@ class Repairer
     private $username;
     
     /**
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\RepairerStatus")
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\RepairerStatus",fetch="EAGER")
      */
     private $status;
 

@@ -39,10 +39,8 @@
         <td> {{ serv.name }} </td>
 
         <td>
-        {% if serv.equipments is not empty %}
+       
          <a href="{{ path('ho_service_equipments',{'id':serv.id}) }}" class="btn btn-default btn-primary" > <i class="fa fa-eye"></i>Voir </a> 
-             
-        {% endif %}
 
         </td>
 

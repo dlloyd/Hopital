@@ -85,7 +85,7 @@ class Equipment
     private $service;
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom",fetch="EAGER")
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom",fetch="EAGER",inversedBy="equipments")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $serviceRoom;

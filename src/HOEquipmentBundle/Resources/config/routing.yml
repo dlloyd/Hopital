@@ -42,7 +42,7 @@ ho_update_category:
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:update }
 
 ho_equipment_interventions:
-    path:     /equipment/interv/{id}
+    path:     /equipment/{id}/intervs
     defaults: { _controller: HOEquipmentBundle:Equipment:equipmentInterventions }
 
 

@@ -23,7 +23,7 @@ class AlertService
 
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service", inversedBy="alerts") 
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service", inversedBy="alerts",fetch="EAGER") 
      */
     private $service;
 
@@ -34,7 +34,7 @@ class AlertService
     private $serviceRoom;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment")
+     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment",fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)  
      */
     private $equipment;
@@ -54,14 +54,14 @@ class AlertService
 
    
     /**
-    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\AlertState")
+    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\AlertState",fetch="EAGER")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $alertState;
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\AlertCategory")
+    * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\AlertCategory",fetch="EAGER")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $AlertCategory;

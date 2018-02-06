@@ -76,15 +76,13 @@
         <td>  {% if rep.isActive %}  Disponible {% else %}  <span style="color:red" > <strong> Absent <strong></span> {% endif %}  </td>
         <td> {{ nbrTasks[rep.id] }} </td>
         <td>
-        {% if rep.interventions is not empty %}
+        
          <a href="{{ path('ho_repairer_interventions',{'id':rep.id}) }}"  class="btn btn-default btn-primary" ><i class="fa fa-eye"></i> Voir </a>  
-        {% endif %}
+        
         </td>
 
         <td>
-        {% if rep.abscences is not empty %}
          <a href="{{ path('ho_repairer_abscences',{'id':rep.id}) }}"  class="btn btn-default btn-danger" ><i class="fa fa-eye"></i> Voir </a>  
-        {% endif %}
         </td>
 
         <td> <a href="{{ path('ho_update_repairer',{'id': rep.id }) }}" class="btn btn-primary"> <i class="fa fa-pencil"></i> </a> </td>

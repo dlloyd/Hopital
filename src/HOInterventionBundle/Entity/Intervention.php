@@ -23,19 +23,19 @@ class Intervention
 
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\AlertService")
+     * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\AlertService",fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)  
      */
     private $alert;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom")
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\ServiceRoom",fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)  
      */
     private $serviceRoom;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment",inversedBy="interventions")
+     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment",inversedBy="interventions",fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)  
      */
     private $equipment;  
@@ -51,7 +51,7 @@ class Intervention
     private $spareParts;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Repairer",inversedBy="interventions")  
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Repairer",inversedBy="interventions",fetch="EAGER")  
      */
     private $repairer;
 
@@ -84,7 +84,7 @@ class Intervention
 
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\InterventionCategory")
+     * @ORM\ManyToOne(targetEntity="HOInterventionBundle\Entity\InterventionCategory",fetch="EAGER")
      */
     private $category;  // préventive ou currative
 

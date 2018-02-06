@@ -23,7 +23,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service")
+    * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",fetch="EAGER")
     * @ORM\JoinColumn(nullable=true)
     **/
     private $service;

@@ -30,7 +30,7 @@ class Service
 
 
     /**
-    * @ORM\OneToMany(targetEntity="HOCompanyBundle\Entity\ServiceRoom",mappedBy="service")
+    * @ORM\OneToMany(targetEntity="HOCompanyBundle\Entity\ServiceRoom",mappedBy="service",fetch="EAGER")
     */
     private $rooms;
 

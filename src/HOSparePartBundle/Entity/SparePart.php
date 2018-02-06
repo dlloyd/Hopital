@@ -29,7 +29,7 @@ class SparePart
     private $serialNumber;
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOSparePartBundle\Entity\SparePartType",inversedBy="spareParts")
+    * @ORM\ManyToOne(targetEntity="HOSparePartBundle\Entity\SparePartType",inversedBy="spareParts",fetch="EAGER")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $type;
@@ -43,7 +43,7 @@ class SparePart
     private $complDesignation; //désignation complémentaire
 
     /**
-    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentBrand")
+    * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\EquipmentBrand",fetch="EAGER")
     * @ORM\JoinColumn(nullable=false)
     **/
     private $brand;

@@ -29,7 +29,7 @@ class ServiceRoom
     private $name;
 
      /**
-     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",inversedBy="rooms")
+     * @ORM\ManyToOne(targetEntity="HOCompanyBundle\Entity\Service",inversedBy="rooms",fetch="EAGER")
      */
     private $service;
 
