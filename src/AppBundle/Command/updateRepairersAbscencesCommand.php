@@ -2,12 +2,12 @@
 
     namespace AppBundle\Command;
 
-    use Symfony\Component\Console\Command\Command;
+    use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
     use Symfony\Component\Console\Input\InputArgument;
     use Symfony\Component\Console\Input\InputInterface;
     use Symfony\Component\Console\Output\OutputInterface;
 
-    class updateRepairersAbscencesCommand extends Command {
+    class updateRepairersAbscencesCommand extends ContainerAwareCommand {
 
         protected function configure () {
             // On set le nom de la commande
@@ -19,9 +19,9 @@
         }
 
         public function execute (InputInterface $input, OutputInterface $output) {
-            $text = "Traitement réalisé";
+            $text = "Traitement est terminé";
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getContainer()->get('doctrine.orm.entity_manager');
             $abscences = $em->getRepository('HOCompanyBundle:RepairerAbscence')->findAll();
 
             $today = new \Datetime('now'); 
@@ -35,7 +35,7 @@
                     $abs->getRepairer()->setIsActive(false);
                     $em->merge($abs);
                 }
-                $em->push();
+                $em->flush();
             }
 
 
