@@ -4,7 +4,7 @@
 {% block body %}
 
 <div class="container">
-  <h3> Equipement </h3>
+  <h3> Equipements </h3>
  
   <div class="w3-row-padding w3-margin-bottom">
     <div class="w3-quarter">
@@ -21,7 +21,7 @@
     </div>
     {% if is_granted('ROLE_MODERATOR') %}
     <div class="w3-quarter">
-      <div class="w3-container w3-teal w3-padding-16">
+      <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-print w3-xxxlarge"></i></div>
         <div class="w3-right">
           <h3></h3>
@@ -31,14 +31,44 @@
       </div>
     </div>
 
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-copyright w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="#" data-toggle="modal" data-target="#myModalBrand"> Recherche par marque </a></h4>
+      </div>
+    </div>
+
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-padding-16">
+        <div class="w3-left"><i class="fa fa-codepen w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="#" data-toggle="modal" data-target="#myModalCateg"> Recherche par domaine </a></h4>
+      </div>
+    </div>
+
+    <div class="w3-quarter" style="margin-top:10px;">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-barcode w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="#" data-toggle="modal" data-target="#myModalCode"> Recherche par code </a></h4>
+      </div>
+    </div>
+
 
 {% endif %}
 </div>
   
-  <br/><br/>
-  <input id="myInputCode"  placeholder="Recherche par code.." >
-  <input id="myInputBrand"  placeholder="Recherche par marque.." > 
-  <input id="myInputCateg"  placeholder="Recherche par domaine.." ><br/><br/><br/><br/>
+ <br/><br/><br/>
   
            
   <table class="table table-striped">
@@ -87,68 +117,125 @@
     </tbody>
   </table>
 </div>
- <br/><br/><br/><br/><br/>
-<script>
-$(document).ready(function(){
-	$("#myInputCode").on("keyup", function(){
-	var value = $(this).val().toLowerCase();
-
-	$("#myTable tr").each(function(){
-	 $(this).toggle($(this).find('.code').text().toLowerCase().indexOf(value) > -1)
-	});
-	});
-
-  $("#myInputBrand").on("keyup", function(){
-  var value = $(this).val().toLowerCase();
-
-  $("#myTable tr").each(function(){
-   $(this).toggle($(this).find('.brand').text().toLowerCase().indexOf(value) > -1)
-  });
-  });
-
-  $("#myInputCateg").on("keyup", function(){
-  var value = $(this).val().toLowerCase();
-
-  $("#myTable tr").each(function(){
-   $(this).toggle($(this).find('.categ').text().toLowerCase().indexOf(value) > -1)
-  });
-  });
-});
-
-</script>
-
+ 
 
  <!--  MODAL PRINTING   -->
-               <div class="modal fade" id="myModalPrint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                
-                <h4 class="modal-title"> Choisir impression :  </h4>
-              </div>
+   <div class="modal fade" id="myModalPrint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    
+    <h4 class="modal-title"> Choisir impression :  </h4>
+  </div>
 
-              <div class="modal-body" style="font-size:16px">
-                    
-              <div class="form-group">
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
 
-            
-                <a href=" {{ path('ho_equipment_print_equipments') }} "> <i class="fa fa-print"></i> Imprimer équipements </a> <br/><hr/>
-                <a href=" {{ path('ho_equipment_print_material') }} "> <i class="fa fa-print"></i>Imprimer matériel d'interventions  </a> <br/><hr/>
-                <a href=" {{ path('ho_equipment_print_eq_to_control') }} "> <i class="fa fa-print"></i> Imprimer équipement en panne </a> <br/><hr/>
-                {{ render(controller('HOEquipmentBundle:Equipment:printingByCriteria')) }}
-              </div>
-              </div>
 
-            
+    <a href=" {{ path('ho_equipment_print_equipments') }} "> <i class="fa fa-print"></i> Imprimer équipements </a> <br/><hr/>
+    <a href=" {{ path('ho_equipment_print_material') }} "> <i class="fa fa-print"></i>Imprimer matériel d'interventions  </a> <br/><hr/>
+    <a href=" {{ path('ho_equipment_print_eq_to_control') }} "> <i class="fa fa-print"></i> Imprimer équipement en panne </a> <br/><hr/>
+    {{ render(controller('HOEquipmentBundle:Equipment:printingByCriteria')) }}
+  </div>
+  </div>
 
-              <div class="modal-footer" >
-              <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-              </div>
 
-              </div>
-              </div>
-              </div>
-              <!-- FIN MODAL -->
+
+  <div class="modal-footer" >
+  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <!-- FIN MODAL -->
+
+
+  <!--  MODAL CATEGORY  -->
+   <div class="modal fade" id="myModalCateg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    
+    <h4 class="modal-title"> Choisir domaine :  </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+    {{ render(controller('HOEquipmentBundle:Equipment:equipmentsByCategory')) }}
+  </div>
+  </div>
+
+
+
+  <div class="modal-footer" >
+  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <!-- FIN MODAL -->
+
+  <!--  MODAL BRAND  -->
+   <div class="modal fade" id="myModalBrand" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    
+    <h4 class="modal-title"> Choisir marque :  </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+    {{ render(controller('HOEquipmentBundle:Equipment:equipmentsByBrand')) }}
+  </div>
+  </div>
+
+
+
+  <div class="modal-footer" >
+  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <!-- FIN MODAL -->
+
+
+  <!--  MODAL CATEGORY  -->
+   <div class="modal fade" id="myModalCode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+    
+    <h4 class="modal-title"> Entrer code :  </h4>
+  </div>
+
+  <div class="modal-body" style="font-size:16px">
+        
+  <div class="form-group">
+
+    {{ render(controller('HOEquipmentBundle:Equipment:equipmentByCode')) }}
+  </div>
+  </div>
+
+
+
+  <div class="modal-footer" >
+  <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+  </div>
+
+  </div>
+  </div>
+  </div>
+  <!-- FIN MODAL -->
 
 
 

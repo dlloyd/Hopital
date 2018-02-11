@@ -1,0 +1,13 @@
+
+{{ form_start(form, {'method': 'get', 'action': path('ho_get_equipment_by_code') }) }}
+<ul class="form-style-1">
+  <li>
+	{{ form_label(form.code,"Code") }}
+    {{ form_widget(form.code,{'attr':{'class':'field-divided'}}) }}
+    
+  </li>
+                
+{{ form_rest(form) }}
+<li><button class="btn btn-primary" type="submit" >Rechercher</button></li>
+</ul>
+{{ form_end(form) }}

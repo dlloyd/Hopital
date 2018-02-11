@@ -2,10 +2,6 @@ ho_intervention:
     resource: "@HOInterventionBundle/Resources/config/routing.yml"
     prefix:   /
 
-ho_stock:
-    resource: "@HOStockBundle/Resources/config/routing.yml"
-    prefix:   /
-
 ho_company:
     resource: "@HOCompanyBundle/Resources/config/routing.yml"
     prefix:   /

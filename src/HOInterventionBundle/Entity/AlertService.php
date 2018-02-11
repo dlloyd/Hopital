@@ -34,7 +34,7 @@ class AlertService
     private $serviceRoom;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment",fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="HOEquipmentBundle\Entity\Equipment")
      * @ORM\JoinColumn(nullable=true)  
      */
     private $equipment;

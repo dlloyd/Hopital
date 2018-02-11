@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new HOEquipmentBundle\HOEquipmentBundle(),
             new HOSparePartBundle\HOSparePartBundle(),
             new HOCompanyBundle\HOCompanyBundle(),
-            new HOStockBundle\HOStockBundle(),
             new HOInterventionBundle\HOInterventionBundle(),
         );
 

@@ -20,6 +20,24 @@ class EquipmentRepository extends \Doctrine\ORM\EntityRepository
 		return $qb->getQuery()->getResult();
 	}
 
+	public function findEquipmentsByCategory($categId){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('e');
+		$qb->innerJoin('e.category', 'c', 'WITH', 'c.id = :categ');
+		$qb->setParameter('categ',$categId);
+
+		return $qb->getQuery()->getResult();
+	}
+
+	public function findEquipmentsByBrand($brandId){
+		$qb = $this->createQueryBuilder('e');
+		$qb->select('e');
+		$qb->innerJoin('e.brand', 'b', 'WITH', 'b.id = :brand');
+		$qb->setParameter('brand',$brandId);
+
+		return $qb->getQuery()->getResult();
+	}
+
 	public function findEquipments(){
 		$qb = $this->createQueryBuilder('e');
 		$qb->select('e');

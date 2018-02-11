@@ -1,9 +1,9 @@
 ho_equipment_homepage:
-    path:     /equipment
+    path:     /equipments
     defaults: { _controller: HOEquipmentBundle:Equipment:index }
 
 ho_category_homepage:
-    path:     /gest/categ
+    path:     /gest/categs
     defaults: { _controller: HOEquipmentBundle:EquipmentCategory:index }
 
 
@@ -85,6 +85,19 @@ ho_create_brand_equipment:
 ho_transfert_equipment:
     path:     /gest/trans/equipment/{id}
     defaults: { _controller: HOEquipmentBundle:Equipment:transfertEquipment }
+
+
+ho_get_equipments_by_brand:
+    path:     /gest/equipments/brand/
+    defaults: { _controller: HOEquipmentBundle:Equipment:equipmentsByBrand }
+
+ho_get_equipments_by_category:
+    path:     /gest/equipments/categ/
+    defaults: { _controller: HOEquipmentBundle:Equipment:equipmentsByCategory }
+
+ho_get_equipment_by_code:
+    path:     /gest/equipment/code/
+    defaults: { _controller: HOEquipmentBundle:Equipment:equipmentByCode }
 
 
 

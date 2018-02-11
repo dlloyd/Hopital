@@ -20,7 +20,8 @@ class EquipmentController extends Controller
         $em = $this->getDoctrine()->getManager();
         if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || 
             $this->get('security.authorization_checker')->isGranted('ROLE_MODERATOR')){
-            $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findAll();
+            $equipments = array();
+            
         }
         else{
            $service = $em->getRepository('HOUserBundle:User')->find($this->getUser()->getId())->getService();
@@ -56,6 +57,76 @@ class EquipmentController extends Controller
         return $this->render('HOEquipmentBundle:Equipment:create.html.twig', array('form' => $form->createView(),
         																					'equipments' => $equipments,));
 	}
+
+    public function equipmentsByCategoryAction(Request $request){
+        $data =array();
+        $form = $this->createFormBuilder($data)
+                ->add('categ',\Symfony\Bridge\Doctrine\Form\Type\EntityType::class,array(
+                    'required' => true,
+                    'class'    => 'HOEquipmentBundle:EquipmentCategory',
+                    'property' => 'name',
+                    'group_by'=>function($categ){
+                        return $categ->getFamily()->getName();
+                    },))
+                ->setMethod('GET')
+                ->getForm();
+
+        if($request->getMethod() == 'GET' && $form->HandleRequest($request)->isValid()){
+            $em = $this->getDoctrine()->getManager();    
+            $param= $form->getData();
+            $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findEquipmentsByCategory($param['categ']->getId());
+            return $this->render('HOEquipmentBundle:Equipment:index.html.twig',array('equipments'=>$equipments,));
+        }
+
+        return $this->render('HOEquipmentBundle:Equipment:categ-eqs-form.html.twig', array('form' => $form->createView(),));
+    }
+
+    public function equipmentsByBrandAction(Request $request){
+        $data =array();
+        $form = $this->createFormBuilder($data)
+                ->add('brand',\Symfony\Bridge\Doctrine\Form\Type\EntityType::class,array(
+                    'required' => true,
+                    'class'    => 'HOEquipmentBundle:EquipmentBrand',
+                    'property' => 'name',))
+                ->setMethod('GET')
+                ->getForm();
+
+        if($request->getMethod() == 'GET' && $form->HandleRequest($request)->isValid()){
+            $em = $this->getDoctrine()->getManager();    
+            $param= $form->getData();
+            $equipments = $em->getRepository('HOEquipmentBundle:Equipment')->findEquipmentsByBrand($param['brand']->getId());
+            return $this->render('HOEquipmentBundle:Equipment:index.html.twig',array('equipments'=>$equipments,));
+        }
+
+        return $this->render('HOEquipmentBundle:Equipment:brand-eqs-form.html.twig', array('form' => $form->createView(),));
+        
+    }
+
+    public function equipmentByCodeAction(Request $request){
+        $data =array();
+        $form = $this->createFormBuilder($data)
+                ->add('code',\Symfony\Component\Form\Extension\Core\Type\TextType::class)
+                ->setMethod('GET')
+                ->getForm();
+
+        if($request->getMethod() == 'GET' && $form->HandleRequest($request)->isValid()){
+            $em = $this->getDoctrine()->getManager();    
+            $param= $form->getData();
+            $equipment = $em->getRepository('HOEquipmentBundle:Equipment')->findOneBy(array('code'=>$param['code']));
+            if(!$equipment){
+                $message = " Le code de cet équipement est inexistant! ";
+            $request->getSession()
+            ->getFlashBag()
+            ->add('error', $message);
+
+            return $this->redirectToRoute('ho_equipment_homepage');
+            }
+            return $this->render('HOEquipmentBundle:Equipment:equipment.html.twig',array('equipment'=>$equipment,));
+        }
+
+        return $this->render('HOEquipmentBundle:Equipment:eq-by-code.html.twig', array('form' => $form->createView(),));
+        
+    }
 
     public function createBrandAction(Request $request){
         $em = $this->getDoctrine()->getManager();

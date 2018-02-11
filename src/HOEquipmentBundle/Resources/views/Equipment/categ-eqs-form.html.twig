@@ -1,0 +1,13 @@
+
+{{ form_start(form, {'method': 'get', 'action': path('ho_get_equipments_by_category') }) }}
+<ul class="form-style-1">
+  <li>
+	{{ form_label(form.categ,"Domaine") }}
+    {{ form_widget(form.categ,{'attr':{'class':'field-long'}}) }}
+    
+  </li>
+                
+{{ form_rest(form) }}
+<li><button class="btn btn-primary" type="submit" >Rechercher</button></li>
+</ul>
+{{ form_end(form) }}

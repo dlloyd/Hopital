@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HIA</title>
+<title>HIAOBO</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 
@@ -41,7 +41,7 @@ h4>a:hover {
 <!-- Top container -->
 <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open_or_close();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right">HIA</span>
+  <span class="w3-bar-item w3-right">HIAOBO</span>
 </div>
 
 <!-- Sidebar/menu -->
@@ -106,7 +106,15 @@ h4>a:hover {
                 {{ msg }}
             {% endfor %}
         </div>
-{% endif %}
+  {% endif %}
+
+  {% if app.session.flashBag.has('error') %}
+        <div class="alert alert-danger">
+            {% for msg in app.session.flashBag.get('error') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+  {% endif %}
 
 {% block body %}
 

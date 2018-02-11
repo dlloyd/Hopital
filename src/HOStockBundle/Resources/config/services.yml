@@ -1,4 +1,0 @@
-services:
-#    ho_stock.example:
-#        class: HOStockBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
